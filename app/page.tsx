@@ -3,10 +3,10 @@
 import { useState } from "react";
 
 const services = [
-  { number: "01", title: "Limpeza técnica", text: "Remoção segura de poeira, poluição, folhas e maresia com método que protege a superfície dos módulos." },
-  { number: "02", title: "Inspeção elétrica", text: "Checagem de cabos, conectores, inversores e pontos críticos para encontrar falhas antes que virem prejuízo." },
-  { number: "03", title: "Análise de performance", text: "Comparamos a geração real, identificamos perdas e mostramos onde seu sistema pode recuperar desempenho." },
-  { number: "04", title: "Relatório documentado", text: "Você recebe fotos, diagnóstico e recomendações claras para preservar a garantia e planejar cada correção." },
+  { number: "01", title: "Limpeza técnica", text: "Remoção segura de poeira, poluição, folhas e maresia com método que protege a superfície dos módulos.", icon: "/icons/noun/solar-cleaning.png", credit: "Agan24", iconUrl: "https://thenounproject.com/icon/cleaning-solar-panels-7739765/" },
+  { number: "02", title: "Inspeção elétrica", text: "Checagem de cabos, conectores, inversores e pontos críticos para encontrar falhas antes que virem prejuízo.", icon: "/icons/noun/thermal-imaging.png", credit: "Circlon Tech", iconUrl: "https://thenounproject.com/icon/thermal-imaging-6350357/" },
+  { number: "03", title: "Análise de performance", text: "Comparamos a geração real, identificamos perdas e mostramos onde seu sistema pode recuperar desempenho.", icon: "/icons/noun/energy-performance.png", credit: "Lara", iconUrl: "https://thenounproject.com/icon/energy-performance-4532733/" },
+  { number: "04", title: "Relatório documentado", text: "Você recebe fotos, diagnóstico e recomendações claras para preservar a garantia e planejar cada correção.", icon: "/icons/noun/maintenance-report.png", credit: "Andi Nur Abdillah", iconUrl: "https://thenounproject.com/icon/maintenance-report-8235668/" },
 ];
 
 const plans = [
@@ -106,7 +106,7 @@ export default function Home() {
           {services.map((item) => (
             <article className="service-card" key={item.number}>
               <span className="service-number">{item.number}</span>
-              <div className={`service-icon icon-${item.number}`}><i /><i /><i /></div>
+              <div className="service-icon" aria-hidden="true"><img src={item.icon} alt="" /></div>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
             </article>
@@ -217,6 +217,7 @@ export default function Home() {
         <p>Manutenção solar inteligente para proteger seu investimento.</p>
         <div><a href="#servicos">Serviços</a><a href="#planos">Planos</a><a href="#faq">FAQ</a></div>
         <span>© {new Date().getFullYear()} Sungrid</span>
+        <p className="main-icon-credits">Ícones por {services.map((service, index) => <span key={service.iconUrl}>{index > 0 ? ", " : ""}<a href={service.iconUrl} target="_blank" rel="noreferrer">{service.credit}</a></span>)} via <a href="https://thenounproject.com/" target="_blank" rel="noreferrer">Noun Project</a>.</p>
       </footer>
     </main>
   );

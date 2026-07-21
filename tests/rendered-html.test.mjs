@@ -32,6 +32,9 @@ test("renders the Sungrid home with links to both service pages", async () => {
   assert.match(html, /href="\/seguro-fotovoltaico"/);
   assert.match(html, /href="\/manutencao-grandes-usinas"/);
   assert.match(html, /Seu sistema solar/);
+  assert.match(html, /\/icons\/noun\/solar-cleaning\.png/);
+  assert.match(html, /\/icons\/noun\/energy-performance\.png/);
+  assert.match(html, /thenounproject\.com\/icon\/energy-performance-4532733/);
 });
 
 test("renders the photovoltaic insurance landing page", async () => {
