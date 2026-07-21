@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { useState } from "react";
 
 const services = [
   { number: "01", title: "Limpeza técnica", text: "Remoção segura de poeira, poluição, folhas e maresia com método que protege a superfície dos módulos." },
@@ -29,19 +29,7 @@ function Arrow() {
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [city, setCity] = useState("");
-  const [system, setSystem] = useState("Residencial");
-
-  const whatsappUrl = useMemo(() => {
-    const text = `Olá, Sungrid! Quero solicitar uma avaliação do meu sistema solar.${name ? ` Meu nome é ${name}.` : ""}${city ? ` Estou em ${city}.` : ""} Tipo de sistema: ${system}.`;
-    return `https://wa.me/?text=${encodeURIComponent(text)}`;
-  }, [name, city, system]);
-
-  function submitContact(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-  }
+  const whatsappUrl = "https://wa.me/5512991886006?text=Ol%C3%A1%2C%20Sungrid!%20Quero%20solicitar%20uma%20avalia%C3%A7%C3%A3o%20do%20meu%20sistema%20solar.";
 
   return (
     <main>
@@ -200,16 +188,27 @@ export default function Home() {
         <div className="contact-copy">
           <div className="eyebrow"><span /> SUA ENERGIA MERECE CUIDADO</div>
           <h2>Pronto para voltar a<br /><em>gerar no máximo?</em></h2>
-          <p>Conte um pouco sobre o seu sistema. Vamos abrir uma conversa no WhatsApp com as informações preenchidas.</p>
+          <p>Conte um pouco sobre o seu sistema. A solicitação será enviada para nossa equipe e responderemos pelos contatos informados.</p>
         </div>
-        <form onSubmit={submitContact} className="contact-form">
-          <label>Seu nome<input value={name} onChange={(event) => setName(event.target.value)} placeholder="Como podemos chamar você?" required /></label>
-          <label>Cidade / Estado<input value={city} onChange={(event) => setCity(event.target.value)} placeholder="Onde está o sistema?" required /></label>
-          <label>Tipo de sistema<select value={system} onChange={(event) => setSystem(event.target.value)}><option>Residencial</option><option>Comercial</option><option>Industrial</option><option>Rural</option></select></label>
-          <button className="button primary" type="submit">Solicitar avaliação gratuita <Arrow /></button>
-          <small>Sem compromisso. Seus dados serão usados apenas para iniciar o atendimento.</small>
+        <form action="https://formsubmit.co/sungridmro@gmail.com" method="POST" className="contact-form">
+          <input type="hidden" name="_subject" value="Nova solicitação de avaliação — Site Sungrid" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value="https://sungrid-manutencao-solar.sungridmro.chatgpt.site/#contato" />
+          <input className="honey-field" type="text" name="_honey" tabIndex={-1} autoComplete="off" />
+          <label>Seu nome<input type="text" name="Nome" placeholder="Como podemos chamar você?" autoComplete="name" required /></label>
+          <label>E-mail<input type="email" name="Email" placeholder="seuemail@exemplo.com" autoComplete="email" required /></label>
+          <label>Telefone / WhatsApp<input type="tel" name="Telefone" placeholder="(12) 99999-9999" autoComplete="tel" inputMode="tel" required /></label>
+          <label>Cidade / Estado<input type="text" name="Cidade" placeholder="Onde está o sistema?" autoComplete="address-level2" required /></label>
+          <label>Tipo de sistema<select name="Tipo de sistema" defaultValue="Residencial"><option>Residencial</option><option>Comercial</option><option>Industrial</option><option>Rural</option></select></label>
+          <button className="button primary" type="submit">Enviar solicitação gratuita <Arrow /></button>
+          <small>Sem compromisso. Seus dados serão enviados com segurança para o atendimento da Sungrid.</small>
         </form>
       </section>
+
+      <a className="whatsapp-float" href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Conversar com a Sungrid pelo WhatsApp">
+        <span aria-hidden="true">✆</span>
+        <strong>WhatsApp</strong>
+      </a>
 
       <footer>
         <a className="brand" href="#inicio"><span className="brand-mark"><i /><i /><i /></span><span>SUNGRID</span></a>
