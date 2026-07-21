@@ -43,6 +43,8 @@ export default function Home() {
           <a href="#beneficios" onClick={() => setMenuOpen(false)}>Benefícios</a>
           <a href="#planos" onClick={() => setMenuOpen(false)}>Planos</a>
           <a href="#faq" onClick={() => setMenuOpen(false)}>FAQ</a>
+          <a href="/seguro-fotovoltaico" onClick={() => setMenuOpen(false)}>Seguro</a>
+          <a href="/manutencao-grandes-usinas" onClick={() => setMenuOpen(false)}>Grandes usinas</a>
         </nav>
         <a className="header-cta" href="#contato">Solicitar avaliação <Arrow /></a>
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Abrir menu">
