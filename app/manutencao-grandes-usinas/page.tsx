@@ -19,10 +19,10 @@ export default function GrandesUsinasPage() {
     metricValue="O&M"
     metricNote="Rotinas definidas conforme tecnologia, porte e criticidade do ativo."
     pillars={[
-      { number: "01", title: "Manutenção preventiva", text: "Planos periódicos para módulos, estruturas, inversores, quadros, cabeamento e demais pontos críticos." },
-      { number: "02", title: "Diagnóstico avançado", text: "Termografia, inspeções elétricas e ensaios aplicáveis para localizar anomalias e priorizar intervenções." },
-      { number: "03", title: "Limpeza em escala", text: "Planejamento de limpeza compatível com o terreno, a sujidade, a disponibilidade hídrica e a operação da planta." },
-      { number: "04", title: "Relatórios gerenciais", text: "Evidências de campo, não conformidades, criticidade e recomendações organizadas para a gestão do ativo." },
+      { number: "01", title: "Manutenção preventiva", text: "Planos periódicos para módulos, estruturas, inversores, quadros, cabeamento e demais pontos críticos.", icon: "/icons/noun/solar-maintenance.png", iconCredit: "Yogi Aprelliyanto", iconUrl: "https://thenounproject.com/icon/solar-panel-maintenance-7429869/" },
+      { number: "02", title: "Diagnóstico avançado", text: "Termografia, inspeções elétricas e ensaios aplicáveis para localizar anomalias e priorizar intervenções.", icon: "/icons/noun/thermal-imaging.png", iconCredit: "Circlon Tech", iconUrl: "https://thenounproject.com/icon/thermal-imaging-6350357/" },
+      { number: "03", title: "Limpeza em escala", text: "Planejamento de limpeza compatível com o terreno, a sujidade, a disponibilidade hídrica e a operação da planta.", icon: "/icons/noun/solar-cleaning.png", iconCredit: "Agan24", iconUrl: "https://thenounproject.com/icon/cleaning-solar-panels-7739765/" },
+      { number: "04", title: "Relatórios gerenciais", text: "Evidências de campo, não conformidades, criticidade e recomendações organizadas para a gestão do ativo.", icon: "/icons/noun/maintenance-report.png", iconCredit: "Andi Nur Abdillah", iconUrl: "https://thenounproject.com/icon/maintenance-report-8235668/" },
     ]}
     process={[
       { title: "Levantamento técnico", text: "Entendemos arranjo, equipamentos, histórico, acessos, restrições e objetivos operacionais." },

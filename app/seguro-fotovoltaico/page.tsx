@@ -19,10 +19,10 @@ export default function SeguroFotovoltaicoPage() {
     metricValue="360°"
     metricNote="Instalação, exposição e necessidades avaliadas antes da proposta."
     pillars={[
-      { number: "01", title: "Danos elétricos", text: "Possibilidade de proteção para danos de origem elétrica, conforme as condições da cobertura contratada." },
-      { number: "02", title: "Eventos da natureza", text: "Análise de exposição a vento, granizo e outros eventos previstos na proposta da seguradora." },
-      { number: "03", title: "Subtração de equipamentos", text: "Coberturas para situações de roubo ou furto qualificado podem integrar a solução, conforme a apólice." },
-      { number: "04", title: "Responsabilidade civil", text: "Avaliação de coberturas relacionadas a danos involuntários a terceiros, quando aplicáveis ao risco." },
+      { number: "01", title: "Danos elétricos", text: "Possibilidade de proteção para danos de origem elétrica, conforme as condições da cobertura contratada.", icon: "/icons/noun/electrical-damage.png", iconCredit: "Designing Hub", iconUrl: "https://thenounproject.com/icon/broken-cable-6507660/" },
+      { number: "02", title: "Eventos da natureza", text: "Análise de exposição a vento, granizo e outros eventos previstos na proposta da seguradora.", icon: "/icons/noun/hail-damage.png", iconCredit: "SHAHAREA", iconUrl: "https://thenounproject.com/icon/hail-damage-8168168/" },
+      { number: "03", title: "Subtração de equipamentos", text: "Coberturas para situações de roubo ou furto qualificado podem integrar a solução, conforme a apólice.", icon: "/icons/noun/theft-protection.png", iconCredit: "gravisio", iconUrl: "https://thenounproject.com/icon/theft-protection-7523352/" },
+      { number: "04", title: "Responsabilidade civil", text: "Avaliação de coberturas relacionadas a danos involuntários a terceiros, quando aplicáveis ao risco.", icon: "/icons/noun/liability-insurance.png", iconCredit: "popcornarts", iconUrl: "https://thenounproject.com/icon/insurance-liability-8246087/" },
     ]}
     process={[
       { title: "Conhecemos o sistema", text: "Coletamos dados da instalação, potência, localização, equipamentos e perfil de uso." },

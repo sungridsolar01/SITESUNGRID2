@@ -43,6 +43,8 @@ test("renders the photovoltaic insurance landing page", async () => {
   assert.match(html, /Seu investimento merece proteção/);
   assert.match(html, /Coberturas, limites, franquias e exclusões/);
   assert.match(html, /formsubmit\.co\/sungridmro@gmail\.com/);
+  assert.match(html, /\/icons\/noun\/electrical-damage\.png/);
+  assert.match(html, /thenounproject\.com\/icon\/insurance-liability-8246087/);
 });
 
 test("renders the large solar plant maintenance landing page", async () => {
@@ -54,4 +56,6 @@ test("renders the large solar plant maintenance landing page", async () => {
   assert.match(html, /Disponibilidade é energia/);
   assert.match(html, /Termografia, inspeções elétricas/);
   assert.match(html, /wa\.me\/5512991886006/);
+  assert.match(html, /\/icons\/noun\/solar-cleaning\.png/);
+  assert.match(html, /thenounproject\.com\/icon\/maintenance-report-8235668/);
 });
