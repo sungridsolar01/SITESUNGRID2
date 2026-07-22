@@ -13,16 +13,16 @@ export default function SeguroFotovoltaicoPage() {
     title="Sua energia trabalha por você."
     accent="Seu investimento merece proteção."
     description="Uma solução pensada para reduzir a exposição financeira do seu sistema fotovoltaico diante de imprevistos — com análise técnica e contratação transparente."
-    image="/images/seguro-fotovoltaico.jpg"
+    image="/images/seguro-fotovoltaico"
     imageAlt="Sistemas fotovoltaicos instalados em telhados residenciais"
     metricLabel="VISÃO DO ATIVO"
     metricValue="360°"
     metricNote="Instalação, exposição e necessidades avaliadas antes da proposta."
     pillars={[
-      { number: "01", title: "Danos elétricos", text: "Possibilidade de proteção para danos de origem elétrica, conforme as condições da cobertura contratada.", icon: "/icons/noun/electrical-damage.png" },
-      { number: "02", title: "Eventos da natureza", text: "Análise de exposição a vento, granizo e outros eventos previstos na proposta da seguradora.", icon: "/icons/noun/hail-damage.png" },
-      { number: "03", title: "Subtração de equipamentos", text: "Coberturas para situações de roubo ou furto qualificado podem integrar a solução, conforme a apólice.", icon: "/icons/noun/theft-protection.png" },
-      { number: "04", title: "Responsabilidade civil", text: "Avaliação de coberturas relacionadas a danos involuntários a terceiros, quando aplicáveis ao risco.", icon: "/icons/noun/liability-insurance.png" },
+      { number: "01", title: "Danos elétricos", text: "Possibilidade de proteção para danos de origem elétrica, conforme as condições da cobertura contratada.", icon: "/icons/noun/electrical-damage.webp" },
+      { number: "02", title: "Eventos da natureza", text: "Análise de exposição a vento, granizo e outros eventos previstos na proposta da seguradora.", icon: "/icons/noun/hail-damage.webp" },
+      { number: "03", title: "Subtração de equipamentos", text: "Coberturas para situações de roubo ou furto qualificado podem integrar a solução, conforme a apólice.", icon: "/icons/noun/theft-protection.webp" },
+      { number: "04", title: "Responsabilidade civil", text: "Avaliação de coberturas relacionadas a danos involuntários a terceiros, quando aplicáveis ao risco.", icon: "/icons/noun/liability-insurance.webp" },
     ]}
     process={[
       { title: "Conhecemos o sistema", text: "Coletamos dados da instalação, potência, localização, equipamentos e perfil de uso." },

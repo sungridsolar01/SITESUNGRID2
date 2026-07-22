@@ -7,6 +7,7 @@ const outputDir = join(rootDir, "out");
 
 const publishedEntries = [
   "assets",
+  "fonts",
   "icons",
   "images",
   "seguro-fotovoltaico",

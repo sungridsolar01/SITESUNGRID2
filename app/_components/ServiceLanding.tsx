@@ -44,7 +44,7 @@ export function ServiceLanding(props: ServiceLandingProps) {
           <a href="/manutencao-grandes-usinas">Grandes usinas</a>
         </nav>
         <a className="header-cta" href="#fale-com-a-sungrid">Solicitar proposta <span aria-hidden="true">↗</span></a>
-        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Abrir menu"><span /><span /></button>
+        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}><span /><span /></button>
       </header>
 
       <section className="service-hero">
@@ -59,7 +59,16 @@ export function ServiceLanding(props: ServiceLandingProps) {
           </div>
         </div>
         <div className="service-hero-media reveal delay-1">
-          <img src={props.image} alt={props.imageAlt} />
+          <img
+            src={`${props.image}-1024.webp`}
+            srcSet={`${props.image}-640.webp 640w, ${props.image}-1024.webp 1024w, ${props.image}-1440.webp 1440w`}
+            sizes="(max-width: 1120px) 100vw, 49vw"
+            width="1440"
+            height={isInsurance ? "960" : "810"}
+            fetchPriority="high"
+            decoding="async"
+            alt={props.imageAlt}
+          />
           <div className="service-photo-overlay" />
           <span className="service-photo-label"><i /> {isInsurance ? "PATRIMÔNIO PROTEGIDO" : "OPERAÇÃO EM ESCALA"}</span>
           <div className="service-metric">
@@ -88,7 +97,7 @@ export function ServiceLanding(props: ServiceLandingProps) {
             <article key={pillar.number}>
               <span>{pillar.number}</span>
               <div className="pillar-symbol" aria-hidden="true">
-                <img src={pillar.icon} alt="" />
+                <img src={pillar.icon} width="96" height="96" loading="lazy" decoding="async" alt="" />
               </div>
               <h3>{pillar.title}</h3>
               <p>{pillar.text}</p>

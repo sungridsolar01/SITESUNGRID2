@@ -4,10 +4,10 @@ import { useState } from "react";
 import { ContactForm } from "./_components/ContactForm";
 
 const services = [
-  { number: "01", title: "Limpeza técnica", text: "Remoção segura de poeira, poluição, folhas e maresia com método que protege a superfície dos módulos.", icon: "/icons/noun/solar-cleaning.png" },
-  { number: "02", title: "Inspeção elétrica", text: "Checagem de cabos, conectores, inversores e pontos críticos para encontrar falhas antes que virem prejuízo.", icon: "/icons/noun/thermal-imaging.png" },
-  { number: "03", title: "Análise de performance", text: "Comparamos a geração real, identificamos perdas e mostramos onde seu sistema pode recuperar desempenho.", icon: "/icons/noun/energy-performance.png" },
-  { number: "04", title: "Relatório documentado", text: "Você recebe fotos, diagnóstico e recomendações claras para preservar a garantia e planejar cada correção.", icon: "/icons/noun/maintenance-report.png" },
+  { number: "01", title: "Limpeza técnica", text: "Remoção segura de poeira, poluição, folhas e maresia com método que protege a superfície dos módulos.", icon: "/icons/noun/solar-cleaning.webp" },
+  { number: "02", title: "Inspeção elétrica", text: "Checagem de cabos, conectores, inversores e pontos críticos para encontrar falhas antes que virem prejuízo.", icon: "/icons/noun/thermal-imaging.webp" },
+  { number: "03", title: "Análise de performance", text: "Comparamos a geração real, identificamos perdas e mostramos onde seu sistema pode recuperar desempenho.", icon: "/icons/noun/energy-performance.webp" },
+  { number: "04", title: "Relatório documentado", text: "Você recebe fotos, diagnóstico e recomendações claras para preservar a garantia e planejar cada correção.", icon: "/icons/noun/maintenance-report.webp" },
 ];
 
 const plans = [
@@ -48,7 +48,7 @@ export default function Home() {
           <a href="/manutencao-grandes-usinas" onClick={() => setMenuOpen(false)}>Grandes usinas</a>
         </nav>
         <a className="header-cta" href="#contato">Solicitar avaliação <Arrow /></a>
-        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Abrir menu">
+        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}>
           <span /><span />
         </button>
       </header>
@@ -70,7 +70,16 @@ export default function Home() {
 
         <div className="hero-visual reveal delay-1">
           <div className="image-frame">
-            <img src="/images/solar-maintenance-pexels.jpg" alt="Equipe técnica realizando manutenção em uma usina solar" />
+            <img
+              src="/images/solar-maintenance-pexels-1024.webp"
+              srcSet="/images/solar-maintenance-pexels-640.webp 640w, /images/solar-maintenance-pexels-1024.webp 1024w, /images/solar-maintenance-pexels-1440.webp 1440w"
+              sizes="(max-width: 1050px) calc(100vw - 40px), 45vw"
+              width="1440"
+              height="960"
+              fetchPriority="high"
+              decoding="async"
+              alt="Equipe técnica realizando manutenção em uma usina solar"
+            />
             <div className="image-shade" />
             <div className="live-pill"><span /> MANUTENÇÃO PROFISSIONAL</div>
           </div>
@@ -107,7 +116,7 @@ export default function Home() {
           {services.map((item) => (
             <article className="service-card" key={item.number}>
               <span className="service-number">{item.number}</span>
-              <div className="service-icon" aria-hidden="true"><img src={item.icon} alt="" /></div>
+              <div className="service-icon" aria-hidden="true"><img src={item.icon} width="96" height="96" loading="lazy" decoding="async" alt="" /></div>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
             </article>

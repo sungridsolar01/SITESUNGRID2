@@ -13,16 +13,16 @@ export default function GrandesUsinasPage() {
     title="Disponibilidade é energia."
     accent="Energia é resultado."
     description="O&M estruturada para ativos fotovoltaicos em escala: execução técnica, rastreabilidade e informação para decisões mais rápidas e seguras."
-    image="/images/grandes-usinas.jpg"
+    image="/images/grandes-usinas"
     imageAlt="Vista aérea de uma grande usina fotovoltaica"
     metricLabel="FOCO OPERACIONAL"
     metricValue="O&M"
     metricNote="Rotinas definidas conforme tecnologia, porte e criticidade do ativo."
     pillars={[
-      { number: "01", title: "Manutenção preventiva", text: "Planos periódicos para módulos, estruturas, inversores, quadros, cabeamento e demais pontos críticos.", icon: "/icons/noun/solar-maintenance.png" },
-      { number: "02", title: "Diagnóstico avançado", text: "Termografia, inspeções elétricas e ensaios aplicáveis para localizar anomalias e priorizar intervenções.", icon: "/icons/noun/thermal-imaging.png" },
-      { number: "03", title: "Limpeza em escala", text: "Planejamento de limpeza compatível com o terreno, a sujidade, a disponibilidade hídrica e a operação da planta.", icon: "/icons/noun/solar-cleaning.png" },
-      { number: "04", title: "Relatórios gerenciais", text: "Evidências de campo, não conformidades, criticidade e recomendações organizadas para a gestão do ativo.", icon: "/icons/noun/maintenance-report.png" },
+      { number: "01", title: "Manutenção preventiva", text: "Planos periódicos para módulos, estruturas, inversores, quadros, cabeamento e demais pontos críticos.", icon: "/icons/noun/solar-maintenance.webp" },
+      { number: "02", title: "Diagnóstico avançado", text: "Termografia, inspeções elétricas e ensaios aplicáveis para localizar anomalias e priorizar intervenções.", icon: "/icons/noun/thermal-imaging.webp" },
+      { number: "03", title: "Limpeza em escala", text: "Planejamento de limpeza compatível com o terreno, a sujidade, a disponibilidade hídrica e a operação da planta.", icon: "/icons/noun/solar-cleaning.webp" },
+      { number: "04", title: "Relatórios gerenciais", text: "Evidências de campo, não conformidades, criticidade e recomendações organizadas para a gestão do ativo.", icon: "/icons/noun/maintenance-report.webp" },
     ]}
     process={[
       { title: "Levantamento técnico", text: "Entendemos arranjo, equipamentos, histórico, acessos, restrições e objetivos operacionais." },

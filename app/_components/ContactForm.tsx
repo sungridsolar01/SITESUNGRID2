@@ -55,7 +55,7 @@ export function ContactForm({ kind }: ContactFormProps) {
           value={isInsurance ? "Seguro de sistema fotovoltaico" : "Manutenção para grandes usinas"}
         />
       )}
-      <input className="honey-field" type="text" name="_honey" tabIndex={-1} autoComplete="off" />
+      <input className="honey-field" type="text" name="_honey" tabIndex={-1} autoComplete="off" hidden aria-hidden="true" />
 
       {isHome ? (
         <>
