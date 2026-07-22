@@ -195,7 +195,7 @@ export default function Home() {
         <form action="https://formsubmit.co/sungridmro@gmail.com" method="POST" className="contact-form">
           <input type="hidden" name="_subject" value="Nova solicitação de avaliação — Site Sungrid" />
           <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value="https://sungrid-manutencao-solar.sungridmro.chatgpt.site/#contato" />
+          <input type="hidden" name="_next" value="https://sungridsolar.site/#contato" />
           <input className="honey-field" type="text" name="_honey" tabIndex={-1} autoComplete="off" />
           <label>Seu nome<input type="text" name="Nome" placeholder="Como podemos chamar você?" autoComplete="name" required /></label>
           <label>E-mail<input type="email" name="Email" placeholder="seuemail@exemplo.com" autoComplete="email" required /></label>

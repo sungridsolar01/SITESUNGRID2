@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sungrid-manutencao-solar.sungridmro.chatgpt.site"),
+  metadataBase: new URL("https://sungridsolar.site"),
   title: "Sungrid | Manutenção Solar Profissional",
   description: "Manutenção, limpeza e diagnóstico profissional para maximizar a eficiência e proteger seu sistema de energia solar.",
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },

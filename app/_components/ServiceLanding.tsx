@@ -134,7 +134,7 @@ export function ServiceLanding(props: ServiceLandingProps) {
         <form action="https://formsubmit.co/sungridmro@gmail.com" method="POST" className="contact-form">
           <input type="hidden" name="_subject" value={`Nova solicitação — ${isInsurance ? "Seguro Fotovoltaico" : "Manutenção de Grandes Usinas"}`} />
           <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value={`https://sungrid-manutencao-solar.sungridmro.chatgpt.site/${isInsurance ? "seguro-fotovoltaico" : "manutencao-grandes-usinas"}/#fale-com-a-sungrid`} />
+          <input type="hidden" name="_next" value={`https://sungridsolar.site/${isInsurance ? "seguro-fotovoltaico" : "manutencao-grandes-usinas"}/#fale-com-a-sungrid`} />
           <input type="hidden" name="Interesse" value={isInsurance ? "Seguro de sistema fotovoltaico" : "Manutenção para grandes usinas"} />
           <input className="honey-field" type="text" name="_honey" tabIndex={-1} autoComplete="off" />
           <label>Nome / Empresa<input type="text" name="Nome ou empresa" placeholder="Como devemos chamar você?" autoComplete="organization" required /></label>
