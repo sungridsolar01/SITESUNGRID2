@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import { ContactForm } from "./ContactForm";
 
 type ServiceLandingProps = {
@@ -31,20 +28,26 @@ function Brand() {
 }
 
 export function ServiceLanding(props: ServiceLandingProps) {
-  const [menuOpen, setMenuOpen] = useState(false);
   const isInsurance = props.kind === "insurance";
 
   return (
     <main className={`service-landing ${props.kind}`}>
       <header className="site-header service-header">
         <a className="brand" href="/" aria-label="Sungrid, página principal"><Brand /></a>
-        <nav className={menuOpen ? "service-nav open" : "service-nav"} aria-label="Navegação principal">
+        <nav className="service-nav desktop-nav" aria-label="Navegação principal">
           <a href="/">Página principal</a>
           <a href="/seguro-fotovoltaico">Seguro fotovoltaico</a>
           <a href="/manutencao-grandes-usinas">Grandes usinas</a>
         </nav>
+        <details className="mobile-menu">
+          <summary className="menu-button" aria-label="Abrir menu"><span /><span /></summary>
+          <nav className="service-nav mobile-nav" aria-label="Navegação móvel">
+            <a href="/">Página principal</a>
+            <a href="/seguro-fotovoltaico">Seguro fotovoltaico</a>
+            <a href="/manutencao-grandes-usinas">Grandes usinas</a>
+          </nav>
+        </details>
         <a className="header-cta" href="#fale-com-a-sungrid">Solicitar proposta <span aria-hidden="true">↗</span></a>
-        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}><span /><span /></button>
       </header>
 
       <section className="service-hero">

@@ -1,45 +1,13 @@
-"use client";
-
-import { FormEvent, useState } from "react";
-
 type ContactFormProps = {
   kind: "home" | "insurance" | "utility";
 };
 
-const destination = [115, 117, 110, 103, 114, 105, 100, 109, 114, 111, 64, 103, 109, 97, 105, 108, 46, 99, 111, 109]
-  .map((code) => String.fromCharCode(code))
-  .join("");
-
 export function ContactForm({ kind }: ContactFormProps) {
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const isHome = kind === "home";
   const isInsurance = kind === "insurance";
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(form);
-
-    setStatus("sending");
-
-    try {
-      const response = await fetch(`https://formsubmit.co/ajax/${destination}`, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: data,
-      });
-
-      if (!response.ok) throw new Error("Falha no envio");
-
-      form.reset();
-      setStatus("success");
-    } catch {
-      setStatus("error");
-    }
-  }
-
   return (
-    <form className="contact-form" onSubmit={handleSubmit} aria-busy={status === "sending"}>
+    <form className="contact-form" data-sungrid-form aria-busy="false">
       <input
         type="hidden"
         name="_subject"
@@ -76,15 +44,12 @@ export function ContactForm({ kind }: ContactFormProps) {
         </>
       )}
 
-      <button className="button primary" type="submit" disabled={status === "sending"}>
-        {status === "sending" ? "Enviando..." : isHome ? "Enviar solicitação gratuita" : "Solicitar contato"}
+      <button className="button primary" type="submit">
+        <span data-submit-label>{isHome ? "Enviar solicitação gratuita" : "Solicitar contato"}</span>
         <span aria-hidden="true">↗</span>
       </button>
 
-      <div className={`form-feedback ${status}`} role="status" aria-live="polite">
-        {status === "success" && "Solicitação enviada. A equipe Sungrid entrará em contato em breve."}
-        {status === "error" && "Não foi possível enviar agora. Tente novamente ou fale conosco pelo WhatsApp."}
-      </div>
+      <div className="form-feedback" data-form-feedback role="status" aria-live="polite" />
       <small>{isHome
         ? "Sem compromisso. Seus dados serão enviados com segurança para o atendimento da Sungrid."
         : "Seus dados serão usados somente para o atendimento desta solicitação."}</small>

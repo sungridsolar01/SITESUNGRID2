@@ -6,10 +6,10 @@ const rootDir = join(dirname(fileURLToPath(import.meta.url)), "..");
 const outputDir = join(rootDir, "out");
 
 const publishedEntries = [
-  "assets",
   "fonts",
   "icons",
   "images",
+  "js",
   "seguro-fotovoltaico",
   "manutencao-grandes-usinas",
   "index.html",
@@ -18,6 +18,8 @@ const publishedEntries = [
   "favicon.svg",
   "og.png",
 ];
+
+await rm(join(rootDir, "assets"), { recursive: true, force: true });
 
 for (const entry of publishedEntries) {
   const destination = join(rootDir, entry);

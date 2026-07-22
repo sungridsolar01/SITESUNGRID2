@@ -45,8 +45,13 @@ for (const page of pages) {
     throw new Error(`Falha ao exportar ${page.pathname}: HTTP ${response.status}`);
   }
 
-  const html = await response.text();
-  if (!html.includes("<title>") || !html.includes("/assets/")) {
+  const html = (await response.text())
+    .replace(/<link\b(?=[^>]*\brel=["']modulepreload["'])[^>]*>\s*/gi, "")
+    .replace(/<script\b([^>]*)>([\s\S]*?)<\/script>\s*/gi, (full, attributes, body) => {
+      const isVinextRuntime = /\bid=["']_R_["']/i.test(attributes) || body.includes("__VINEXT_RSC_");
+      return isVinextRuntime ? "" : full;
+    });
+  if (!html.includes("<title>") || !html.includes("data-sungrid-form")) {
     throw new Error(`HTML incompleto gerado para ${page.pathname}`);
   }
 
@@ -57,6 +62,7 @@ for (const page of pages) {
 
 await writeFile(join(outputDir, ".nojekyll"), "", "utf8");
 await writeFile(join(outputDir, "CNAME"), "sungridsolar.site\n", "utf8");
+await rm(join(outputDir, "assets"), { recursive: true, force: true });
 
 const homeHtml = await readFile(join(outputDir, "index.html"), "utf8");
 await writeFile(join(outputDir, "404.html"), homeHtml, "utf8");

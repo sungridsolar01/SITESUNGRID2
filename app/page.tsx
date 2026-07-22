@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import { ContactForm } from "./_components/ContactForm";
 
 const services = [
@@ -29,7 +26,6 @@ function Arrow() {
 }
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const whatsappUrl = "https://wa.me/5512991886006?text=Ol%C3%A1%2C%20Sungrid!%20Quero%20solicitar%20uma%20avalia%C3%A7%C3%A3o%20do%20meu%20sistema%20solar.";
 
   return (
@@ -39,18 +35,26 @@ export default function Home() {
           <span className="brand-mark"><i /><i /><i /></span>
           <span>SUNGRID</span>
         </a>
-        <nav className={menuOpen ? "nav open" : "nav"} aria-label="Navegação principal">
-          <a href="#servicos" onClick={() => setMenuOpen(false)}>Serviços</a>
-          <a href="#beneficios" onClick={() => setMenuOpen(false)}>Benefícios</a>
-          <a href="#planos" onClick={() => setMenuOpen(false)}>Planos</a>
-          <a href="#faq" onClick={() => setMenuOpen(false)}>FAQ</a>
-          <a href="/seguro-fotovoltaico" onClick={() => setMenuOpen(false)}>Seguro</a>
-          <a href="/manutencao-grandes-usinas" onClick={() => setMenuOpen(false)}>Grandes usinas</a>
+        <nav className="nav desktop-nav" aria-label="Navegação principal">
+          <a href="#servicos">Serviços</a>
+          <a href="#beneficios">Benefícios</a>
+          <a href="#planos">Planos</a>
+          <a href="#faq">FAQ</a>
+          <a href="/seguro-fotovoltaico">Seguro</a>
+          <a href="/manutencao-grandes-usinas">Grandes usinas</a>
         </nav>
+        <details className="mobile-menu">
+          <summary className="menu-button" aria-label="Abrir menu"><span /><span /></summary>
+          <nav className="nav mobile-nav" aria-label="Navegação móvel">
+            <a href="#servicos">Serviços</a>
+            <a href="#beneficios">Benefícios</a>
+            <a href="#planos">Planos</a>
+            <a href="#faq">FAQ</a>
+            <a href="/seguro-fotovoltaico">Seguro</a>
+            <a href="/manutencao-grandes-usinas">Grandes usinas</a>
+          </nav>
+        </details>
         <a className="header-cta" href="#contato">Solicitar avaliação <Arrow /></a>
-        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}>
-          <span /><span />
-        </button>
       </header>
 
       <section className="hero" id="inicio">
