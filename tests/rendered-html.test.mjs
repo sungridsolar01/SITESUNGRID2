@@ -36,6 +36,8 @@ test("renders the Sungrid home with links to both service pages", async () => {
   assert.match(html, /\/icons\/noun\/solar-cleaning\.webp/);
   assert.match(html, /\/icons\/noun\/energy-performance\.webp/);
   assert.doesNotMatch(html, /fonts\.googleapis\.com/);
+  assert.match(html, /data-critical-css/);
+  assert.doesNotMatch(html, /rel="stylesheet"/);
   assert.doesNotMatch(html, /thenounproject\.com/);
 });
 
@@ -52,6 +54,7 @@ test("renders the photovoltaic insurance landing page", async () => {
   assert.match(html, /\/images\/seguro-fotovoltaico-1024\.webp/);
   assert.match(html, /\/icons\/noun\/electrical-damage\.webp/);
   assert.doesNotMatch(html, /thenounproject\.com/);
+  assert.doesNotMatch(html, /rel="stylesheet"/);
 });
 
 test("renders the large solar plant maintenance landing page", async () => {
@@ -66,4 +69,5 @@ test("renders the large solar plant maintenance landing page", async () => {
   assert.match(html, /\/images\/grandes-usinas-1024\.webp/);
   assert.match(html, /\/icons\/noun\/solar-cleaning\.webp/);
   assert.doesNotMatch(html, /thenounproject\.com/);
+  assert.doesNotMatch(html, /rel="stylesheet"/);
 });

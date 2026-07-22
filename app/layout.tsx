@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import globalStyles from "./globals.css?inline";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sungridsolar.site"),
@@ -23,6 +23,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR">
       <head>
+        <style data-critical-css dangerouslySetInnerHTML={{ __html: globalStyles }} />
         <link rel="preload" href="/fonts/urbanist-normal-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
