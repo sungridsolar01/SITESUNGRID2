@@ -18,8 +18,6 @@ type ServiceLandingProps = {
     title: string;
     text: string;
     icon: string;
-    iconCredit: string;
-    iconUrl: string;
   }>;
   process: Array<{ title: string; text: string }>;
   faq: Array<[string, string]>;
@@ -154,7 +152,6 @@ export function ServiceLanding(props: ServiceLandingProps) {
         <a className="brand" href="/"><Brand /></a>
         <p>{isInsurance ? "Proteção inteligente para o seu investimento solar." : "Operação e manutenção para ativos solares em escala."}</p>
         <div><a href="/">Principal</a><a href="/seguro-fotovoltaico">Seguro</a><a href="/manutencao-grandes-usinas">Grandes usinas</a></div>
-        <p className="icon-credits">Ícones por {props.pillars.map((pillar, index) => <span key={pillar.iconUrl}>{index > 0 ? ", " : ""}<a href={pillar.iconUrl} target="_blank" rel="noreferrer">{pillar.iconCredit}</a></span>)} via <a href="https://thenounproject.com/" target="_blank" rel="noreferrer">Noun Project</a>.</p>
         <span>© {new Date().getFullYear()} Sungrid</span>
       </footer>
     </main>

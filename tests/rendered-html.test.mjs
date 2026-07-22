@@ -34,7 +34,7 @@ test("renders the Sungrid home with links to both service pages", async () => {
   assert.match(html, /Seu sistema solar/);
   assert.match(html, /\/icons\/noun\/solar-cleaning\.png/);
   assert.match(html, /\/icons\/noun\/energy-performance\.png/);
-  assert.match(html, /thenounproject\.com\/icon\/energy-performance-4532733/);
+  assert.doesNotMatch(html, /thenounproject\.com/);
 });
 
 test("renders the photovoltaic insurance landing page", async () => {
@@ -47,7 +47,7 @@ test("renders the photovoltaic insurance landing page", async () => {
   assert.match(html, /Coberturas, limites, franquias e exclusões/);
   assert.match(html, /formsubmit\.co\/sungridmro@gmail\.com/);
   assert.match(html, /\/icons\/noun\/electrical-damage\.png/);
-  assert.match(html, /thenounproject\.com\/icon\/insurance-liability-8246087/);
+  assert.doesNotMatch(html, /thenounproject\.com/);
 });
 
 test("renders the large solar plant maintenance landing page", async () => {
@@ -60,5 +60,5 @@ test("renders the large solar plant maintenance landing page", async () => {
   assert.match(html, /Termografia, inspeções elétricas/);
   assert.match(html, /wa\.me\/5512991886006/);
   assert.match(html, /\/icons\/noun\/solar-cleaning\.png/);
-  assert.match(html, /thenounproject\.com\/icon\/maintenance-report-8235668/);
+  assert.doesNotMatch(html, /thenounproject\.com/);
 });
