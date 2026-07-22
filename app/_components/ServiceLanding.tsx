@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ContactForm } from "./ContactForm";
 
 type ServiceLandingProps = {
   kind: "insurance" | "utility";
@@ -129,21 +130,7 @@ export function ServiceLanding(props: ServiceLandingProps) {
           <h2>{isInsurance ? "Proteja o que" : "Cuide da usina"}<br /><em>{isInsurance ? "você construiu." : "como um ativo."}</em></h2>
           <p>Preencha os dados e nossa equipe entrará em contato para entender o seu sistema.</p>
         </div>
-        <form action="https://formsubmit.co/sungridmro@gmail.com" method="POST" className="contact-form">
-          <input type="hidden" name="_subject" value={`Nova solicitação — ${isInsurance ? "Seguro Fotovoltaico" : "Manutenção de Grandes Usinas"}`} />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value={`https://sungridsolar.site/${isInsurance ? "seguro-fotovoltaico" : "manutencao-grandes-usinas"}/#fale-com-a-sungrid`} />
-          <input type="hidden" name="Interesse" value={isInsurance ? "Seguro de sistema fotovoltaico" : "Manutenção para grandes usinas"} />
-          <input className="honey-field" type="text" name="_honey" tabIndex={-1} autoComplete="off" />
-          <label>Nome / Empresa<input type="text" name="Nome ou empresa" placeholder="Como devemos chamar você?" autoComplete="organization" required /></label>
-          <div className="form-row">
-            <label>E-mail<input type="email" name="Email" placeholder="seuemail@empresa.com" autoComplete="email" required /></label>
-            <label>Telefone / WhatsApp<input type="tel" name="Telefone" placeholder="(12) 99999-9999" autoComplete="tel" required /></label>
-          </div>
-          <label>{isInsurance ? "Potência aproximada do sistema" : "Potência instalada da usina"}<input type="text" name="Potência do sistema" placeholder={isInsurance ? "Ex.: 10 kWp, 75 kWp..." : "Ex.: 1 MWp, 5 MWp..."} required /></label>
-          <button className="button primary" type="submit">Solicitar contato <span aria-hidden="true">↗</span></button>
-          <small>Seus dados serão usados somente para o atendimento desta solicitação.</small>
-        </form>
+        <ContactForm kind={isInsurance ? "insurance" : "utility"} />
       </section>
 
       <a className="whatsapp-float" href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Conversar com a Sungrid pelo WhatsApp"><span aria-hidden="true">✆</span><strong>WhatsApp</strong></a>

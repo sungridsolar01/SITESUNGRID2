@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ContactForm } from "./_components/ContactForm";
 
 const services = [
   { number: "01", title: "Limpeza técnica", text: "Remoção segura de poeira, poluição, folhas e maresia com método que protege a superfície dos módulos.", icon: "/icons/noun/solar-cleaning.png" },
@@ -192,19 +193,7 @@ export default function Home() {
           <h2>Pronto para voltar a<br /><em>gerar no máximo?</em></h2>
           <p>Conte um pouco sobre o seu sistema. A solicitação será enviada para nossa equipe e responderemos pelos contatos informados.</p>
         </div>
-        <form action="https://formsubmit.co/sungridmro@gmail.com" method="POST" className="contact-form">
-          <input type="hidden" name="_subject" value="Nova solicitação de avaliação — Site Sungrid" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value="https://sungridsolar.site/#contato" />
-          <input className="honey-field" type="text" name="_honey" tabIndex={-1} autoComplete="off" />
-          <label>Seu nome<input type="text" name="Nome" placeholder="Como podemos chamar você?" autoComplete="name" required /></label>
-          <label>E-mail<input type="email" name="Email" placeholder="seuemail@exemplo.com" autoComplete="email" required /></label>
-          <label>Telefone / WhatsApp<input type="tel" name="Telefone" placeholder="(12) 99999-9999" autoComplete="tel" inputMode="tel" required /></label>
-          <label>Cidade / Estado<input type="text" name="Cidade" placeholder="Onde está o sistema?" autoComplete="address-level2" required /></label>
-          <label>Tipo de sistema<select name="Tipo de sistema" defaultValue="Residencial"><option>Residencial</option><option>Comercial</option><option>Industrial</option><option>Rural</option></select></label>
-          <button className="button primary" type="submit">Enviar solicitação gratuita <Arrow /></button>
-          <small>Sem compromisso. Seus dados serão enviados com segurança para o atendimento da Sungrid.</small>
-        </form>
+        <ContactForm kind="home" />
       </section>
 
       <a className="whatsapp-float" href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Conversar com a Sungrid pelo WhatsApp">

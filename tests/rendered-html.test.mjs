@@ -45,7 +45,8 @@ test("renders the photovoltaic insurance landing page", async () => {
   assert.match(html, /Seguro para Sistemas Fotovoltaicos \| Sungrid/);
   assert.match(html, /Seu investimento merece proteção/);
   assert.match(html, /Coberturas, limites, franquias e exclusões/);
-  assert.match(html, /formsubmit\.co\/sungridmro@gmail\.com/);
+  assert.doesNotMatch(html, /sungridmro@gmail\.com/);
+  assert.match(html, /Solicitar contato/);
   assert.match(html, /\/icons\/noun\/electrical-damage\.png/);
   assert.doesNotMatch(html, /thenounproject\.com/);
 });
