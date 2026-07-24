@@ -35,6 +35,8 @@ test("renders the Sungrid home with links to both service pages", async () => {
   assert.match(html, /\/images\/solar-maintenance-pexels-1024\.webp/);
   assert.match(html, /\/icons\/noun\/solar-cleaning\.webp/);
   assert.match(html, /\/icons\/noun\/energy-performance\.webp/);
+  assert.match(html, /https:\/\/www\.instagram\.com\/sungridmro\//);
+  assert.match(html, /https:\/\/www\.linkedin\.com\/company\/sungridmro\//);
   assert.match(html, /data-sungrid-form/);
   assert.match(html, /src="\/js\/site-interactions\.js"/);
   assert.doesNotMatch(html, /sungridmro@gmail\.com/);
@@ -59,6 +61,8 @@ test("renders the photovoltaic insurance landing page", async () => {
   assert.match(html, /src="\/js\/site-interactions\.js"/);
   assert.match(html, /\/images\/seguro-fotovoltaico-1024\.webp/);
   assert.match(html, /\/icons\/noun\/electrical-damage\.webp/);
+  assert.match(html, /https:\/\/www\.instagram\.com\/sungridmro\//);
+  assert.match(html, /https:\/\/www\.linkedin\.com\/company\/sungridmro\//);
   assert.doesNotMatch(html, /thenounproject\.com/);
   assert.doesNotMatch(html, /rel="stylesheet"/);
 });
@@ -76,6 +80,8 @@ test("renders the large solar plant maintenance landing page", async () => {
   assert.match(html, /src="\/js\/site-interactions\.js"/);
   assert.match(html, /\/images\/grandes-usinas-1024\.webp/);
   assert.match(html, /\/icons\/noun\/solar-cleaning\.webp/);
+  assert.match(html, /https:\/\/www\.instagram\.com\/sungridmro\//);
+  assert.match(html, /https:\/\/www\.linkedin\.com\/company\/sungridmro\//);
   assert.doesNotMatch(html, /thenounproject\.com/);
   assert.doesNotMatch(html, /rel="stylesheet"/);
 });

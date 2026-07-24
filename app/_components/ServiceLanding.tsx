@@ -150,7 +150,13 @@ export function ServiceLanding(props: ServiceLandingProps) {
       <footer className="service-footer">
         <a className="brand" href="/"><Brand /></a>
         <p>{isInsurance ? "Proteção inteligente para o seu investimento solar." : "Operação e manutenção para ativos solares em escala."}</p>
-        <div><a href="/">Principal</a><a href="/seguro-fotovoltaico">Seguro</a><a href="/manutencao-grandes-usinas">Grandes usinas</a></div>
+        <div>
+          <a href="/">Principal</a>
+          <a href="/seguro-fotovoltaico">Seguro</a>
+          <a href="/manutencao-grandes-usinas">Grandes usinas</a>
+          <a className="social-link" href="https://www.instagram.com/sungridmro/" target="_blank" rel="noreferrer" aria-label="Instagram da Sungrid, abre em nova aba">Instagram ↗</a>
+          <a className="social-link" href="https://www.linkedin.com/company/sungridmro/" target="_blank" rel="noreferrer" aria-label="LinkedIn da Sungrid, abre em nova aba">LinkedIn ↗</a>
+        </div>
         <span>© {new Date().getFullYear()} Sungrid</span>
       </footer>
     </main>

@@ -217,7 +217,13 @@ export default function Home() {
       <footer>
         <a className="brand" href="#inicio"><span className="brand-mark"><i /><i /><i /></span><span>SUNGRID</span></a>
         <p>Manutenção solar inteligente para proteger seu investimento.</p>
-        <div><a href="#servicos">Serviços</a><a href="#planos">Planos</a><a href="#faq">FAQ</a></div>
+        <div>
+          <a href="#servicos">Serviços</a>
+          <a href="#planos">Planos</a>
+          <a href="#faq">FAQ</a>
+          <a className="social-link" href="https://www.instagram.com/sungridmro/" target="_blank" rel="noreferrer" aria-label="Instagram da Sungrid, abre em nova aba">Instagram ↗</a>
+          <a className="social-link" href="https://www.linkedin.com/company/sungridmro/" target="_blank" rel="noreferrer" aria-label="LinkedIn da Sungrid, abre em nova aba">LinkedIn ↗</a>
+        </div>
         <span>© {new Date().getFullYear()} Sungrid</span>
       </footer>
     </main>
