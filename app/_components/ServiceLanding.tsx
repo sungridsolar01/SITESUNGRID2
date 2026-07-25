@@ -36,6 +36,7 @@ export function ServiceLanding(props: ServiceLandingProps) {
         <a className="brand" href="/" aria-label="Sungrid, página principal"><Brand /></a>
         <nav className="service-nav desktop-nav" aria-label="Navegação principal">
           <a href="/">Página principal</a>
+          <a href="/manutencao-de-energia-solar/">Manutenção solar</a>
           <a href="/seguro-fotovoltaico">Seguro fotovoltaico</a>
           <a href="/manutencao-grandes-usinas">Grandes usinas</a>
         </nav>
@@ -43,6 +44,9 @@ export function ServiceLanding(props: ServiceLandingProps) {
           <summary className="menu-button" aria-label="Abrir menu"><span /><span /></summary>
           <nav className="service-nav mobile-nav" aria-label="Navegação móvel">
             <a href="/">Página principal</a>
+            <a href="/manutencao-de-energia-solar/">Manutenção solar</a>
+            <a href="/limpeza-de-paineis-solares/">Limpeza</a>
+            <a href="/diagnostico-de-sistema-fotovoltaico/">Diagnóstico</a>
             <a href="/seguro-fotovoltaico">Seguro fotovoltaico</a>
             <a href="/manutencao-grandes-usinas">Grandes usinas</a>
           </nav>
@@ -152,6 +156,9 @@ export function ServiceLanding(props: ServiceLandingProps) {
         <p>{isInsurance ? "Proteção inteligente para o seu investimento solar." : "Operação e manutenção para ativos solares em escala."}</p>
         <div>
           <a href="/">Principal</a>
+          <a href="/manutencao-de-energia-solar/">Manutenção</a>
+          <a href="/limpeza-de-paineis-solares/">Limpeza</a>
+          <a href="/diagnostico-de-sistema-fotovoltaico/">Diagnóstico</a>
           <a href="/seguro-fotovoltaico">Seguro</a>
           <a href="/manutencao-grandes-usinas">Grandes usinas</a>
           <a className="social-link" href="https://www.instagram.com/sungridmro/" target="_blank" rel="noreferrer" aria-label="Instagram da Sungrid, abre em nova aba">Instagram ↗</a>

@@ -11,6 +11,10 @@ const pages = [
   { pathname: "/", output: "index.html" },
   { pathname: "/seguro-fotovoltaico", output: "seguro-fotovoltaico/index.html" },
   { pathname: "/manutencao-grandes-usinas", output: "manutencao-grandes-usinas/index.html" },
+  { pathname: "/manutencao-de-energia-solar", output: "manutencao-de-energia-solar/index.html" },
+  { pathname: "/limpeza-de-paineis-solares", output: "limpeza-de-paineis-solares/index.html" },
+  { pathname: "/diagnostico-de-sistema-fotovoltaico", output: "diagnostico-de-sistema-fotovoltaico/index.html" },
+  { pathname: "/contato", output: "contato/index.html" },
 ];
 
 await rm(outputDir, { recursive: true, force: true });

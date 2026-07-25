@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
 import { ServiceLanding } from "../_components/ServiceLanding";
+import { ServiceSchema } from "../_components/ServiceSchema";
 
+const title = "Seguro para Sistemas Fotovoltaicos | Sungrid";
+const description = "Conheça soluções de seguro para proteger o investimento em sistemas fotovoltaicos residenciais, comerciais e industriais.";
 export const metadata: Metadata = {
-  title: "Seguro para Sistemas Fotovoltaicos | Sungrid",
-  description: "Conheça soluções de seguro para proteger o investimento em sistemas fotovoltaicos residenciais, comerciais e industriais.",
+  title,
+  description,
+  alternates: { canonical: "/seguro-fotovoltaico/" },
+  openGraph: { type: "website", url: "/seguro-fotovoltaico/", title, description, images: ["/og.png"] },
 };
 
 export default function SeguroFotovoltaicoPage() {
-  return <ServiceLanding
+  return <>
+    <ServiceSchema name="Seguro para sistemas fotovoltaicos" description={description} pathname="/seguro-fotovoltaico/" />
+    <ServiceLanding
     kind="insurance"
     eyebrow="SEGURO PARA SISTEMAS FOTOVOLTAICOS"
     title="Sua energia trabalha por você."
@@ -36,5 +43,6 @@ export default function SeguroFotovoltaicoPage() {
       ["Preciso ter nota fiscal e projeto?", "A documentação exigida varia conforme a seguradora e o risco. Normalmente são solicitadas informações que comprovem os equipamentos, a instalação e o valor do ativo."],
       ["Sistemas já instalados podem ser avaliados?", "Sim. Sistemas em operação podem passar por análise, desde que atendam aos critérios técnicos e documentais da seguradora."],
     ]}
-  />;
+    />
+  </>;
 }

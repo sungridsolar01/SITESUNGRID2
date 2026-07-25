@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
 import { ServiceLanding } from "../_components/ServiceLanding";
+import { ServiceSchema } from "../_components/ServiceSchema";
 
+const title = "Manutenção para Grandes Usinas Solares | Sungrid";
+const description = "Operação e manutenção técnica para usinas fotovoltaicas de maior porte, com rotinas preventivas, diagnóstico e relatórios gerenciais.";
 export const metadata: Metadata = {
-  title: "Manutenção para Grandes Usinas Solares | Sungrid",
-  description: "Operação e manutenção técnica para usinas fotovoltaicas de maior porte, com rotinas preventivas, diagnóstico e relatórios gerenciais.",
+  title,
+  description,
+  alternates: { canonical: "/manutencao-grandes-usinas/" },
+  openGraph: { type: "website", url: "/manutencao-grandes-usinas/", title, description, images: ["/og.png"] },
 };
 
 export default function GrandesUsinasPage() {
-  return <ServiceLanding
+  return <>
+    <ServiceSchema name="Manutenção para grandes usinas solares" description={description} pathname="/manutencao-grandes-usinas/" />
+    <ServiceLanding
     kind="utility"
     eyebrow="MANUTENÇÃO PARA GRANDES USINAS"
     title="Disponibilidade é energia."
@@ -36,5 +43,6 @@ export default function GrandesUsinasPage() {
       ["É possível contratar serviços específicos?", "Sim. Além de contratos recorrentes, podem ser avaliados escopos pontuais como inspeções, limpeza, diagnóstico e campanhas técnicas."],
       ["Como são registradas as ocorrências?", "Os achados são documentados com evidências de campo, classificação de criticidade e recomendações para facilitar a tomada de decisão."],
     ]}
-  />;
+    />
+  </>;
 }

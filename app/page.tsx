@@ -1,10 +1,10 @@
 import { ContactForm } from "./_components/ContactForm";
 
 const services = [
-  { number: "01", title: "Limpeza técnica", text: "Remoção segura de poeira, poluição, folhas e maresia com método que protege a superfície dos módulos.", icon: "/icons/noun/solar-cleaning.webp" },
-  { number: "02", title: "Inspeção elétrica", text: "Checagem de cabos, conectores, inversores e pontos críticos para encontrar falhas antes que virem prejuízo.", icon: "/icons/noun/thermal-imaging.webp" },
-  { number: "03", title: "Análise de performance", text: "Comparamos a geração real, identificamos perdas e mostramos onde seu sistema pode recuperar desempenho.", icon: "/icons/noun/energy-performance.webp" },
-  { number: "04", title: "Relatório documentado", text: "Você recebe fotos, diagnóstico e recomendações claras para preservar a garantia e planejar cada correção.", icon: "/icons/noun/maintenance-report.webp" },
+  { number: "01", title: "Limpeza técnica de painéis solares", text: "Remoção segura de poeira, poluição, folhas e maresia com método que protege a superfície dos módulos.", icon: "/icons/noun/solar-cleaning.webp", alt: "Limpeza técnica de painéis solares", href: "/limpeza-de-paineis-solares/" },
+  { number: "02", title: "Diagnóstico de falhas", text: "Checagem de cabos, conectores, inversores e pontos críticos para encontrar falhas antes que virem prejuízo.", icon: "/icons/noun/thermal-imaging.webp", alt: "Termografia para diagnóstico de sistema solar", href: "/diagnostico-de-sistema-fotovoltaico/" },
+  { number: "03", title: "Análise de desempenho", text: "Comparamos a geração real, identificamos perdas e mostramos onde seu sistema pode recuperar desempenho.", icon: "/icons/noun/energy-performance.webp", alt: "Análise de desempenho de energia solar", href: "/manutencao-de-energia-solar/" },
+  { number: "04", title: "Relatório técnico", text: "Você recebe fotos, diagnóstico e recomendações claras para preservar a garantia e planejar cada correção.", icon: "/icons/noun/maintenance-report.webp", alt: "Relatório técnico de manutenção solar", href: "/manutencao-de-energia-solar/" },
 ];
 
 const plans = [
@@ -60,7 +60,7 @@ export default function Home() {
       <section className="hero" id="inicio">
         <div className="hero-copy reveal">
           <div className="eyebrow"><span /> PERFORMANCE SOLAR, SEM ACHISMOS</div>
-          <h1>Seu sistema solar.<br /><em>Sempre no máximo.</em></h1>
+          <h1>Manutenção de Sistemas de Energia Solar<br /><em>para Máximo Desempenho</em></h1>
           <p>Manutenção profissional para proteger seu investimento, recuperar eficiência e garantir energia limpa por muitos anos.</p>
           <div className="hero-actions">
             <a className="button primary" href="#contato">Agendar avaliação <Arrow /></a>
@@ -112,7 +112,7 @@ export default function Home() {
         <div className="section-heading">
           <div>
             <div className="eyebrow dark"><span /> CUIDADO DE PONTA A PONTA</div>
-            <h2>Mais que limpeza.<br /><em>Inteligência para o seu sistema.</em></h2>
+            <h2>Manutenção preventiva<br /><em>para sistemas fotovoltaicos.</em></h2>
           </div>
           <p>A manutenção Sungrid combina trabalho em campo, análise técnica e documentação para manter a sua usina produzindo com segurança.</p>
         </div>
@@ -120,9 +120,10 @@ export default function Home() {
           {services.map((item) => (
             <article className="service-card" key={item.number}>
               <span className="service-number">{item.number}</span>
-              <div className="service-icon" aria-hidden="true"><img src={item.icon} width="96" height="96" loading="lazy" decoding="async" alt="" /></div>
+              <div className="service-icon"><img src={item.icon} width="96" height="96" loading="lazy" decoding="async" alt={item.alt} /></div>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
+              <a className="service-link" href={item.href}>Saiba mais <Arrow /></a>
             </article>
           ))}
         </div>
@@ -131,7 +132,7 @@ export default function Home() {
       <section className="performance" id="beneficios">
         <div className="performance-copy">
           <div className="eyebrow"><span /> PERFORMANCE PROTEGIDA</div>
-          <h2>Energia que você gera.<br /><em>Economia que você sente.</em></h2>
+          <h2>Diagnóstico de falhas<br /><em>e queda de geração.</em></h2>
           <p>Poeira, poluição e maresia agem em silêncio. A Sungrid transforma sinais dispersos em um plano objetivo para preservar a produção, a vida útil e a garantia do sistema.</p>
           <ul>
             <li><span>✓</span> Produção otimizada</li>
@@ -165,7 +166,7 @@ export default function Home() {
         <div className="section-heading compact">
           <div>
             <div className="eyebrow dark"><span /> PLANOS FLEXÍVEIS</div>
-            <h2>O ritmo certo para<br /><em>cada sistema.</em></h2>
+            <h2>Relatório técnico para<br /><em>decisões mais seguras.</em></h2>
           </div>
           <p>Comece com uma avaliação. A frequência ideal considera o local, o tamanho da instalação e a importância da geração para sua operação.</p>
         </div>
@@ -203,7 +204,7 @@ export default function Home() {
       <section className="contact" id="contato">
         <div className="contact-copy">
           <div className="eyebrow"><span /> SUA ENERGIA MERECE CUIDADO</div>
-          <h2>Pronto para voltar a<br /><em>gerar no máximo?</em></h2>
+          <h2>Solicite uma avaliação<br /><em>do seu sistema solar.</em></h2>
           <p>Conte um pouco sobre o seu sistema. A solicitação será enviada para nossa equipe e responderemos pelos contatos informados.</p>
         </div>
         <ContactForm kind="home" />
@@ -221,6 +222,7 @@ export default function Home() {
           <a href="#servicos">Serviços</a>
           <a href="#planos">Planos</a>
           <a href="#faq">FAQ</a>
+          <a href="/contato/">Contato</a>
           <a className="social-link" href="https://www.instagram.com/sungridmro/" target="_blank" rel="noreferrer" aria-label="Instagram da Sungrid, abre em nova aba">Instagram ↗</a>
           <a className="social-link" href="https://www.linkedin.com/company/sungridmro/" target="_blank" rel="noreferrer" aria-label="LinkedIn da Sungrid, abre em nova aba">LinkedIn ↗</a>
         </div>

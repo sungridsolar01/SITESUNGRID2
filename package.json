@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "vinext build",
-    "export:static": "npm run build && node scripts/export-static.mjs",
+    "minify:site-js": "node scripts/minify-site-interactions.mjs",
+    "export:static": "npm run minify:site-js && npm run build && node scripts/export-static.mjs",
     "publish:pages": "npm run export:static && node scripts/publish-pages-root.mjs",
     "start": "vinext start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
@@ -32,6 +33,7 @@
     "drizzle-kit": "0.31.10",
     "eslint": "9.39.4",
     "eslint-config-next": "16.2.6",
+    "terser": "5.47.1",
     "react-server-dom-webpack": "19.2.6",
     "tailwindcss": "4.2.1",
     "typescript": "5.9.3",
