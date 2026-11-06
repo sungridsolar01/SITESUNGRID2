@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { ServiceLanding } from "../_components/ServiceLanding";
 import { ServiceSchema } from "../_components/ServiceSchema";
 
-const title = "Seguro para Sistemas Fotovoltaicos | Sungrid";
-const description = "Conheça soluções de seguro para proteger o investimento em sistemas fotovoltaicos residenciais, comerciais e industriais.";
+const title = "Seguro para Sistemas Fotovoltaicos em SP | Sungrid";
+const description = "Conheça soluções de seguro para sistemas fotovoltaicos residenciais, comerciais e industriais no estado de São Paulo.";
 export const metadata: Metadata = {
   title,
   description,
@@ -42,6 +42,7 @@ export default function SeguroFotovoltaicoPage() {
       ["O seguro cobre qualquer tipo de dano?", "Não. Toda cobertura possui limites, condições e exclusões. A proteção válida é exatamente a descrita na proposta e na apólice emitida."],
       ["Preciso ter nota fiscal e projeto?", "A documentação exigida varia conforme a seguradora e o risco. Normalmente são solicitadas informações que comprovem os equipamentos, a instalação e o valor do ativo."],
       ["Sistemas já instalados podem ser avaliados?", "Sim. Sistemas em operação podem passar por análise, desde que atendam aos critérios técnicos e documentais da seguradora."],
+      ["A Sungrid atende seguro fotovoltaico no estado de São Paulo?", "Sim. Com sede em São José dos Campos, a Sungrid avalia solicitações no estado de São Paulo. A aceitação e as coberturas dependem da análise da seguradora."],
     ]}
     />
   </>;

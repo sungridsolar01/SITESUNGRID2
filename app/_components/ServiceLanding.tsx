@@ -1,4 +1,5 @@
 import { ContactForm } from "./ContactForm";
+import { FooterNap } from "./BusinessInfo";
 
 type ServiceLandingProps = {
   kind: "insurance" | "utility";
@@ -37,8 +38,8 @@ export function ServiceLanding(props: ServiceLandingProps) {
         <nav className="service-nav desktop-nav" aria-label="Navegação principal">
           <a href="/">Página principal</a>
           <a href="/manutencao-de-energia-solar/">Manutenção solar</a>
-          <a href="/seguro-fotovoltaico">Seguro fotovoltaico</a>
-          <a href="/manutencao-grandes-usinas">Grandes usinas</a>
+          <a href="/seguro-fotovoltaico/">Seguro fotovoltaico</a>
+          <a href="/manutencao-grandes-usinas/">Grandes usinas</a>
         </nav>
         <details className="mobile-menu">
           <summary className="menu-button" aria-label="Abrir menu"><span /><span /></summary>
@@ -47,8 +48,8 @@ export function ServiceLanding(props: ServiceLandingProps) {
             <a href="/manutencao-de-energia-solar/">Manutenção solar</a>
             <a href="/limpeza-de-paineis-solares/">Limpeza</a>
             <a href="/diagnostico-de-sistema-fotovoltaico/">Diagnóstico</a>
-            <a href="/seguro-fotovoltaico">Seguro fotovoltaico</a>
-            <a href="/manutencao-grandes-usinas">Grandes usinas</a>
+            <a href="/seguro-fotovoltaico/">Seguro fotovoltaico</a>
+            <a href="/manutencao-grandes-usinas/">Grandes usinas</a>
           </nav>
         </details>
         <a className="header-cta" href="#fale-com-a-sungrid">Solicitar proposta <span aria-hidden="true">↗</span></a>
@@ -88,7 +89,13 @@ export function ServiceLanding(props: ServiceLandingProps) {
       </section>
 
       <section className="service-proof-strip">
-        <span>ESCOPO SOB MEDIDA</span><span>ANÁLISE TÉCNICA</span><span>DOCUMENTAÇÃO CLARA</span><span>ATENDIMENTO NACIONAL</span>
+        <span>ESCOPO SOB MEDIDA</span><span>ANÁLISE TÉCNICA</span><span>DOCUMENTAÇÃO CLARA</span><span>ESTADO DE SÃO PAULO</span>
+      </section>
+
+      <section className="local-service-section service-local-region">
+        <div className="eyebrow dark"><span /> ATENDIMENTO NO ESTADO DE SÃO PAULO</div>
+        <h2>Atendimento técnico em SP<br /><em>com sede em São José dos Campos.</em></h2>
+        <p>Com sede em São José dos Campos, a Sungrid avalia solicitações em todo o estado de São Paulo conforme a localização, o porte do sistema e o escopo necessário.</p>
       </section>
 
       <section className="service-solution" id="solucao">
@@ -159,12 +166,13 @@ export function ServiceLanding(props: ServiceLandingProps) {
           <a href="/manutencao-de-energia-solar/">Manutenção</a>
           <a href="/limpeza-de-paineis-solares/">Limpeza</a>
           <a href="/diagnostico-de-sistema-fotovoltaico/">Diagnóstico</a>
-          <a href="/seguro-fotovoltaico">Seguro</a>
-          <a href="/manutencao-grandes-usinas">Grandes usinas</a>
+          <a href="/seguro-fotovoltaico/">Seguro</a>
+          <a href="/manutencao-grandes-usinas/">Grandes usinas</a>
           <a className="social-link" href="https://www.instagram.com/sungridmro/" target="_blank" rel="noreferrer" aria-label="Instagram da Sungrid, abre em nova aba">Instagram ↗</a>
           <a className="social-link" href="https://www.linkedin.com/company/sungridmro/" target="_blank" rel="noreferrer" aria-label="LinkedIn da Sungrid, abre em nova aba">LinkedIn ↗</a>
         </div>
         <span>© {new Date().getFullYear()} Sungrid</span>
+        <FooterNap />
       </footer>
     </main>
   );

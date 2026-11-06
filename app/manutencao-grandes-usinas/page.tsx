@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { ServiceLanding } from "../_components/ServiceLanding";
 import { ServiceSchema } from "../_components/ServiceSchema";
 
-const title = "Manutenção para Grandes Usinas Solares | Sungrid";
-const description = "Operação e manutenção técnica para usinas fotovoltaicas de maior porte, com rotinas preventivas, diagnóstico e relatórios gerenciais.";
+const title = "Manutenção de Grandes Usinas Solares em SP | Sungrid";
+const description = "Operação e manutenção técnica para grandes usinas fotovoltaicas no estado de São Paulo, com rotinas preventivas e diagnóstico.";
 export const metadata: Metadata = {
   title,
   description,
@@ -42,6 +42,7 @@ export default function GrandesUsinasPage() {
       ["O plano é igual para todas as usinas?", "Não. Frequência e atividades são definidas conforme potência, topologia, ambiente, histórico de falhas e criticidade operacional."],
       ["É possível contratar serviços específicos?", "Sim. Além de contratos recorrentes, podem ser avaliados escopos pontuais como inspeções, limpeza, diagnóstico e campanhas técnicas."],
       ["Como são registradas as ocorrências?", "Os achados são documentados com evidências de campo, classificação de criticidade e recomendações para facilitar a tomada de decisão."],
+      ["A Sungrid atende grandes usinas em todo o estado de São Paulo?", "Com sede em São José dos Campos, a Sungrid avalia projetos de O&M no estado de São Paulo conforme localização, potência, acesso e escopo operacional."],
     ]}
     />
   </>;

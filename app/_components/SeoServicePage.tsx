@@ -1,5 +1,6 @@
 import { ContactForm } from "./ContactForm";
 import { ServiceSchema } from "./ServiceSchema";
+import { FooterNap } from "./BusinessInfo";
 
 type SeoServicePageProps = {
   pathname: string;
@@ -13,6 +14,8 @@ type SeoServicePageProps = {
   sectionText: string;
   benefits: Array<{ title: string; text: string }>;
   steps: Array<{ title: string; text: string }>;
+  regionText: string;
+  faq: Array<[string, string]>;
   contactTitle: string;
   contactAccent: string;
 };
@@ -27,6 +30,8 @@ const relatedServices = [
   { href: "/limpeza-de-paineis-solares/", label: "Limpeza de painéis solares" },
   { href: "/manutencao-de-energia-solar/", label: "Manutenção de energia solar" },
   { href: "/diagnostico-de-sistema-fotovoltaico/", label: "Diagnóstico fotovoltaico" },
+  { href: "/seguro-fotovoltaico/", label: "Seguro fotovoltaico" },
+  { href: "/manutencao-grandes-usinas/", label: "Manutenção de grandes usinas" },
   { href: "/contato/", label: "Solicitar avaliação" },
 ];
 
@@ -42,6 +47,8 @@ export function SeoServicePage(props: SeoServicePageProps) {
           <a href="/manutencao-de-energia-solar/">Manutenção solar</a>
           <a href="/limpeza-de-paineis-solares/">Limpeza</a>
           <a href="/diagnostico-de-sistema-fotovoltaico/">Diagnóstico</a>
+          <a href="/seguro-fotovoltaico/">Seguro</a>
+          <a href="/manutencao-grandes-usinas/">Grandes usinas</a>
         </nav>
         <details className="mobile-menu">
           <summary className="menu-button" aria-label="Abrir menu"><span /><span /></summary>
@@ -50,6 +57,8 @@ export function SeoServicePage(props: SeoServicePageProps) {
             <a href="/manutencao-de-energia-solar/">Manutenção solar</a>
             <a href="/limpeza-de-paineis-solares/">Limpeza</a>
             <a href="/diagnostico-de-sistema-fotovoltaico/">Diagnóstico</a>
+            <a href="/seguro-fotovoltaico/">Seguro</a>
+            <a href="/manutencao-grandes-usinas/">Grandes usinas</a>
             <a href="/contato/">Contato</a>
           </nav>
         </details>
@@ -64,6 +73,27 @@ export function SeoServicePage(props: SeoServicePageProps) {
         <div className="hero-actions">
           <a className="button primary" href="#contato">Solicitar avaliação <span aria-hidden="true">↗</span></a>
           <a className="text-link" href="#como-funciona">Como funciona <span>↓</span></a>
+        </div>
+      </section>
+
+      <section className="local-service-section" aria-labelledby={`regiao-${props.serviceName.replace(/\s+/g, "-").toLowerCase()}`}>
+        <div className="eyebrow dark"><span /> ATENDIMENTO NO ESTADO DE SÃO PAULO</div>
+        <h2 id={`regiao-${props.serviceName.replace(/\s+/g, "-").toLowerCase()}`}>Atendimento solar em SP<br /><em>com base em São José dos Campos.</em></h2>
+        <p>{props.regionText}</p>
+      </section>
+
+      <section className="service-faq seo-service-faq">
+        <div>
+          <div className="eyebrow dark"><span /> PERGUNTAS FREQUENTES</div>
+          <h2>Informação clara.<br /><em>Decisão segura.</em></h2>
+        </div>
+        <div className="faq-list light-faq">
+          {props.faq.map(([question, answer], index) => (
+            <details key={question} open={index === 0}>
+              <summary><span>0{index + 1}</span>{question}<i>+</i></summary>
+              <p>{answer}</p>
+            </details>
+          ))}
         </div>
       </section>
 
@@ -128,11 +158,14 @@ export function SeoServicePage(props: SeoServicePageProps) {
           <a href="/manutencao-de-energia-solar/">Manutenção</a>
           <a href="/limpeza-de-paineis-solares/">Limpeza</a>
           <a href="/diagnostico-de-sistema-fotovoltaico/">Diagnóstico</a>
+          <a href="/seguro-fotovoltaico/">Seguro</a>
+          <a href="/manutencao-grandes-usinas/">Grandes usinas</a>
           <a href="/contato/">Contato</a>
           <a className="social-link" href="https://www.instagram.com/sungridmro/" target="_blank" rel="noreferrer">Instagram ↗</a>
           <a className="social-link" href="https://www.linkedin.com/company/sungridmro/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
         </div>
         <span>© {new Date().getFullYear()} Sungrid</span>
+        <FooterNap />
       </footer>
     </main>
   );

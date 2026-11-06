@@ -1,4 +1,17 @@
+import type { Metadata } from "next";
 import { ContactForm } from "./_components/ContactForm";
+import { FooterNap } from "./_components/BusinessInfo";
+
+const title = "Manutenção de Energia Solar em SP | Limpeza e Diagnóstico | Sungrid";
+const description = "Manutenção, limpeza e diagnóstico de sistemas de energia solar no estado de São Paulo. Recupere desempenho e receba um relatório técnico.";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: "/" },
+  openGraph: { type: "website", url: "/", siteName: "Sungrid", locale: "pt_BR", title, description, images: [{ url: "/og.png", width: 1662, height: 946, alt: "Serviços Sungrid para sistemas fotovoltaicos em São Paulo" }] },
+  twitter: { card: "summary_large_image", title, description, images: ["/og.png"] },
+};
 
 const services = [
   { number: "01", title: "Limpeza técnica de painéis solares", text: "Remoção segura de poeira, poluição, folhas e maresia com método que protege a superfície dos módulos.", icon: "/icons/noun/solar-cleaning.webp", alt: "Limpeza técnica de painéis solares", href: "/limpeza-de-paineis-solares/" },
@@ -19,6 +32,7 @@ const faqs = [
   ["O monitoramento do inversor já não é suficiente?", "Não. O aplicativo costuma mostrar a produção geral, mas pode não revelar perdas graduais, falhas elétricas ou problemas localizados em módulos e conexões."],
   ["Vocês atendem sistemas instalados por outra empresa?", "Sim. A Sungrid atende sistemas das principais marcas e configurações, independentemente de quem realizou a instalação original."],
   ["O que acontece se vocês encontrarem um problema?", "Registramos a ocorrência com fotos e entregamos um relatório com as correções recomendadas. Qualquer reparo adicional é apresentado com escopo e preço transparentes."],
+  ["Em quais regiões a Sungrid atende?", "Com sede em São José dos Campos, a Sungrid atende sistemas fotovoltaicos no estado de São Paulo. A disponibilidade é confirmada conforme o endereço e o escopo do serviço."],
 ];
 
 function Arrow() {
@@ -40,8 +54,8 @@ export default function Home() {
           <a href="#beneficios">Benefícios</a>
           <a href="#planos">Planos</a>
           <a href="#faq">FAQ</a>
-          <a href="/seguro-fotovoltaico">Seguro</a>
-          <a href="/manutencao-grandes-usinas">Grandes usinas</a>
+          <a href="/seguro-fotovoltaico/">Seguro</a>
+          <a href="/manutencao-grandes-usinas/">Grandes usinas</a>
         </nav>
         <details className="mobile-menu">
           <summary className="menu-button" aria-label="Abrir menu"><span /><span /></summary>
@@ -50,8 +64,8 @@ export default function Home() {
             <a href="#beneficios">Benefícios</a>
             <a href="#planos">Planos</a>
             <a href="#faq">FAQ</a>
-            <a href="/seguro-fotovoltaico">Seguro</a>
-            <a href="/manutencao-grandes-usinas">Grandes usinas</a>
+            <a href="/seguro-fotovoltaico/">Seguro</a>
+            <a href="/manutencao-grandes-usinas/">Grandes usinas</a>
           </nav>
         </details>
         <a className="header-cta" href="#contato">Solicitar avaliação <Arrow /></a>
@@ -60,7 +74,7 @@ export default function Home() {
       <section className="hero" id="inicio">
         <div className="hero-copy reveal">
           <div className="eyebrow"><span /> PERFORMANCE SOLAR, SEM ACHISMOS</div>
-          <h1>Manutenção de Sistemas de Energia Solar<br /><em>para Máximo Desempenho</em></h1>
+          <h1>Manutenção de Sistemas de Energia Solar em SP<br /><em>para Máximo Desempenho</em></h1>
           <p>Manutenção profissional para proteger seu investimento, recuperar eficiência e garantir energia limpa por muitos anos.</p>
           <div className="hero-actions">
             <a className="button primary" href="#contato">Agendar avaliação <Arrow /></a>
@@ -201,6 +215,12 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="local-service-section" aria-labelledby="atendimento-sp">
+        <div className="eyebrow dark"><span /> ATENDIMENTO NO ESTADO DE SÃO PAULO</div>
+        <h2 id="atendimento-sp">Manutenção solar com base<br /><em>em São José dos Campos.</em></h2>
+        <p>Com sede em São José dos Campos, a Sungrid atende residências, empresas e ativos fotovoltaicos no estado de São Paulo. Cada solicitação é avaliada conforme localização, porte do sistema, acesso e escopo técnico.</p>
+      </section>
+
       <section className="contact" id="contato">
         <div className="contact-copy">
           <div className="eyebrow"><span /> SUA ENERGIA MERECE CUIDADO</div>
@@ -222,11 +242,14 @@ export default function Home() {
           <a href="#servicos">Serviços</a>
           <a href="#planos">Planos</a>
           <a href="#faq">FAQ</a>
+          <a href="/seguro-fotovoltaico/">Seguro</a>
+          <a href="/manutencao-grandes-usinas/">Grandes usinas</a>
           <a href="/contato/">Contato</a>
           <a className="social-link" href="https://www.instagram.com/sungridmro/" target="_blank" rel="noreferrer" aria-label="Instagram da Sungrid, abre em nova aba">Instagram ↗</a>
           <a className="social-link" href="https://www.linkedin.com/company/sungridmro/" target="_blank" rel="noreferrer" aria-label="LinkedIn da Sungrid, abre em nova aba">LinkedIn ↗</a>
         </div>
         <span>© {new Date().getFullYear()} Sungrid</span>
+        <FooterNap />
       </footer>
     </main>
   );

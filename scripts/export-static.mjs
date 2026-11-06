@@ -1,4 +1,4 @@
-import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -68,7 +68,26 @@ await writeFile(join(outputDir, ".nojekyll"), "", "utf8");
 await writeFile(join(outputDir, "CNAME"), "sungridsolar.site\n", "utf8");
 await rm(join(outputDir, "assets"), { recursive: true, force: true });
 
-const homeHtml = await readFile(join(outputDir, "index.html"), "utf8");
-await writeFile(join(outputDir, "404.html"), homeHtml, "utf8");
+const notFoundResponse = await worker.fetch(
+  new Request(`${siteOrigin}/pagina-nao-encontrada`, { headers: { accept: "text/html" } }),
+  environment,
+  executionContext,
+);
+if (notFoundResponse.status !== 404) {
+  throw new Error(`Falha ao exportar o 404 real: HTTP ${notFoundResponse.status}`);
+}
+const notFoundHtml = (await notFoundResponse.text())
+  .replace(/<link\b(?=[^>]*\brel=["']modulepreload["'])[^>]*>\s*/gi, "")
+  .replace(/<script\b([^>]*)>([\s\S]*?)<\/script>\s*/gi, (full, attributes, body) => {
+    const isVinextRuntime = /\bid=["']_R_["']/i.test(attributes) || body.includes("__VINEXT_RSC_");
+    return isVinextRuntime ? "" : full;
+  });
+if (!notFoundHtml.includes("Página não encontrada") || !notFoundHtml.includes("noindex")) {
+  throw new Error("HTML 404 incompleto ou sem noindex.");
+}
+if (/<link rel="canonical"/i.test(notFoundHtml)) {
+  throw new Error("A página 404 não deve declarar canonical.");
+}
+await writeFile(join(outputDir, "404.html"), notFoundHtml, "utf8");
 
 console.log(`Publicação estática criada em ${outputDir}`);

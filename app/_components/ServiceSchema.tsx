@@ -16,7 +16,7 @@ export function ServiceSchema({ name, description, pathname }: ServiceSchemaProp
         description,
         serviceType: name,
         url,
-        areaServed: { "@type": "Country", name: "Brasil" },
+        areaServed: { "@type": "AdministrativeArea", name: "Estado de São Paulo" },
         provider: { "@id": "https://sungridsolar.site/#organization" },
       },
       {
