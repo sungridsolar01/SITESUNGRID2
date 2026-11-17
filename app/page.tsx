@@ -61,7 +61,16 @@ export default function Home() {
           <h1>Energia Solar em SP<br /><em>do projeto à manutenção</em></h1>
           <p>Instalação de energia solar para casas, empresas e propriedades rurais, manutenção, seguro fotovoltaico e carregadores para veículos elétricos — com atendimento em todo o estado de São Paulo.</p>
           <div className="hero-actions">
-            <a className="button primary" href={waHome} target="_blank" rel="noreferrer">Pedir orçamento no WhatsApp <Arrow /></a>
+            <div className="hero-buttons">
+              <a className="button primary" href={waHome} target="_blank" rel="noreferrer">Pedir orçamento no WhatsApp <Arrow /></a>
+              <a className="button secondary hero-calculator" href="/calculadora-solar/">
+                <span className="button-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2.5" width="16" height="19" rx="2" /><path d="M8 6.5h8M8 11h.01M12 11h.01M16 11h.01M8 14.5h.01M12 14.5h.01M16 14.5v3.5M8 18h4" /></svg>
+                  Calculadora Solar
+                </span>
+                <Arrow />
+              </a>
+            </div>
             <a className="text-link" href="#servicos">Conheça os serviços <span>↓</span></a>
           </div>
           <div className="trust-row">

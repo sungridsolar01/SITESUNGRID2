@@ -483,3 +483,14 @@ footer { padding: 36px clamp(24px, 5vw, 84px); border-top: 1px solid var(--line)
   .calculator-cta { padding: 62px 20px; }
   .calculator-cta-copy .button { width: 100%; justify-content: space-between; }
 }
+
+/* Home: botão da calculadora logo abaixo do WhatsApp (secundário) */
+.hero-buttons { display: grid; gap: 12px; width: max-content; max-width: 100%; }
+.hero-buttons .button { width: 100%; margin-top: 0; }
+.button.secondary { background: transparent; color: var(--white); border: 1px solid #59605a; box-shadow: none; transition: transform .2s ease, border-color .2s ease, color .2s ease; }
+.button.secondary:hover { border-color: var(--lime); color: var(--lime); transform: translateY(-2px); }
+.button-icon { display: inline-flex; align-items: center; gap: 10px; }
+.button-icon svg { color: var(--lime); flex: none; }
+@media (max-width: 760px) {
+  .hero-buttons { width: 100%; }
+}

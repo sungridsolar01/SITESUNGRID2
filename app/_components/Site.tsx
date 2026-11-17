@@ -1,7 +1,7 @@
 import { FooterNap } from "./BusinessInfo";
 
 /** Versão usada para forçar atualização de cache de JS, favicon e imagem social. */
-export const ASSET_VERSION = "2026111703";
+export const ASSET_VERSION = "2026111704";
 
 export const WHATSAPP_NUMBER = "5512991886006";
 

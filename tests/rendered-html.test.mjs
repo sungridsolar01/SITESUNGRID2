@@ -57,6 +57,8 @@ test("renders the Sungrid home with complete SEO metadata and service links", as
     assert.match(html, new RegExp(`href="/${path}/"`));
   }
   assert.match(html, /class="header-cta" href="https:\/\/wa\.me\/5512991886006\?text=/);
+  // Botão da calculadora logo abaixo do botão principal do WhatsApp, no topo da home.
+  assert.match(html, /<div class="hero-buttons"><a class="button primary" href="https:\/\/wa\.me\/5512991886006\?text=[^"]*"[^>]*>Pedir orçamento no WhatsApp[\s\S]*?<\/a><a class="button secondary hero-calculator" href="\/calculadora-solar\/">/);
   assert.match(html, /name="Serviço"/);
   assert.match(html, /href="tel:\+5512991886006"/);
   assert.match(html, /R\. Cel\. José Domingues de Vasconcelos, 181/);
