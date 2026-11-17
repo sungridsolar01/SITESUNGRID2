@@ -9,7 +9,7 @@ export const businessInfo = {
   addressRegion: "SP",
   postalCode: "12243-840",
   addressCountry: "BR",
-  formattedAddress: "R. Cel. José Domingues de Vasconcelos, 181 - Vila Adyana, São José dos Campos - SP, 12243-840",
+  formattedAddress: "R. Cel. José Domingues de Vasconcelos, 181, Vila Adyana, São José dos Campos - SP, 12243-840",
 } as const;
 
 export function FooterNap() {

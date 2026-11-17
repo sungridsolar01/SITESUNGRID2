@@ -1,7 +1,7 @@
 import { FooterNap } from "./BusinessInfo";
 
 /** Versão usada para forçar atualização de cache de JS, favicon e imagem social. */
-export const ASSET_VERSION = "20261117";
+export const ASSET_VERSION = "2026111702";
 
 export const WHATSAPP_NUMBER = "5512991886006";
 
@@ -81,7 +81,7 @@ export function SiteHeader({ variant, whatsappHref }: SiteHeaderProps) {
           <a href="/">Página principal</a>
           <span className="nav-label">Energia solar</span>
           {solarLinks.map((link) => <a href={link.href} key={link.href}>{link.label}</a>)}
-          <a href="/carregadores-veiculares/">Carregadores veiculares</a>
+          <a href="/carregadores-veiculares/">Wallbox e carro elétrico</a>
           <span className="nav-label">Manutenção</span>
           {maintenanceLinks.map((link) => <a href={link.href} key={link.href}>{link.label}</a>)}
           <span className="nav-label">Onde atendemos</span>
@@ -116,7 +116,7 @@ const crossLinkItems: NavLink[] = [
   { href: "/energia-solar-comercial/", label: "Energia solar comercial" },
   { href: "/energia-solar-rural/", label: "Energia solar rural" },
   { href: "/sistemas-hibridos-e-baterias/", label: "Sistemas híbridos e baterias" },
-  { href: "/carregadores-veiculares/", label: "Carregadores veiculares" },
+  { href: "/carregadores-veiculares/", label: "Instalação de wallbox" },
   { href: "/manutencao-de-energia-solar/", label: "Manutenção de energia solar" },
   { href: "/limpeza-de-paineis-solares/", label: "Limpeza de painéis solares" },
   { href: "/diagnostico-de-sistema-fotovoltaico/", label: "Diagnóstico fotovoltaico" },

@@ -17,7 +17,7 @@ const serviceLinks = [
   ["/energia-solar-comercial/", "Energia solar comercial"],
   ["/energia-solar-rural/", "Energia solar rural"],
   ["/sistemas-hibridos-e-baterias/", "Híbridos e baterias"],
-  ["/carregadores-veiculares/", "Carregadores veiculares"],
+  ["/carregadores-veiculares/", "Instalação de wallbox"],
   ["/manutencao-de-energia-solar/", "Manutenção"],
   ["/limpeza-de-paineis-solares/", "Limpeza de painéis"],
 ] as const;

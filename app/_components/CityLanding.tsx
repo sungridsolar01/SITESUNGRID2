@@ -31,7 +31,7 @@ export function CityLanding({ slug }: { slug: string }) {
   const services = [
     { number: "01", title: `Instalação de energia solar ${city.inCity}`, text: "Projeto e instalação para casas, empresas e propriedades rurais, dimensionados pelo consumo do imóvel.", icon: "/icons/noun/energy-performance.webp", href: "/energia-solar-residencial/", link: "Energia solar residencial" },
     { number: "02", title: "Manutenção e limpeza de painéis", text: "Limpeza técnica, inspeção e diagnóstico para manter a geração, inclusive em sistemas de outras empresas.", icon: "/icons/noun/solar-cleaning.webp", href: "/limpeza-de-paineis-solares/", link: "Limpeza de painéis" },
-    { number: "03", title: "Carregador veicular", text: "Instalação de carregador para carro elétrico com circuito dedicado e proteções, em casa, condomínio ou empresa.", icon: "/icons/ev-charger.svg", href: "/carregadores-veiculares/", link: "Carregadores veiculares" },
+    { number: "03", title: "Carregador de carro elétrico", text: "Instalação de wallbox (carregador de carro elétrico) com circuito dedicado e proteções, em casa, condomínio ou empresa.", icon: "/icons/ev-charger.svg", href: "/carregadores-veiculares/", link: "Instalação de wallbox" },
     { number: "04", title: "Híbridos e baterias", text: "Sistemas com baterias para manter cargas importantes em quedas de energia, e soluções off-grid.", icon: "/icons/battery-solar.svg", href: "/sistemas-hibridos-e-baterias/", link: "Híbridos e baterias" },
   ];
 

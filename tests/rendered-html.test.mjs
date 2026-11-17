@@ -34,7 +34,7 @@ test("renders the Sungrid home with complete SEO metadata and service links", as
   assert.match(html, /property="og:type" content="website"/);
   assert.match(html, /property="og:url" content="https:\/\/sungridsolar\.site\/"/);
   assert.match(html, /"@type":\["LocalBusiness","Electrician"\]/);
-  assert.match(html, /"streetAddress":"R\. Cel\. José Domingues de Vasconcelos, 181 - Vila Adyana"/);
+  assert.match(html, /"streetAddress":"R\. Cel\. José Domingues de Vasconcelos, 181, Vila Adyana"/);
   assert.match(html, /"telephone":"\+55 12 99188-6006"/);
   assert.match(html, /"@type":"FAQPage"/);
   assert.match(html, /id="como-funciona"/);
@@ -127,7 +127,7 @@ const seoPages = [
   ["/manutencao-de-energia-solar", "Manutenção de Energia Solar em SP", "Manutenção de energia solar em SP"],
   ["/diagnostico-de-sistema-fotovoltaico", "Diagnóstico de Sistema Fotovoltaico em SP", "Diagnóstico de sistema fotovoltaico em SP"],
   ["/contato", "Contato Sungrid em SP", "Peça seu orçamento"],
-  ["/carregadores-veiculares", "Carregador para Carro Elétrico em SP", "Carregadores veiculares em SP"],
+  ["/carregadores-veiculares", "Instalação de Wallbox em SP", "Instalação de wallbox em SP"],
 ];
 
 const installPages = [
@@ -200,6 +200,28 @@ for (const [pathname, expectedTitle, utility] of cityPages) {
     assert.equal(hasMap, pathname === "/energia-solar-sao-jose-dos-campos", "o mapa aparece só na página da sede");
   });
 }
+
+test("renders the SEO tweaks for wallbox, cleaning and inverter errors", async () => {
+  const wallbox = await (await render("/carregadores-veiculares")).text();
+  assert.match(wallbox, /<title>Instalação de Wallbox em SP \| Carregador de Carro Elétrico/);
+  assert.match(wallbox, /<h1>Instalação de wallbox em SP<br\/?>/);
+  assert.match(wallbox, /id="condominios"/);
+  assert.match(wallbox, /síndico/);
+  assert.match(wallbox, /"@type":"FAQPage"/);
+  const cleaning = await (await render("/limpeza-de-paineis-solares")).text();
+  assert.match(cleaning, /"@type":"FAQPage"/);
+  assert.match(cleaning, /id="orcamento-limpeza"/);
+  assert.doesNotMatch(cleaning, /R\$\s?\d/);
+  const diagnosis = await (await render("/diagnostico-de-sistema-fotovoltaico")).text();
+  assert.match(diagnosis, /id="sistema-parou"/);
+  assert.match(diagnosis, /Sistema parou<br\/?><em>ou erro no inversor\?/);
+  assert.doesNotMatch(diagnosis, /class="inverter-guides"/, "sem guias cadastrados o bloco de links não aparece");
+  for (const html of [wallbox, cleaning, diagnosis]) {
+    assert.match(html, /R\. Cel\. José Domingues de Vasconcelos, 181, Vila Adyana, São José dos Campos - SP, 12243-840/);
+    assert.match(html, /\(12\) 99188-6006/);
+    assert.doesNotMatch(html, /Urbanova|\bPIT\b/);
+  }
+});
 
 test("renders the hybrid and battery page with FAQPage schema", async () => {
   const response = await render("/sistemas-hibridos-e-baterias");

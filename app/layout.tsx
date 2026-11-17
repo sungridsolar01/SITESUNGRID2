@@ -42,7 +42,7 @@ const organizationSchema = {
       telephone: businessInfo.telephone,
       address: {
         "@type": "PostalAddress",
-        streetAddress: `${businessInfo.streetAddress} - ${businessInfo.neighborhood}`,
+        streetAddress: `${businessInfo.streetAddress}, ${businessInfo.neighborhood}`,
         addressLocality: businessInfo.addressLocality,
         addressRegion: businessInfo.addressRegion,
         postalCode: businessInfo.postalCode,

@@ -21,7 +21,7 @@ export default function NotFound() {
           <a href="/energia-solar-residencial/">Energia solar residencial</a>
           <a href="/energia-solar-comercial/">Energia solar comercial</a>
           <a href="/energia-solar-rural/">Energia solar rural</a>
-          <a href="/carregadores-veiculares/">Carregadores veiculares</a>
+          <a href="/carregadores-veiculares/">Instalação de wallbox</a>
           <a href="/manutencao-de-energia-solar/">Manutenção de energia solar</a>
           <a href="/limpeza-de-paineis-solares/">Limpeza de painéis solares</a>
           <a href="/diagnostico-de-sistema-fotovoltaico/">Diagnóstico fotovoltaico</a>

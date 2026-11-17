@@ -11,7 +11,7 @@ export const serviceOptions = [
   "Manutenção / limpeza",
   "Diagnóstico",
   "Seguro",
-  "Carregador veicular",
+  "Carregador de carro elétrico (wallbox)",
   "Sistema híbrido / baterias",
   "Outro",
 ] as const;
