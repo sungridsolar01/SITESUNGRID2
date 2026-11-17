@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { ContactForm, type ServiceOption } from "./ContactForm";
 import { FaqSchema } from "./FaqSchema";
 import { CrossLinks, SiteFooter, SiteHeader, WhatsAppFloat, whatsappForPage } from "./Site";
@@ -39,6 +40,8 @@ type ServiceLandingProps = {
   contactTitle?: string;
   contactAccent?: string;
   footerText?: string;
+  /** Conteúdo extra depois da seção de solução (ex.: chamada para a calculadora solar). */
+  afterSolution?: ReactNode;
 };
 
 export function ServiceLanding(props: ServiceLandingProps) {
@@ -129,6 +132,8 @@ export function ServiceLanding(props: ServiceLandingProps) {
           ))}
         </div>
       </section>
+
+      {props.afterSolution}
 
       <section className="service-process">
         <div className="process-heading">

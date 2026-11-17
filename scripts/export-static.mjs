@@ -22,6 +22,9 @@ const pages = [
   { pathname: "/energia-solar-sao-jose-dos-campos", output: "energia-solar-sao-jose-dos-campos/index.html", priority: "0.8", changefreq: "monthly" },
   { pathname: "/energia-solar-estado-de-sao-paulo", output: "energia-solar-estado-de-sao-paulo/index.html", priority: "0.8", changefreq: "monthly" },
   // Cidades em rascunho (São Paulo, Guarulhos, Sorocaba, Araçatuba) não são exportadas. Ver app/_components/cities.ts.
+  // Calculadora solar: formulário no sitemap; resultado fora do sitemap (noindex). Não têm formulário de contato.
+  { pathname: "/calculadora-solar", output: "calculadora-solar/index.html", priority: "0.9", changefreq: "monthly", requireForm: false },
+  { pathname: "/calculadora-solar/resultado", output: "calculadora-solar/resultado/index.html", requireForm: false, sitemap: false },
   { pathname: "/blog", output: "blog/index.html", priority: "0.7", changefreq: "weekly" },
   { pathname: "/contato", output: "contato/index.html", priority: "0.7", changefreq: "monthly" },
 ];
@@ -74,7 +77,7 @@ while (queue.length > 0) {
   }
 
   const html = stripRuntime(await response.text());
-  if (!html.includes("<title>") || !html.includes("data-sungrid-form")) {
+  if (!html.includes("<title>") || (page.requireForm !== false && !html.includes("data-sungrid-form"))) {
     throw new Error(`HTML incompleto gerado para ${page.pathname}`);
   }
 
@@ -104,7 +107,7 @@ while (queue.length > 0) {
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${exported.map((page) => `  <url>
+${exported.filter((page) => page.sitemap !== false).map((page) => `  <url>
     <loc>${siteOrigin}${page.pathname === "/" ? "/" : `${page.pathname}/`}</loc>
     <lastmod>${page.lastmod}</lastmod>
     <changefreq>${page.changefreq}</changefreq>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CalculatorCta } from "./_components/CalculatorCta";
 import { ContactForm } from "./_components/ContactForm";
 import { FaqSchema } from "./_components/FaqSchema";
 import { Arrow, SiteFooter, SiteHeader, WhatsAppFloat, whatsappUrl } from "./_components/Site";
@@ -141,6 +142,8 @@ export default function Home() {
           <li><span>04</span><div><h3>Operação e manutenção</h3><p>Limpeza, inspeções e diagnóstico mantêm o sistema produzindo com segurança ao longo dos anos.</p></div></li>
         </ol>
       </section>
+
+      <CalculatorCta />
 
       <section className="performance" id="beneficios">
         <div className="performance-copy">

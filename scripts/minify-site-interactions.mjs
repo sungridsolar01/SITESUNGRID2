@@ -4,18 +4,21 @@ import { fileURLToPath } from "node:url";
 import { minify } from "terser";
 
 const rootDir = join(dirname(fileURLToPath(import.meta.url)), "..");
-const sourcePath = join(rootDir, "public", "js", "site-interactions.js");
-const destinationPath = join(rootDir, "public", "js", "site-interactions.min.js");
-const source = await readFile(sourcePath, "utf8");
-const result = await minify(source, {
-  compress: true,
-  mangle: true,
-  format: { comments: false },
-});
+// Scripts do site minificados para public/js/<nome>.min.js
+for (const name of ["site-interactions", "solar-calculator"]) {
+  const sourcePath = join(rootDir, "public", "js", `${name}.js`);
+  const destinationPath = join(rootDir, "public", "js", `${name}.min.js`);
+  const source = await readFile(sourcePath, "utf8");
+  const result = await minify(source, {
+    compress: true,
+    mangle: true,
+    format: { comments: false },
+  });
 
-if (!result.code) {
-  throw new Error("A minificação de site-interactions.js não gerou conteúdo.");
+  if (!result.code) {
+    throw new Error(`A minificação de ${name}.js não gerou conteúdo.`);
+  }
+
+  await writeFile(destinationPath, `${result.code}\n`, "utf8");
 }
-
-await writeFile(destinationPath, `${result.code}\n`, "utf8");
-console.log("JavaScript de interação minificado com sucesso");
+console.log("JavaScript do site minificado com sucesso");

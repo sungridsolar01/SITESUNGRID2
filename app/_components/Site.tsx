@@ -1,7 +1,7 @@
 import { FooterNap } from "./BusinessInfo";
 
 /** Versão usada para forçar atualização de cache de JS, favicon e imagem social. */
-export const ASSET_VERSION = "2026111702";
+export const ASSET_VERSION = "2026111703";
 
 export const WHATSAPP_NUMBER = "5512991886006";
 
@@ -22,6 +22,7 @@ export const solarLinks: NavLink[] = [
   { href: "/energia-solar-comercial/", label: "Energia solar comercial" },
   { href: "/energia-solar-rural/", label: "Energia solar rural" },
   { href: "/sistemas-hibridos-e-baterias/", label: "Híbridos e baterias" },
+  { href: "/calculadora-solar/", label: "Calculadora solar" },
 ];
 
 export const maintenanceLinks: NavLink[] = [

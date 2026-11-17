@@ -223,6 +223,60 @@ test("renders the SEO tweaks for wallbox, cleaning and inverter errors", async (
   }
 });
 
+test("renders the solar calculator form with the Sungrid parameters", async () => {
+  const response = await render("/calculadora-solar");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /<title>Calculadora Solar \| Estime seu Sistema de Energia Solar \| Sungrid<\/title>/);
+  assert.match(html, /rel="canonical" href="https:\/\/sungridsolar\.site\/calculadora-solar\/"/);
+  assert.match(html, /data-solar-calculator/);
+  assert.match(html, /<option value="SP" selected="">São Paulo<\/option>|<option selected="" value="SP">/);
+  assert.match(html, /type="range"[^>]*max="10000"/);
+  assert.match(html, /R\$ 10\.000 ou mais/);
+  assert.match(html, /Tem interesse em baterias e sistemas de armazenamento\?/);
+  assert.match(html, /Calculadora em configuração — fale com a equipe no WhatsApp/);
+  assert.match(html, /src="\/js\/solar-calculator\.min\.js\?v=\d+"/);
+  const config = JSON.parse(html.match(/<script type="application\/json" id="solar-calculator-config">([^<]*)<\/script>/)[1]);
+  assert.equal(config.irradiacaoKwhM2Dia, 4.7);
+  assert.equal(config.precoPorKwp, 2990);
+  assert.equal(config.precoPorKwpAcimaLimite, 2850);
+  assert.equal(config.limiteKwpPrecoReduzido, 30);
+  assert.equal(config.potenciaModuloKwp, 0.6);
+  assert.equal(config.gastoMaximo, 10000);
+  assert.equal(config.whatsappNumber, "5512991886006");
+  // Tarifa e fator de desempenho definidos pela Sungrid em 17/11/2026.
+  assert.equal(config.tarifaRsPorKwh, 0.95);
+  assert.equal(config.fatorDesempenho, 0.82);
+});
+
+test("renders the calculator result page with only the requested items", async () => {
+  const response = await render("/calculadora-solar/resultado");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /<meta name="robots" content="noindex, follow"\/>/);
+  assert.doesNotMatch(html, /rel="canonical"/);
+  assert.doesNotMatch(html, /class="whatsapp-float"/);
+  assert.doesNotMatch(html, /data-sungrid-form/);
+  assert.doesNotMatch(html, /aria-label="Serviços relacionados"/);
+  const card = html.match(/<div class="calculator-result-card"[\s\S]*?<\/div><div class="calculator-pending"/)[0];
+  assert.equal((card.match(/<dt>/g) || []).length, 3);
+  assert.match(card, /O projeto já inclui equipamentos, aprovação do projeto e instalação\./);
+  assert.match(card, />Confirme seu orçamento </);
+  assert.match(card, /a partir de/);
+  assert.match(card, /Estimativa sujeita à confirmação pela equipe Sungrid\./);
+});
+
+test("links the calculator from navigation, home and solar pages", async () => {
+  for (const pathname of ["/", "/energia-solar-residencial", "/energia-solar-comercial"]) {
+    const html = await (await render(pathname)).text();
+    assert.match(html, /class="calculator-cta"/, `${pathname} deve ter a chamada para a calculadora`);
+    assert.match(html, /href="\/calculadora-solar\/"/);
+  }
+  const sitemap = await readFile(new URL("../public/sitemap.xml", import.meta.url), "utf8");
+  assert.match(sitemap, /https:\/\/sungridsolar\.site\/calculadora-solar\/</);
+  assert.doesNotMatch(sitemap, /calculadora-solar\/resultado/);
+});
+
 test("renders the hybrid and battery page with FAQPage schema", async () => {
   const response = await render("/sistemas-hibridos-e-baterias");
   assert.equal(response.status, 200);

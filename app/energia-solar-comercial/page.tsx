@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CalculatorCta } from "../_components/CalculatorCta";
 import { ServiceLanding } from "../_components/ServiceLanding";
 import { ServiceSchema } from "../_components/ServiceSchema";
 
@@ -16,6 +17,7 @@ export default function EnergiaSolarComercialPage() {
   return <>
     <ServiceSchema name="Energia solar comercial" description={description} pathname="/energia-solar-comercial/" />
     <ServiceLanding
+      afterSolution={<CalculatorCta />}
       kind="solar"
       pathname="/energia-solar-comercial/"
       waLabel="energia solar comercial"

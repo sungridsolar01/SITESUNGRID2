@@ -14,6 +14,8 @@ const publishedEntries = [
   "energia-solar-comercial",
   "energia-solar-rural",
   "carregadores-veiculares",
+  "calculadora-solar",
+  "data",
   "sistemas-hibridos-e-baterias",
   "energia-solar-sao-jose-dos-campos",
   "energia-solar-estado-de-sao-paulo",
