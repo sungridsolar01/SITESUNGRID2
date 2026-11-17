@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/diagnostico-de-sistema-fotovoltaico/" },
-  openGraph: { type: "website", url: "/diagnostico-de-sistema-fotovoltaico/", title, description, images: ["/og.png"] },
+  openGraph: { type: "website", url: "/diagnostico-de-sistema-fotovoltaico/", title, description, images: ["/og.png?v=20261117"] },
 };
 
 export default function DiagnosticoFotovoltaicoPage() {
@@ -19,6 +19,7 @@ export default function DiagnosticoFotovoltaicoPage() {
     accent="com evidências claras."
     description={description}
     serviceName="Diagnóstico de sistema fotovoltaico"
+    defaultService="Diagnóstico"
     sectionTitle="Diagnóstico de falhas"
     sectionAccent="e queda de geração."
     sectionText="Uma queda de produção pode ter várias causas: sujeira, sombreamento, conexões, módulos, inversores ou configuração. A análise técnica organiza os sinais e direciona a intervenção certa."

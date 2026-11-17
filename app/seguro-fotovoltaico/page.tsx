@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/seguro-fotovoltaico/" },
-  openGraph: { type: "website", url: "/seguro-fotovoltaico/", title, description, images: ["/og.png"] },
+  openGraph: { type: "website", url: "/seguro-fotovoltaico/", title, description, images: ["/og.png?v=20261117"] },
 };
 
 export default function SeguroFotovoltaicoPage() {
@@ -16,6 +16,8 @@ export default function SeguroFotovoltaicoPage() {
     <ServiceSchema name="Seguro para sistemas fotovoltaicos" description={description} pathname="/seguro-fotovoltaico/" />
     <ServiceLanding
     kind="insurance"
+    pathname="/seguro-fotovoltaico/"
+    waLabel="seguro fotovoltaico"
     eyebrow="SEGURO PARA SISTEMAS FOTOVOLTAICOS"
     title="Sua energia trabalha por você."
     accent="Seu investimento merece proteção."

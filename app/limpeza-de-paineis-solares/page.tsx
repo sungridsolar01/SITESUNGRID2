@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { SeoServicePage } from "../_components/SeoServicePage";
 
-const title = "Limpeza de Painéis Solares em SP | Sungrid";
-const description = "Limpeza técnica de painéis solares no estado de São Paulo para remover sujeira com segurança, recuperar a geração e preservar os módulos.";
+const title = "Limpeza de Painéis Solares em SP | Limpeza Técnica de Placas | Sungrid";
+const description = "Limpeza de placas solares no estado de São Paulo: limpeza técnica dos painéis com método seguro para o vidro, inspeção visual e registro do serviço. Orçamento pelo WhatsApp.";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/limpeza-de-paineis-solares/" },
-  openGraph: { type: "website", url: "/limpeza-de-paineis-solares/", title, description, images: ["/og.png"] },
+  openGraph: { type: "website", url: "/limpeza-de-paineis-solares/", title, description, images: ["/og.png?v=20261117"] },
 };
 
 export default function LimpezaPaineisPage() {
@@ -19,6 +19,7 @@ export default function LimpezaPaineisPage() {
     accent="com método e segurança."
     description={description}
     serviceName="Limpeza de painéis solares"
+    defaultService="Manutenção / limpeza"
     sectionTitle="Limpeza técnica"
     sectionAccent="que protege a geração."
     sectionText="Poeira, fuligem, folhas, dejetos e maresia reduzem a passagem de luz e podem criar perdas desiguais entre os módulos. A Sungrid avalia o local e executa a limpeza com procedimento adequado ao sistema."

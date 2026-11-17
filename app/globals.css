@@ -212,3 +212,175 @@ footer { padding: 36px clamp(24px, 5vw, 84px); border-top: 1px solid var(--line)
   .seo-related { grid-template-columns: 1fr; padding: 52px 20px; }.seo-related > div { grid-template-columns: 1fr; }.seo-related a:nth-child(odd) { margin-right: 0; }
   .local-service-section { padding: 62px 20px; }.local-service-section h2 { font-size: clamp(38px,11.5vw,50px); line-height: 1.02; }.footer-nap { display: grid; gap: 7px; }.not-found-content { padding: 72px 20px; }.not-found-content nav { align-items: stretch; flex-direction: column; }.not-found-content nav .button { width: 100%; }
 }
+
+/* Site geral de energia solar (nov/2026): navegação agrupada, CTA de WhatsApp no celular, grade de 8 serviços e blog */
+.nav-group { position: relative; }
+.nav-group > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: color .2s; }
+.nav-group > summary::-webkit-details-marker { display: none; }
+.nav-group > summary span { font-size: .8em; color: var(--muted); transition: transform .2s; }
+.nav-group[open] > summary span { transform: rotate(180deg); }
+.nav > .nav-group > summary:hover, .nav > .nav-group[open] > summary { color: var(--lime); }
+.service-nav > .nav-group > summary:hover, .service-nav > .nav-group[open] > summary { color: var(--service-accent, var(--lime)); }
+.nav-group-menu { position: absolute; top: calc(100% + 18px); left: -18px; min-width: 220px; display: grid; background: rgba(16,18,16,.98); border: 1px solid var(--line); border-radius: 3px; box-shadow: 0 20px 50px rgba(0,0,0,.35); padding: 8px 0; z-index: 30; }
+.nav-group-menu a { padding: 11px 18px; white-space: nowrap; }
+.nav-group-menu a:hover { background: rgba(255,255,255,.04); }
+.nav-label { display: none; }
+.mobile-nav .nav-label { display: block; font: 9px "DM Mono"; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: 18px 0 6px; }
+.mobile-nav .nav-label:first-of-type { padding-top: 10px; }
+.service-landing.solar { --service-accent: var(--lime); }
+.metric-main > strong.metric-text { font-size: 40px; line-height: 1.02; letter-spacing: -.02em; }
+
+@media (min-width: 721px) and (max-width: 1240px) {
+  .site-header .nav, .site-header .service-nav { gap: 16px; font-size: 11px; }
+  .header-cta { gap: 12px; padding: 12px 14px; }
+}
+@media (min-width: 721px) and (max-width: 960px) {
+  .site-header .desktop-nav { display: none; }
+  .site-header .mobile-menu { display: block; order: 3; }
+  .site-header .menu-button { display: block; min-width: 44px; min-height: 44px; padding: 8px; }
+  .site-header .header-cta { margin-left: auto; margin-right: 12px; }
+  .site-header .mobile-nav { position: fixed; top: 84px; left: 0; right: 0; max-height: calc(100dvh - 84px); overflow-y: auto; background: rgba(16,18,16,.98); padding: 18px 28px 26px; gap: 0; flex-direction: column; align-items: stretch; transform: translateY(-16px); opacity: 0; visibility: hidden; pointer-events: none; transition: transform .22s ease, opacity .22s ease, visibility .22s; border-bottom: 1px solid var(--line); box-shadow: 0 20px 50px rgba(0,0,0,.35); }
+  .site-header .mobile-nav a { display: flex; align-items: center; min-height: 48px; border-bottom: 1px solid rgba(255,255,255,.07); }
+  .mobile-menu[open] .mobile-nav { transform: translateY(0); opacity: 1; visibility: visible; pointer-events: auto; }
+}
+@media (max-width: 760px) {
+  .site-header .header-cta { display: flex; margin-left: auto; margin-right: 10px; padding: 11px 12px; gap: 8px; font-size: 11px; white-space: nowrap; }
+  .site-header .mobile-menu { order: 3; }
+}
+@media (max-width: 360px) {
+  .site-header .header-cta .cta-label { font-size: 10px; }
+  .site-header .header-cta { padding: 10px; margin-right: 6px; }
+}
+
+.service-grid-wide .service-card:nth-child(4n) { border-right: 0; }
+.service-grid-wide .service-card:nth-child(-n+4) { border-bottom: 1px solid #cdd0ca; }
+@media (min-width: 721px) and (max-width: 1050px) {
+  .service-grid-wide .service-card:nth-child(odd) { border-right: 1px solid #cdd0ca; }
+  .service-grid-wide .service-card:nth-child(even) { border-right: 0; }
+}
+@media (max-width: 720px) {
+  .service-grid-wide .service-card { border-right: 0; }
+}
+
+/* Blog */
+.blog-grid { grid-template-columns: repeat(3, 1fr); }
+.blog-card { min-height: 340px; border-bottom: 1px solid #cdd0ca; }
+.blog-card:nth-child(3n) { border-right: 0; }
+.blog-card h3 { margin-top: 46px; font-size: 24px; line-height: 1.15; }
+.blog-card .blog-meta { display: block; margin: 22px 0 0; font: 10px "DM Mono"; letter-spacing: .04em; color: #687068; }
+.blog-card:hover .blog-meta { color: #9ca29c; }
+.blog-hero h1 { font-size: clamp(42px, 5.4vw, 84px); line-height: 1; }
+.blog-hero .blog-meta, .blog-hero > p.blog-meta { font: 10px "DM Mono"; letter-spacing: .06em; color: #858b85; margin: 0; }
+.blog-article { background: var(--paper); color: var(--ink); padding: clamp(60px, 8vw, 120px) clamp(24px, 5vw, 84px); }
+.blog-body { max-width: 760px; margin: 0 auto; font-size: 16px; line-height: 1.8; color: #2c312d; }
+.blog-body h2 { font: 600 clamp(28px, 3vw, 38px) "Urbanist"; line-height: 1.12; color: var(--ink); margin: 56px 0 18px; }
+.blog-body h3 { font: 600 22px "Urbanist"; color: var(--ink); margin: 36px 0 12px; }
+.blog-body p { margin: 0 0 20px; }
+.blog-body ul, .blog-body ol { margin: 0 0 24px; padding-left: 22px; }
+.blog-body li { margin-bottom: 10px; }
+.blog-body li::marker { color: #567800; }
+.blog-body a { color: #3f5a0c; border-bottom: 1px solid #9fc25a; }
+.blog-body a:hover { color: var(--ink); border-color: var(--ink); }
+.blog-body blockquote { margin: 0 0 24px; padding: 4px 0 4px 20px; border-left: 3px solid var(--lime); color: #4b524c; }
+.blog-cta { margin: 56px 0 28px; padding: 32px; background: var(--ink); color: var(--white); border-radius: 3px; display: grid; gap: 12px; justify-items: start; }
+.blog-cta strong { font: 600 24px "Urbanist"; }
+.blog-cta p { margin: 0 0 8px; color: #a1a7a1; font-size: 14px; }
+.blog-body .blog-cta a.button { color: var(--ink); border-bottom: 0; }
+.blog-back a { font-size: 13px; }
+@media (max-width: 1050px) {
+  .blog-grid { grid-template-columns: 1fr 1fr; }
+  .blog-card:nth-child(3n) { border-right: 1px solid #cdd0ca; }
+  .blog-card:nth-child(2n) { border-right: 0; }
+}
+@media (max-width: 720px) {
+  .blog-grid { grid-template-columns: 1fr; }
+  .blog-card, .blog-card:nth-child(3n) { border-right: 0; min-height: 0; }
+  .blog-body { font-size: 15px; }
+  .blog-cta { padding: 24px 20px; }
+  .blog-cta .button { width: 100%; }
+}
+/* Correção: páginas SEO/blog não definiam --service-accent, deixando o botão do cabeçalho invisível */
+.seo-service-page { --service-accent: var(--lime); }
+.blog-body ul { list-style: disc; }
+.blog-body ol { list-style: decimal; }
+
+/* Home: 9 serviços em 3 colunas */
+.service-grid.service-grid-wide { grid-template-columns: repeat(3, 1fr); }
+.service-grid-wide .service-card:nth-child(4n) { border-right: 1px solid #cdd0ca; }
+.service-grid-wide .service-card:nth-child(3n) { border-right: 0; }
+.service-grid-wide .service-card:nth-child(-n+4) { border-bottom: 0; }
+.service-grid-wide .service-card:nth-child(-n+6) { border-bottom: 1px solid #cdd0ca; }
+@media (min-width: 721px) and (max-width: 1050px) {
+  .service-grid.service-grid-wide { grid-template-columns: 1fr 1fr; }
+  .service-grid-wide .service-card:nth-child(n) { border-bottom: 1px solid #cdd0ca; }
+  .service-grid-wide .service-card:nth-child(odd) { border-right: 1px solid #cdd0ca; }
+  .service-grid-wide .service-card:nth-child(even) { border-right: 0; }
+}
+@media (max-width: 720px) {
+  .service-grid.service-grid-wide { grid-template-columns: 1fr; }
+  .service-grid-wide .service-card:nth-child(n) { border-right: 0; border-bottom: 1px solid #cdd0ca; }
+}
+
+/* Cidades atendidas */
+.city-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; }
+.city-links a { display: inline-flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1px solid #c1c6bf; border-radius: 3px; font: 600 14px "Urbanist"; transition: background .2s, color .2s; }
+.city-links a:hover { background: var(--ink); color: var(--white); }
+.footer-cities { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 10px; }
+.footer-cities strong { color: #eef0ed; font-weight: 600; font-family: "DM Mono"; letter-spacing: .06em; text-transform: uppercase; }
+.footer-cities a { color: #c9cec8; }
+.footer-cities a:hover { color: var(--lime); }
+.footer-cities span { color: #858b85; }
+.city-nearby { font-size: 13px !important; }
+.city-nearby strong { color: var(--ink); }
+
+/* Mapa da sede (São José dos Campos) */
+.city-map { background: var(--paper); color: var(--ink); padding: clamp(70px,8vw,120px) clamp(24px,5vw,84px); display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(36px,6vw,90px); align-items: stretch; }
+.city-map h2 { font-size: clamp(40px,4.6vw,70px); line-height: 1; margin: 22px 0 28px; }
+.city-map h2 em { color: #747a74; }
+.city-map address { font-style: normal; display: grid; gap: 8px; font-size: 14px; line-height: 1.6; color: #4b524c; margin-bottom: 30px; }
+.city-map address strong { color: var(--ink); }
+.city-map address a { color: #3f5a0c; font-weight: 700; }
+.city-map-frame { min-height: 380px; border: 1px solid #c1c6bf; border-radius: 3px; overflow: hidden; background: #e1e4dd; }
+.city-map-frame iframe { width: 100%; height: 100%; min-height: 380px; border: 0; display: block; }
+
+/* Vídeo do YouTube (carrega só no clique) */
+.video-embed { margin: 30px 0 0; max-width: 640px; }
+.video-embed-frame { position: relative; display: block; aspect-ratio: 16 / 9; background: #111; border-radius: 3px; overflow: hidden; border: 1px solid var(--line); }
+.video-embed-frame img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .82; transition: opacity .2s; }
+.video-embed-frame:hover img { opacity: 1; }
+.video-embed-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-play { position: absolute; left: 50%; top: 50%; width: 68px; height: 48px; transform: translate(-50%,-50%); background: var(--lime); border-radius: 12px; display: grid; place-items: center; color: var(--ink); font-size: 20px; }
+.video-embed figcaption { margin-top: 10px; font: 10px "DM Mono"; letter-spacing: .04em; color: #858b85; }
+.blog-body .video-embed { margin: 0 0 36px; max-width: none; }
+.blog-body .video-embed-frame { border-bottom: 0; }
+.video-section { background: var(--ink); padding: clamp(60px,7vw,100px) clamp(24px,5vw,84px) 0; }
+.video-section .video-embed { margin: 0 auto; max-width: 860px; }
+.video-section:empty { display: none; }
+.home-how-text { color: #9ca29c; font-size: 14px; line-height: 1.8; max-width: 460px; margin: 26px 0 22px; }
+
+/* Categorias do blog */
+.blog-categories { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 44px; }
+.blog-categories a, .blog-categories span { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid #c1c6bf; border-radius: 3px; font: 600 13px "Manrope"; }
+.blog-categories a:hover, .blog-categories a[aria-current="page"] { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.blog-categories small { font: 9px "DM Mono"; color: #687068; }
+.blog-categories a[aria-current="page"] small, .blog-categories a:hover small { color: var(--lime); }
+.blog-categories .blog-category-empty { color: #8a908a; border-style: dashed; }
+.blog-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.blog-tags a { font: 10px "DM Mono"; letter-spacing: .04em; padding: 6px 10px; border: 1px solid var(--line); border-radius: 3px; color: #c9cec8; }
+.blog-tags a:hover { color: var(--lime); border-color: var(--lime); }
+.blog-related { margin: 48px 0 0; padding-top: 28px; border-top: 1px solid #c1c6bf; }
+.blog-related strong { display: block; font: 600 20px "Urbanist"; color: var(--ink); margin-bottom: 14px; }
+.blog-body .blog-related ul { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+.blog-body .blog-related li { margin: 0; border-bottom: 1px solid #d3d6cf; }
+.blog-body .blog-related a { display: flex; justify-content: space-between; align-items: center; padding: 14px 2px; border-bottom: 0; color: var(--ink); font-weight: 600; }
+@media (max-width: 960px) {
+  .city-map { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .city-map { padding: 62px 20px; }
+  .city-map .button { width: 100%; }
+  .city-map-frame, .city-map-frame iframe { min-height: 300px; }
+  .blog-body .blog-related ul { grid-template-columns: 1fr; }
+  .video-section { padding: 56px 20px 0; }
+  .footer-cities { display: grid; gap: 8px; }
+}

@@ -4,6 +4,7 @@ export const businessInfo = {
   telephone: "+55 12 99188-6006",
   displayTelephone: "(12) 99188-6006",
   streetAddress: "R. Cel. José Domingues de Vasconcelos, 181",
+  neighborhood: "Vila Adyana",
   addressLocality: "São José dos Campos",
   addressRegion: "SP",
   postalCode: "12243-840",
@@ -16,7 +17,7 @@ export function FooterNap() {
     <address className="footer-nap">
       <strong>{businessInfo.name}</strong>
       <span>{businessInfo.formattedAddress}</span>
-      <a href={`tel:${businessInfo.telephone.replace(/\s/g, "")}`}>{businessInfo.displayTelephone}</a>
+      <a href={`tel:${businessInfo.telephone.replace(/[^\d+]/g, "")}`}>{businessInfo.displayTelephone}</a>
     </address>
   );
 }

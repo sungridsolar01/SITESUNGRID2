@@ -1,10 +1,37 @@
 type ContactFormProps = {
   kind: "home" | "insurance" | "utility";
+  /** Serviço pré-selecionado no campo "Serviço". */
+  defaultService?: ServiceOption;
 };
 
-export function ContactForm({ kind }: ContactFormProps) {
+export const serviceOptions = [
+  "Instalação residencial",
+  "Instalação comercial",
+  "Instalação rural",
+  "Manutenção / limpeza",
+  "Diagnóstico",
+  "Seguro",
+  "Carregador veicular",
+  "Sistema híbrido / baterias",
+  "Outro",
+] as const;
+
+export type ServiceOption = (typeof serviceOptions)[number];
+
+function ServiceSelect({ defaultValue }: { defaultValue: ServiceOption }) {
+  return (
+    <label>Serviço
+      <select name="Serviço" defaultValue={defaultValue}>
+        {serviceOptions.map((option) => <option key={option}>{option}</option>)}
+      </select>
+    </label>
+  );
+}
+
+export function ContactForm({ kind, defaultService }: ContactFormProps) {
   const isHome = kind === "home";
   const isInsurance = kind === "insurance";
+  const selectedService: ServiceOption = defaultService ?? (isInsurance ? "Seguro" : isHome ? "Instalação residencial" : "Manutenção / limpeza");
 
   return (
     <form className="contact-form" data-sungrid-form aria-busy="false">
@@ -12,7 +39,7 @@ export function ContactForm({ kind }: ContactFormProps) {
         type="hidden"
         name="_subject"
         value={isHome
-          ? "Nova solicitação de avaliação — Site Sungrid"
+          ? "Nova solicitação de orçamento — Site Sungrid"
           : `Nova solicitação — ${isInsurance ? "Seguro Fotovoltaico" : "Manutenção de Grandes Usinas"}`}
       />
       <input type="hidden" name="_template" value="table" />
@@ -30,8 +57,9 @@ export function ContactForm({ kind }: ContactFormProps) {
           <label>Seu nome<input type="text" name="Nome" placeholder="Como podemos chamar você?" autoComplete="name" required /></label>
           <label>E-mail<input type="email" name="Email" placeholder="seuemail@exemplo.com" autoComplete="email" required /></label>
           <label>Telefone / WhatsApp<input type="tel" name="Telefone" placeholder="(12) 99999-9999" autoComplete="tel" inputMode="tel" required /></label>
-          <label>Cidade / Estado<input type="text" name="Cidade" placeholder="Onde está o sistema?" autoComplete="address-level2" required /></label>
-          <label>Tipo de sistema<select name="Tipo de sistema" defaultValue="Residencial"><option>Residencial</option><option>Comercial</option><option>Industrial</option><option>Rural</option></select></label>
+          <label>Cidade / Estado<input type="text" name="Cidade" placeholder="Onde será o atendimento?" autoComplete="address-level2" required /></label>
+          <ServiceSelect defaultValue={selectedService} />
+          <label>Tipo de imóvel<select name="Tipo de imóvel" defaultValue="Residencial"><option>Residencial</option><option>Comercial</option><option>Industrial</option><option>Rural</option></select></label>
         </>
       ) : (
         <>
@@ -40,18 +68,19 @@ export function ContactForm({ kind }: ContactFormProps) {
             <label>E-mail<input type="email" name="Email" placeholder="seuemail@empresa.com" autoComplete="email" required /></label>
             <label>Telefone / WhatsApp<input type="tel" name="Telefone" placeholder="(12) 99999-9999" autoComplete="tel" inputMode="tel" required /></label>
           </div>
+          <ServiceSelect defaultValue={selectedService} />
           <label>{isInsurance ? "Potência aproximada do sistema" : "Potência instalada da usina"}<input type="text" name="Potência do sistema" placeholder={isInsurance ? "Ex.: 10 kWp, 75 kWp..." : "Ex.: 1 MWp, 5 MWp..."} required /></label>
         </>
       )}
 
       <button className="button primary" type="submit">
-        <span data-submit-label>{isHome ? "Enviar solicitação gratuita" : "Solicitar contato"}</span>
+        <span data-submit-label>{isHome ? "Enviar pedido de orçamento" : "Solicitar contato"}</span>
         <span aria-hidden="true">↗</span>
       </button>
 
       <div className="form-feedback" data-form-feedback role="status" aria-live="polite" />
       <small>{isHome
-        ? "Sem compromisso. Seus dados serão enviados com segurança para o atendimento da Sungrid."
+        ? "Sem compromisso. Seus dados serão enviados com segurança para o atendimento da Sungrid. Prefere conversar agora? Use o botão do WhatsApp."
         : "Seus dados serão usados somente para o atendimento desta solicitação."}</small>
     </form>
   );

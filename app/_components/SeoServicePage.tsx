@@ -1,6 +1,8 @@
-import { ContactForm } from "./ContactForm";
+import { ContactForm, type ServiceOption } from "./ContactForm";
+import type { ReactNode } from "react";
+import { FaqSchema } from "./FaqSchema";
 import { ServiceSchema } from "./ServiceSchema";
-import { FooterNap } from "./BusinessInfo";
+import { CrossLinks, SiteFooter, SiteHeader, WhatsAppFloat, whatsappForPage } from "./Site";
 
 type SeoServicePageProps = {
   pathname: string;
@@ -18,52 +20,25 @@ type SeoServicePageProps = {
   faq: Array<[string, string]>;
   contactTitle: string;
   contactAccent: string;
+  /** Texto da página na mensagem do WhatsApp ("Vim pela página de ..."). Padrão: nome do serviço. */
+  waLabel?: string;
+  sectionEyebrow?: string;
+  processTitle?: string;
+  processAccent?: string;
+  defaultService?: ServiceOption;
+  footerText?: string;
+  /** Conteúdo extra exibido depois dos benefícios (ex.: vídeo). */
+  afterContent?: ReactNode;
 };
 
-const whatsappUrl = "https://wa.me/5512991886006?text=Ol%C3%A1%2C%20Sungrid!%20Quero%20solicitar%20uma%20avalia%C3%A7%C3%A3o%20do%20meu%20sistema%20solar.";
-
-function Brand() {
-  return <><span className="brand-mark"><i /><i /><i /></span><span>SUNGRID</span></>;
-}
-
-const relatedServices = [
-  { href: "/limpeza-de-paineis-solares/", label: "Limpeza de painéis solares" },
-  { href: "/manutencao-de-energia-solar/", label: "Manutenção de energia solar" },
-  { href: "/diagnostico-de-sistema-fotovoltaico/", label: "Diagnóstico fotovoltaico" },
-  { href: "/seguro-fotovoltaico/", label: "Seguro fotovoltaico" },
-  { href: "/manutencao-grandes-usinas/", label: "Manutenção de grandes usinas" },
-  { href: "/contato/", label: "Solicitar avaliação" },
-];
-
 export function SeoServicePage(props: SeoServicePageProps) {
+  const waHref = whatsappForPage(props.waLabel ?? props.serviceName.toLowerCase());
   return (
     <main className="seo-service-page">
       <ServiceSchema name={props.serviceName} description={props.description} pathname={props.pathname} />
+      <FaqSchema faq={props.faq} pathname={props.pathname} />
 
-      <header className="site-header service-header">
-        <a className="brand" href="/" aria-label="Sungrid, página principal"><Brand /></a>
-        <nav className="service-nav desktop-nav" aria-label="Navegação principal">
-          <a href="/">Página principal</a>
-          <a href="/manutencao-de-energia-solar/">Manutenção solar</a>
-          <a href="/limpeza-de-paineis-solares/">Limpeza</a>
-          <a href="/diagnostico-de-sistema-fotovoltaico/">Diagnóstico</a>
-          <a href="/seguro-fotovoltaico/">Seguro</a>
-          <a href="/manutencao-grandes-usinas/">Grandes usinas</a>
-        </nav>
-        <details className="mobile-menu">
-          <summary className="menu-button" aria-label="Abrir menu"><span /><span /></summary>
-          <nav className="service-nav mobile-nav" aria-label="Navegação móvel">
-            <a href="/">Página principal</a>
-            <a href="/manutencao-de-energia-solar/">Manutenção solar</a>
-            <a href="/limpeza-de-paineis-solares/">Limpeza</a>
-            <a href="/diagnostico-de-sistema-fotovoltaico/">Diagnóstico</a>
-            <a href="/seguro-fotovoltaico/">Seguro</a>
-            <a href="/manutencao-grandes-usinas/">Grandes usinas</a>
-            <a href="/contato/">Contato</a>
-          </nav>
-        </details>
-        <a className="header-cta" href="#contato">Solicitar avaliação <span aria-hidden="true">↗</span></a>
-      </header>
+      <SiteHeader variant="service" whatsappHref={waHref} />
 
       <section className="seo-service-hero">
         <div className="eyebrow"><span /> {props.eyebrow}</div>
@@ -71,7 +46,7 @@ export function SeoServicePage(props: SeoServicePageProps) {
         <h1>{props.title}<br /><em>{props.accent}</em></h1>
         <p>{props.description}</p>
         <div className="hero-actions">
-          <a className="button primary" href="#contato">Solicitar avaliação <span aria-hidden="true">↗</span></a>
+          <a className="button primary" href={waHref} target="_blank" rel="noreferrer">Pedir orçamento no WhatsApp <span aria-hidden="true">↗</span></a>
           <a className="text-link" href="#como-funciona">Como funciona <span>↓</span></a>
         </div>
       </section>
@@ -100,7 +75,7 @@ export function SeoServicePage(props: SeoServicePageProps) {
       <section className="seo-service-content" id="como-funciona">
         <div className="service-section-intro">
           <div>
-            <div className="eyebrow dark"><span /> SERVIÇO ESPECIALIZADO</div>
+            <div className="eyebrow dark"><span /> {props.sectionEyebrow ?? "SERVIÇO ESPECIALIZADO"}</div>
             <h2>{props.sectionTitle}<br /><em>{props.sectionAccent}</em></h2>
           </div>
           <p>{props.sectionText}</p>
@@ -116,10 +91,12 @@ export function SeoServicePage(props: SeoServicePageProps) {
         </div>
       </section>
 
+      {props.afterContent}
+
       <section className="seo-process">
         <div>
           <div className="eyebrow"><span /> ETAPAS DO ATENDIMENTO</div>
-          <h2>Do primeiro contato<br /><em>ao relatório técnico.</em></h2>
+          <h2>{props.processTitle ?? "Do primeiro contato"}<br /><em>{props.processAccent ?? "ao relatório técnico."}</em></h2>
         </div>
         <ol>
           {props.steps.map((step, index) => (
@@ -131,14 +108,7 @@ export function SeoServicePage(props: SeoServicePageProps) {
         </ol>
       </section>
 
-      <nav className="seo-related" aria-label="Serviços relacionados">
-        <span>Explore as soluções Sungrid</span>
-        <div>
-          {relatedServices.filter((item) => item.href !== props.pathname).map((item) => (
-            <a href={item.href} key={item.href}>{item.label} <span aria-hidden="true">↗</span></a>
-          ))}
-        </div>
-      </nav>
+      <CrossLinks current={props.pathname} />
 
       <section className="service-contact" id="contato">
         <div>
@@ -146,27 +116,12 @@ export function SeoServicePage(props: SeoServicePageProps) {
           <h2>{props.contactTitle}<br /><em>{props.contactAccent}</em></h2>
           <p>Conte um pouco sobre o sistema. A equipe Sungrid analisará a solicitação e retornará pelos dados informados.</p>
         </div>
-        <ContactForm kind="home" />
+        <ContactForm kind="home" defaultService={props.defaultService} />
       </section>
 
-      <a className="whatsapp-float" href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Conversar com a Sungrid pelo WhatsApp"><span aria-hidden="true">✆</span><strong>WhatsApp</strong></a>
+      <WhatsAppFloat href={waHref} />
 
-      <footer className="service-footer">
-        <a className="brand" href="/"><Brand /></a>
-        <p>Manutenção solar inteligente para proteger seu investimento.</p>
-        <div>
-          <a href="/manutencao-de-energia-solar/">Manutenção</a>
-          <a href="/limpeza-de-paineis-solares/">Limpeza</a>
-          <a href="/diagnostico-de-sistema-fotovoltaico/">Diagnóstico</a>
-          <a href="/seguro-fotovoltaico/">Seguro</a>
-          <a href="/manutencao-grandes-usinas/">Grandes usinas</a>
-          <a href="/contato/">Contato</a>
-          <a className="social-link" href="https://www.instagram.com/sungridmro/" target="_blank" rel="noreferrer">Instagram ↗</a>
-          <a className="social-link" href="https://www.linkedin.com/company/sungridmro/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-        </div>
-        <span>© {new Date().getFullYear()} Sungrid</span>
-        <FooterNap />
-      </footer>
+      <SiteFooter variant="service" tagline={props.footerText} />
     </main>
   );
 }

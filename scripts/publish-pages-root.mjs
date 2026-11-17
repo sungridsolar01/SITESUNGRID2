@@ -10,6 +10,14 @@ const publishedEntries = [
   "icons",
   "images",
   "js",
+  "energia-solar-residencial",
+  "energia-solar-comercial",
+  "energia-solar-rural",
+  "carregadores-veiculares",
+  "sistemas-hibridos-e-baterias",
+  "energia-solar-sao-jose-dos-campos",
+  "energia-solar-estado-de-sao-paulo",
+  "blog",
   "seguro-fotovoltaico",
   "manutencao-grandes-usinas",
   "manutencao-de-energia-solar",
@@ -22,6 +30,7 @@ const publishedEntries = [
   "sitemap.xml",
   ".nojekyll",
   "favicon.svg",
+  "favicon.ico",
   "og.png",
 ];
 

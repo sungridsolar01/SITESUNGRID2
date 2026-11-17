@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { SeoServicePage } from "../_components/SeoServicePage";
 
-const title = "Manutenção de Energia Solar em SP | Sungrid";
-const description = "Manutenção preventiva de energia solar no estado de São Paulo com inspeção elétrica, análise de desempenho e relatório técnico.";
+const title = "Manutenção de Energia Solar em SP | Preventiva e Corretiva | Sungrid";
+const description = "Manutenção de energia solar no estado de São Paulo: inspeção elétrica, análise de desempenho, correção de falhas e relatório técnico, inclusive em sistemas de outras empresas.";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/manutencao-de-energia-solar/" },
-  openGraph: { type: "website", url: "/manutencao-de-energia-solar/", title, description, images: ["/og.png"] },
+  openGraph: { type: "website", url: "/manutencao-de-energia-solar/", title, description, images: ["/og.png?v=20261117"] },
 };
 
 export default function ManutencaoEnergiaSolarPage() {
@@ -19,6 +19,7 @@ export default function ManutencaoEnergiaSolarPage() {
     accent="para desempenho contínuo."
     description={description}
     serviceName="Manutenção de energia solar"
+    defaultService="Manutenção / limpeza"
     sectionTitle="Manutenção preventiva"
     sectionAccent="para sistemas fotovoltaicos."
     sectionText="Uma rotina preventiva combina inspeção visual, checagem elétrica, análise da geração e documentação. O objetivo é localizar desvios cedo, preservar componentes e manter o sistema operando com segurança."

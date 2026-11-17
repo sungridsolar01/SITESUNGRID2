@@ -14,6 +14,29 @@
     });
   });
 
+  const navGroups = document.querySelectorAll(".nav-group");
+  document.addEventListener("click", (event) => {
+    navGroups.forEach((group) => {
+      if (group.open && !group.contains(event.target)) group.removeAttribute("open");
+    });
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") navGroups.forEach((group) => group.removeAttribute("open"));
+  });
+
+  document.querySelectorAll("[data-youtube-id]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(link.dataset.youtubeId)}?autoplay=1&rel=0`;
+      iframe.title = link.dataset.youtubeTitle || "Vídeo do YouTube";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      iframe.loading = "lazy";
+      link.replaceWith(iframe);
+    });
+  });
+
   document.querySelectorAll("[data-sungrid-form]").forEach((form) => {
     form.addEventListener("submit", async (event) => {
       event.preventDefault();

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/manutencao-grandes-usinas/" },
-  openGraph: { type: "website", url: "/manutencao-grandes-usinas/", title, description, images: ["/og.png"] },
+  openGraph: { type: "website", url: "/manutencao-grandes-usinas/", title, description, images: ["/og.png?v=20261117"] },
 };
 
 export default function GrandesUsinasPage() {
@@ -16,6 +16,8 @@ export default function GrandesUsinasPage() {
     <ServiceSchema name="Manutenção para grandes usinas solares" description={description} pathname="/manutencao-grandes-usinas/" />
     <ServiceLanding
     kind="utility"
+    pathname="/manutencao-grandes-usinas/"
+    waLabel="manutenção de grandes usinas"
     eyebrow="MANUTENÇÃO PARA GRANDES USINAS"
     title="Disponibilidade é energia."
     accent="Energia é resultado."

@@ -29,11 +29,19 @@ test("renders the Sungrid home with complete SEO metadata and service links", as
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Manutenção de Energia Solar em SP \| Limpeza e Diagnóstico \| Sungrid<\/title>/i);
+  assert.match(html, /<title>Energia Solar em SP \| Instalação, Manutenção e Carregadores \| Sungrid<\/title>/i);
   assert.match(html, /rel="canonical" href="https:\/\/sungridsolar\.site\/"/);
   assert.match(html, /property="og:type" content="website"/);
   assert.match(html, /property="og:url" content="https:\/\/sungridsolar\.site\/"/);
-  assert.match(html, /"@type":"LocalBusiness"/);
+  assert.match(html, /"@type":\["LocalBusiness","Electrician"\]/);
+  assert.match(html, /"streetAddress":"R\. Cel\. José Domingues de Vasconcelos, 181 - Vila Adyana"/);
+  assert.match(html, /"telephone":"\+55 12 99188-6006"/);
+  assert.match(html, /"@type":"FAQPage"/);
+  assert.match(html, /id="como-funciona"/);
+  assert.match(html, /href="\/sistemas-hibridos-e-baterias\/"/);
+  assert.match(html, /class="footer-cities"/);
+  assert.match(html, /href="\/energia-solar-estado-de-sao-paulo\/"/);
+  assert.doesNotMatch(html, /openingHours|AggregateRating/i);
   assert.match(html, /"name":"SunGrid Solar - Energia solar e manutenção"/);
   assert.match(html, /"alternateName":"Sungrid"/);
   assert.match(html, /"postalCode":"12243-840"/);
@@ -43,7 +51,14 @@ test("renders the Sungrid home with complete SEO metadata and service links", as
   assert.match(html, /href="\/manutencao-grandes-usinas\/"/);
   assert.match(html, /href="\/limpeza-de-paineis-solares\/"/);
   assert.match(html, /href="\/diagnostico-de-sistema-fotovoltaico\/"/);
-  assert.match(html, /Manutenção de Sistemas de Energia Solar em SP/);
+  assert.match(html, /Energia Solar em SP<br\/?>/);
+  assert.match(html, /"@type":"OfferCatalog"/);
+  for (const path of ["energia-solar-residencial", "energia-solar-comercial", "energia-solar-rural", "carregadores-veiculares", "manutencao-de-energia-solar", "blog"]) {
+    assert.match(html, new RegExp(`href="/${path}/"`));
+  }
+  assert.match(html, /class="header-cta" href="https:\/\/wa\.me\/5512991886006\?text=/);
+  assert.match(html, /name="Serviço"/);
+  assert.match(html, /href="tel:\+5512991886006"/);
   assert.match(html, /R\. Cel\. José Domingues de Vasconcelos, 181/);
   assert.match(html, /\/images\/solar-maintenance-pexels-1024\.webp/);
   assert.match(html, /\/icons\/noun\/solar-cleaning\.webp/);
@@ -51,7 +66,7 @@ test("renders the Sungrid home with complete SEO metadata and service links", as
   assert.match(html, /https:\/\/www\.instagram\.com\/sungridmro\//);
   assert.match(html, /https:\/\/www\.linkedin\.com\/company\/sungridmro\//);
   assert.match(html, /data-sungrid-form/);
-  assert.match(html, /src="\/js\/site-interactions\.min\.js"/);
+  assert.match(html, /src="\/js\/site-interactions\.min\.js\?v=\d+"/);
   assert.doesNotMatch(html, /sungridmro@gmail\.com/);
   assert.doesNotMatch(html, /ContactForm-[^"']+\.js/);
   assert.doesNotMatch(html, /fonts\.googleapis\.com/);
@@ -75,7 +90,7 @@ test("renders the photovoltaic insurance landing page", async () => {
   assert.match(html, /"@type":"Service"/);
   assert.match(html, /ESTADO DE SÃO PAULO/);
   assert.match(html, /R\. Cel\. José Domingues de Vasconcelos, 181/);
-  assert.match(html, /src="\/js\/site-interactions\.min\.js"/);
+  assert.match(html, /src="\/js\/site-interactions\.min\.js\?v=\d+"/);
   assert.match(html, /\/images\/seguro-fotovoltaico-1024\.webp/);
   assert.match(html, /\/icons\/noun\/electrical-damage\.webp/);
   assert.match(html, /https:\/\/www\.instagram\.com\/sungridmro\//);
@@ -98,7 +113,7 @@ test("renders the large solar plant maintenance landing page", async () => {
   assert.match(html, /"@type":"Service"/);
   assert.match(html, /ESTADO DE SÃO PAULO/);
   assert.match(html, /R\. Cel\. José Domingues de Vasconcelos, 181/);
-  assert.match(html, /src="\/js\/site-interactions\.min\.js"/);
+  assert.match(html, /src="\/js\/site-interactions\.min\.js\?v=\d+"/);
   assert.match(html, /\/images\/grandes-usinas-1024\.webp/);
   assert.match(html, /\/icons\/noun\/solar-cleaning\.webp/);
   assert.match(html, /https:\/\/www\.instagram\.com\/sungridmro\//);
@@ -111,8 +126,134 @@ const seoPages = [
   ["/limpeza-de-paineis-solares", "Limpeza de Painéis Solares em SP", "Limpeza de painéis solares em SP"],
   ["/manutencao-de-energia-solar", "Manutenção de Energia Solar em SP", "Manutenção de energia solar em SP"],
   ["/diagnostico-de-sistema-fotovoltaico", "Diagnóstico de Sistema Fotovoltaico em SP", "Diagnóstico de sistema fotovoltaico em SP"],
-  ["/contato", "Contato Sungrid em SP", "Solicite uma avaliação"],
+  ["/contato", "Contato Sungrid em SP", "Peça seu orçamento"],
+  ["/carregadores-veiculares", "Carregador para Carro Elétrico em SP", "Carregadores veiculares em SP"],
 ];
+
+const installPages = [
+  ["/energia-solar-residencial", "Energia Solar Residencial em SP", "energia solar residencial"],
+  ["/energia-solar-comercial", "Energia Solar Comercial em SP", "energia solar comercial"],
+  ["/energia-solar-rural", "Energia Solar Rural em SP", "energia solar rural"],
+];
+
+for (const [pathname, expectedTitle, waLabel] of installPages) {
+  test(`renders installation landing ${pathname}`, async () => {
+    const response = await render(pathname);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, new RegExp(expectedTitle));
+    assert.match(html, new RegExp(`rel="canonical" href="https://sungridsolar\\.site${pathname}/"`));
+    assert.match(html, /"@type":"Service"/);
+    assert.match(html, /data-sungrid-form/);
+    assert.match(html, /name="Serviço"/);
+    assert.match(html, new RegExp(encodeURIComponent(`Vim pela página de ${waLabel}`).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+    assert.match(html, /class="whatsapp-float"/);
+    assert.match(html, /aria-label="Serviços relacionados"/);
+  });
+}
+
+const cityPages = [
+  ["/energia-solar-sao-jose-dos-campos", "Energia Solar em São José dos Campos", "EDP"],
+];
+
+// Cidades em rascunho: não podem ser publicadas, linkadas nem entrar no sitemap.
+const draftCityPages = ["/energia-solar-sao-paulo", "/energia-solar-guarulhos", "/energia-solar-sorocaba", "/energia-solar-aracatuba"];
+
+test("keeps draft city pages unpublished and unlinked", async () => {
+  for (const pathname of draftCityPages) {
+    const response = await render(pathname);
+    assert.equal(response.status, 404, `${pathname} deve responder 404 enquanto for rascunho`);
+  }
+  const sitemap = await readFile(new URL("../public/sitemap.xml", import.meta.url), "utf8");
+  for (const pathname of ["/", "/blog", "/blog/como-funciona-energia-solar-residencial", "/energia-solar-sao-jose-dos-campos", "/energia-solar-estado-de-sao-paulo"]) {
+    const html = await (await render(pathname)).text();
+    for (const draft of draftCityPages) assert.doesNotMatch(html, new RegExp(`href="${draft}/"`), `${pathname} não deve linkar ${draft}`);
+  }
+  for (const draft of draftCityPages) assert.doesNotMatch(sitemap, new RegExp(`${draft}/`));
+});
+
+test("renders the São Paulo state coverage page", async () => {
+  const response = await render("/energia-solar-estado-de-sao-paulo");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /<title>Energia Solar no Estado de São Paulo/);
+  assert.match(html, /rel="canonical" href="https:\/\/sungridsolar\.site\/energia-solar-estado-de-sao-paulo\/"/);
+  assert.match(html, /"@type":"FAQPage"/);
+  assert.match(html, /href="\/energia-solar-sao-jose-dos-campos\/"/);
+  assert.match(html, /data-sungrid-form/);
+});
+
+for (const [pathname, expectedTitle, utility] of cityPages) {
+  test(`renders city landing ${pathname}`, async () => {
+    const response = await render(pathname);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, new RegExp(`<title>${expectedTitle}`));
+    assert.match(html, new RegExp(`<h1>${expectedTitle}<br/?>`, "i"));
+    assert.match(html, new RegExp(`rel="canonical" href="https://sungridsolar\\.site${pathname}/"`));
+    assert.match(html, /"@type":"FAQPage"/);
+    assert.match(html, /"@type":"City"/);
+    assert.match(html, new RegExp(utility));
+    assert.match(html, /data-sungrid-form/);
+    assert.match(html, /wa\.me\/5512991886006\?text=/);
+    const hasMap = /google\.com\/maps\?q=/.test(html);
+    assert.equal(hasMap, pathname === "/energia-solar-sao-jose-dos-campos", "o mapa aparece só na página da sede");
+  });
+}
+
+test("renders the hybrid and battery page with FAQPage schema", async () => {
+  const response = await render("/sistemas-hibridos-e-baterias");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /<title>Energia Solar Híbrida, Baterias e Off-Grid em SP/);
+  assert.match(html, /"@type":"FAQPage"/);
+  assert.match(html, /Energia solar funciona quando falta luz\?/);
+  assert.doesNotMatch(html, /"@type":"VideoObject"/, "sem vídeo configurado não deve haver VideoObject");
+  assert.doesNotMatch(html, /youtube/i, "sem vídeo configurado não deve haver embed");
+});
+
+test("renders blog category pages and related links", async () => {
+  const index = await render("/blog");
+  const indexHtml = await index.text();
+  const categories = [...new Set([...indexHtml.matchAll(/href="\/blog\/categoria\/([a-z0-9-]+)\/"/g)].map((match) => match[1]))];
+  assert.ok(categories.length >= 1, "o blog deve listar categorias com artigos");
+  for (const slug of categories) {
+    const response = await render(`/blog/categoria/${slug}`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /"@type":"CollectionPage"/);
+    assert.match(html, new RegExp(`rel="canonical" href="https://sungridsolar\\.site/blog/categoria/${slug}/"`));
+    assert.match(html, /class="service-card blog-card"/);
+  }
+  const empty = await render("/blog/categoria/categoria-inexistente");
+  assert.equal(empty.status, 404);
+  const post = await (await render("/blog/como-funciona-energia-solar-residencial")).text();
+  assert.match(post, /class="blog-related"/);
+  assert.match(post, /href="\/sistemas-hibridos-e-baterias\/"/);
+  assert.match(post, /href="\/blog\/categoria\/como-funciona\/"/);
+});
+
+test("renders the blog index and posts with Article schema", async () => {
+  const index = await render("/blog");
+  assert.equal(index.status, 200);
+  const indexHtml = await index.text();
+  assert.match(indexHtml, /<title>Blog Sungrid/);
+  assert.match(indexHtml, /"@type":"Blog"/);
+  const slugs = [...indexHtml.matchAll(/href="\/blog\/([a-z0-9-]+)\/"/g)].map((match) => match[1]);
+  assert.ok(slugs.length >= 1, "o blog deve listar ao menos um artigo");
+  for (const slug of new Set(slugs)) {
+    const response = await render(`/blog/${slug}`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, /"@type":"BlogPosting"/);
+    assert.match(html, /property="og:type" content="article"/);
+    assert.match(html, new RegExp(`rel="canonical" href="https://sungridsolar\\.site/blog/${slug}/"`));
+    assert.match(html, /class="blog-article"/);
+    assert.match(html, /data-sungrid-form/);
+  }
+  const missing = await render("/blog/artigo-que-nao-existe");
+  assert.equal(missing.status, 404);
+});
 
 for (const [pathname, expectedTitle, expectedHeading] of seoPages) {
   test(`renders SEO landing ${pathname}`, async () => {
@@ -126,7 +267,7 @@ for (const [pathname, expectedTitle, expectedHeading] of seoPages) {
     assert.match(html, /"@type":"Service"/);
     assert.match(html, /"@type":"BreadcrumbList"/);
     assert.match(html, /data-sungrid-form/);
-    assert.match(html, /src="\/js\/site-interactions\.min\.js"/);
+    assert.match(html, /src="\/js\/site-interactions\.min\.js\?v=\d+"/);
     assert.match(html, /ATENDIMENTO NO ESTADO DE SÃO PAULO/);
     assert.match(html, /PERGUNTAS FREQUENTES/);
     assert.match(html, /R\. Cel\. José Domingues de Vasconcelos, 181/);
@@ -144,7 +285,19 @@ test("publishes crawler directives and a sitemap with every indexable route", as
   }
   assert.match(sitemap, /https:\/\/sungridsolar\.site\/seguro-fotovoltaico\//);
   assert.match(sitemap, /https:\/\/sungridsolar\.site\/manutencao-grandes-usinas\//);
-  assert.equal((sitemap.match(/<lastmod>2026-11-05<\/lastmod>/g) ?? []).length, 7);
+  for (const [pathname] of cityPages) {
+    assert.match(sitemap, new RegExp(`https://sungridsolar\\.site${pathname}/`));
+  }
+  assert.match(sitemap, /https:\/\/sungridsolar\.site\/sistemas-hibridos-e-baterias\//);
+  assert.match(sitemap, /https:\/\/sungridsolar\.site\/energia-solar-estado-de-sao-paulo\//);
+  assert.doesNotMatch(sitemap, /<loc>(http:\/\/|https:\/\/www\.)/);
+  assert.doesNotMatch(robots, /Disallow:\s*\/\S/);
+  assert.deepEqual(robots.match(/^Sitemap:.*$/gm), ["Sitemap: https://sungridsolar.site/sitemap.xml"]);
+  assert.match(sitemap, /https:\/\/sungridsolar\.site\/blog\/categoria\/[a-z0-9-]+\//);
+  for (const path of ["energia-solar-residencial", "energia-solar-comercial", "energia-solar-rural", "carregadores-veiculares", "blog"]) {
+    assert.match(sitemap, new RegExp(`https://sungridsolar\\.site/${path}/`));
+  }
+  assert.match(sitemap, /https:\/\/sungridsolar\.site\/blog\/[a-z0-9-]+\//);
 });
 
 test("renders a real noindex 404 without canonical or home metadata", async () => {
@@ -156,5 +309,6 @@ test("renders a real noindex 404 without canonical or home metadata", async () =
   assert.match(html, /Página não encontrada/);
   assert.match(html, /R\. Cel\. José Domingues de Vasconcelos, 181/);
   assert.doesNotMatch(html, /rel="canonical"/);
-  assert.doesNotMatch(html, /Manutenção de Energia Solar em SP \| Limpeza e Diagnóstico/);
+  assert.doesNotMatch(html, /Energia Solar em SP \| Instalação, Manutenção e Carregadores/);
+  assert.match(html, /class="whatsapp-float"/);
 });

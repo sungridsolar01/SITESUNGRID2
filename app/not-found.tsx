@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { FooterNap } from "./_components/BusinessInfo";
+import { SiteFooter, SiteHeader, WhatsAppFloat, whatsappUrl } from "./_components/Site";
 
 export const metadata: Metadata = {
   title: "Página não encontrada | Sungrid",
@@ -7,27 +7,30 @@ export const metadata: Metadata = {
 };
 
 export default function NotFound() {
+  const waHref = whatsappUrl("Olá, Sungrid! Vim pelo site e quero um orçamento.");
   return (
     <main className="not-found-page">
       <title>Página não encontrada | Sungrid</title>
-      <header className="site-header">
-        <a className="brand" href="/" aria-label="Sungrid, página principal">
-          <span className="brand-mark"><i /><i /><i /></span><span>SUNGRID</span>
-        </a>
-      </header>
+      <SiteHeader variant="home" whatsappHref={waHref} />
       <section className="not-found-content">
         <div className="eyebrow"><span /> ERRO 404</div>
         <h1>Página não encontrada.</h1>
-        <p>O endereço pode ter mudado ou não existir. Continue pelas principais soluções da Sungrid.</p>
+        <p>O endereço pode ter mudado ou não existir. Continue pelas principais soluções da Sungrid ou peça seu orçamento pelo WhatsApp.</p>
         <nav aria-label="Links úteis">
           <a className="button primary" href="/">Voltar à página principal <span aria-hidden="true">↗</span></a>
+          <a href="/energia-solar-residencial/">Energia solar residencial</a>
+          <a href="/energia-solar-comercial/">Energia solar comercial</a>
+          <a href="/energia-solar-rural/">Energia solar rural</a>
+          <a href="/carregadores-veiculares/">Carregadores veiculares</a>
           <a href="/manutencao-de-energia-solar/">Manutenção de energia solar</a>
           <a href="/limpeza-de-paineis-solares/">Limpeza de painéis solares</a>
           <a href="/diagnostico-de-sistema-fotovoltaico/">Diagnóstico fotovoltaico</a>
+          <a href="/blog/">Blog</a>
           <a href="/contato/">Contato</a>
         </nav>
       </section>
-      <footer className="service-footer"><FooterNap /></footer>
+      <WhatsAppFloat href={waHref} />
+      <SiteFooter variant="service" />
     </main>
   );
 }

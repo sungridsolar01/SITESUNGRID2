@@ -1,32 +1,62 @@
 import type { Metadata } from "next";
 import globalStyles from "./globals.css?inline";
 import { businessInfo } from "./_components/BusinessInfo";
+import { ASSET_VERSION } from "./_components/Site";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sungridsolar.site"),
-  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: `/favicon.svg?v=${ASSET_VERSION}`, type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.ico",
+  },
 };
+
+const offeredServices = [
+  ["Energia solar residencial", "/energia-solar-residencial/"],
+  ["Energia solar comercial", "/energia-solar-comercial/"],
+  ["Energia solar rural", "/energia-solar-rural/"],
+  ["Sistemas híbridos, baterias e off-grid", "/sistemas-hibridos-e-baterias/"],
+  ["Carregadores para veículos elétricos", "/carregadores-veiculares/"],
+  ["Manutenção de energia solar", "/manutencao-de-energia-solar/"],
+  ["Limpeza de painéis solares", "/limpeza-de-paineis-solares/"],
+  ["Diagnóstico de sistema fotovoltaico", "/diagnostico-de-sistema-fotovoltaico/"],
+  ["Manutenção de grandes usinas solares", "/manutencao-grandes-usinas/"],
+  ["Seguro fotovoltaico", "/seguro-fotovoltaico/"],
+] as const;
 
 const organizationSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "LocalBusiness",
+      "@type": ["LocalBusiness", "Electrician"],
       "@id": "https://sungridsolar.site/#organization",
       name: businessInfo.name,
       alternateName: businessInfo.alternateName,
+      description: "Empresa de energia solar em São José dos Campos com atendimento no estado de São Paulo: instalação de sistemas residenciais, comerciais e rurais, manutenção, limpeza, diagnóstico, seguro fotovoltaico e carregadores para veículos elétricos.",
       url: "https://sungridsolar.site/",
       logo: "https://sungridsolar.site/favicon.svg",
+      image: "https://sungridsolar.site/og.png",
       telephone: businessInfo.telephone,
       address: {
         "@type": "PostalAddress",
-        streetAddress: businessInfo.streetAddress,
+        streetAddress: `${businessInfo.streetAddress} - ${businessInfo.neighborhood}`,
         addressLocality: businessInfo.addressLocality,
         addressRegion: businessInfo.addressRegion,
         postalCode: businessInfo.postalCode,
         addressCountry: businessInfo.addressCountry,
       },
       areaServed: { "@type": "AdministrativeArea", name: "Estado de São Paulo" },
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Serviços de energia solar Sungrid",
+        itemListElement: offeredServices.map(([name, path]) => ({
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name, url: `https://sungridsolar.site${path}` },
+        })),
+      },
       sameAs: [
         "https://www.instagram.com/sungridmro/",
         "https://www.linkedin.com/company/sungridmro/",
@@ -57,7 +87,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         {children}
-        <script src="/js/site-interactions.min.js" defer />
+        <script src={`/js/site-interactions.min.js?v=${ASSET_VERSION}`} defer />
       </body>
     </html>
   );
