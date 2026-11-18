@@ -3,7 +3,7 @@ import { SeoServicePage } from "../_components/SeoServicePage";
 import { Arrow } from "../_components/Site";
 
 const title = "Energia Solar no Estado de São Paulo | Atendimento em SP | Sungrid";
-const description = "A Sungrid atende todo o estado de São Paulo a partir da sede em São José dos Campos: instalação de energia solar, manutenção, limpeza de painéis, baterias e carregador veicular.";
+const description = "A Sungrid atende todo o estado de São Paulo a partir de São José dos Campos: energia solar, manutenção, limpeza de painéis, baterias e wallbox.";
 
 export const metadata: Metadata = {
   title,

@@ -3,7 +3,7 @@ import { QuoteCta } from "../_components/QuoteCta";
 import { SeoServicePage } from "../_components/SeoServicePage";
 
 const title = "Limpeza de Painéis Solares em SP | Limpeza Técnica de Placas | Sungrid";
-const description = "Limpeza de placas solares no estado de São Paulo: limpeza técnica dos painéis com método seguro para o vidro, inspeção visual e registro do serviço. Orçamento pelo WhatsApp.";
+const description = "Limpeza de placas solares no estado de São Paulo com método seguro para o vidro, inspeção visual e registro do serviço. Orçamento pelo WhatsApp.";
 
 export const metadata: Metadata = {
   title,

@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   if (!post) return { title: "Página não encontrada | Sungrid", robots: { index: false, follow: true } };
   const url = `/blog/${post.slug}/`;
   return {
-    title: `${post.title} | Blog Sungrid`,
+    title: post.metaTitle ?? `${post.title} | Blog Sungrid`,
     description: post.description,
     alternates: { canonical: url },
     openGraph: {
@@ -79,6 +79,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
   return (
     <main className="seo-service-page blog-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      {post.faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: post.faqSchema }} />}
       <SiteHeader variant="service" whatsappHref={waHref} />
 
       <section className="seo-service-hero blog-hero">

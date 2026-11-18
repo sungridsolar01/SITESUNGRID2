@@ -401,3 +401,39 @@ test("âncoras internas descritivas (auditoria de âncoras)", async () => {
   assert.match(page, /<nav class="seo-related"[\s\S]*?href="\/calculadora-solar\/">Calculadora de energia solar[\s\S]*?href="\/blog\/como-funciona-energia-solar-residencial\/"/);
   assert.match(page, /href="\/limpeza-de-paineis-solares\/">Limpeza de placa solar/);
 });
+
+test("meta descriptions únicas, com até 160 caracteres e iguais em og/twitter", async () => {
+  const pages = ["", "energia-solar-residencial/", "energia-solar-comercial/", "energia-solar-rural/", "sistemas-hibridos-e-baterias/", "carregadores-veiculares/", "manutencao-de-energia-solar/", "limpeza-de-paineis-solares/", "diagnostico-de-sistema-fotovoltaico/", "seguro-fotovoltaico/", "manutencao-grandes-usinas/", "energia-solar-sao-jose-dos-campos/", "energia-solar-estado-de-sao-paulo/", "calculadora-solar/", "blog/", "contato/", "blog/categoria/creditos-e-regras/", "blog/categoria/como-funciona/", "blog/categoria/residencial-e-apartamento/", "blog/categoria/dimensionamento-por-consumo/", "blog/como-funciona-energia-solar-residencial/", "blog/por-que-fazer-manutencao-sistema-fotovoltaico/", "blog/energia-solar-em-apartamento/", "blog/como-transferir-creditos-de-energia-solar-para-outra-residencia/", "blog/como-conseguir-energia-solar-pelo-governo/", "blog/quem-tem-energia-solar-tem-desconto-no-iptu/", "blog/quem-tem-energia-solar-paga-conta-de-luz/", "blog/energia-solar-como-funciona-vantagens-desvantagens/", "blog/energia-solar-1000-kwh-mes/", "blog/bateria-para-energia-solar/", "blog/energia-solar-off-grid/", "blog/energia-solar-quando-falta-luz/"];
+  const decode = (s) => s.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'");
+  const seen = new Set();
+  for (const page of pages) {
+    const html = await readFile(new URL(`../${page}index.html`, import.meta.url), "utf8");
+    const desc = decode(html.match(/<meta name="description" content="([^"]*)"/)[1]);
+    assert.ok(desc.length <= 160, `${page}: ${desc.length}`);
+    assert.ok(!seen.has(desc), `duplicada: ${page}`); seen.add(desc);
+    assert.equal(decode(html.match(/<meta property="og:description" content="([^"]*)"/)[1]), desc, page);
+    assert.equal(decode(html.match(/<meta name="twitter:description" content="([^"]*)"/)[1]), desc, page);
+  }
+  const home = await readFile(new URL("../index.html", import.meta.url), "utf8");
+  assert.match(home, /<meta name="description" content="Energia solar, manutenção de painel solar, seguro fotovoltaico e instalação de wallbox no estado de São Paulo\. Peça seu orçamento pelo WhatsApp\."/);
+});
+
+test("10 artigos novos do blog: FAQPage único, tabelas, checklist e links internos", async () => {
+  const slugs = ["energia-solar-em-apartamento", "como-transferir-creditos-de-energia-solar-para-outra-residencia", "como-conseguir-energia-solar-pelo-governo", "quem-tem-energia-solar-tem-desconto-no-iptu", "quem-tem-energia-solar-paga-conta-de-luz", "energia-solar-como-funciona-vantagens-desvantagens", "energia-solar-1000-kwh-mes", "bateria-para-energia-solar", "energia-solar-off-grid", "energia-solar-quando-falta-luz"];
+  const sitemap = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
+  const index = await readFile(new URL("../blog/index.html", import.meta.url), "utf8");
+  for (const slug of slugs) {
+    const html = await readFile(new URL(`../blog/${slug}/index.html`, import.meta.url), "utf8");
+    assert.equal((html.match(/"@type":\s*"FAQPage"/g) || []).length, 1, slug);
+    assert.match(html, /<div class="blog-table"/, slug);
+    assert.match(html, /class="blog-checklist"/, slug);
+    assert.doesNotMatch(html, /Resposta direta|LINK INTERNO/, slug);
+    assert.match(sitemap, new RegExp(`https://sungridsolar\\.site/blog/${slug}/`), slug);
+    assert.match(index, new RegExp(`href="/blog/${slug}/"`), slug);
+  }
+  const offgrid = await readFile(new URL("../blog/energia-solar-off-grid/index.html", import.meta.url), "utf8");
+  assert.match(offgrid, /href="\/blog\/bateria-para-energia-solar\/"/);
+  assert.match(offgrid, /href="\/sistemas-hibridos-e-baterias\/"/);
+  assert.doesNotMatch(sitemap, /off-grid-ou-hibrido/);
+  assert.match(sitemap, /\/blog\/categoria\/dimensionamento-por-consumo\//);
+});

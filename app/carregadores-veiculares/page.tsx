@@ -3,7 +3,7 @@ import { QuoteCta } from "../_components/QuoteCta";
 import { SeoServicePage } from "../_components/SeoServicePage";
 
 const title = "Instalação de Wallbox em SP | Carregador de Carro Elétrico | Sungrid";
-const description = "Instalação de wallbox, o carregador de carro elétrico de parede, em casas, condomínios e empresas no estado de São Paulo, com avaliação da carga elétrica, circuito dedicado e proteções.";
+const description = "Instalação de wallbox, o carregador de carro elétrico de parede, em casas, condomínios e empresas no estado de São Paulo, com circuito dedicado.";
 
 export const metadata: Metadata = {
   title,

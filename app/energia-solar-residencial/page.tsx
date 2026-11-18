@@ -4,7 +4,7 @@ import { ServiceLanding } from "../_components/ServiceLanding";
 import { ServiceSchema } from "../_components/ServiceSchema";
 
 const title = "Energia Solar Residencial em SP | Projeto e Instalação | Sungrid";
-const description = "Projeto e instalação de energia solar para casas no estado de São Paulo, dimensionados pelo seu consumo, com conexão à distribuidora e manutenção depois da instalação.";
+const description = "Projeto e instalação de energia solar para casas no estado de São Paulo, dimensionados pelo seu consumo, com homologação na distribuidora e manutenção.";
 
 export const metadata: Metadata = {
   title,

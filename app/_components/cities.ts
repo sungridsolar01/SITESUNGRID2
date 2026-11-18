@@ -40,7 +40,7 @@ export const cities: CityPage[] = [
     city: "São José dos Campos",
     inCity: "em São José dos Campos",
     title: "Energia Solar em São José dos Campos | Instalação e Manutenção | Sungrid",
-    metaDescription: "Empresa de energia solar em São José dos Campos: instalação residencial e comercial, manutenção e limpeza de painéis, baterias e carregador veicular. Sede na Vila Adyana.",
+    metaDescription: "Energia solar em São José dos Campos: instalação, manutenção e limpeza de painéis, baterias e instalação de wallbox. Sede na Vila Adyana.",
     eyebrow: "SEDE SUNGRID · SÃO JOSÉ DOS CAMPOS",
     accent: "com equipe na própria cidade.",
     lead: "A Sungrid tem sede em São José dos Campos, na Vila Adyana. Daqui atendemos casas, condomínios, comércios e indústrias com instalação de energia solar, manutenção e limpeza de painéis, sistemas com baterias e carregadores para veículos elétricos.",

@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   if (!category || getPostsByCategory(categoria).length === 0) return { title: "Página não encontrada | Sungrid", robots: { index: false, follow: true } };
   const path = `/blog/categoria/${category.slug}/`;
   const title = category.title;
-  const description = `${category.description} Artigos e guias do blog da Sungrid, energia solar no estado de São Paulo.`;
+  const description = "metaDescription" in category && category.metaDescription ? category.metaDescription : `${category.description} Artigos e guias do blog da Sungrid, energia solar no estado de São Paulo.`;
   return {
     title,
     description,

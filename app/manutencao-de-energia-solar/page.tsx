@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SeoServicePage } from "../_components/SeoServicePage";
 
 const title = "Manutenção de Energia Solar em SP | Preventiva e Corretiva | Sungrid";
-const description = "Manutenção de energia solar no estado de São Paulo: inspeção elétrica, análise de desempenho, correção de falhas e relatório técnico, inclusive em sistemas de outras empresas.";
+const description = "Manutenção de energia solar em SP: inspeção elétrica, análise de desempenho, correção de falhas e relatório técnico, inclusive em sistemas de terceiros.";
 
 export const metadata: Metadata = {
   title,

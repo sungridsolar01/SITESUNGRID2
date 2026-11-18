@@ -499,3 +499,15 @@ footer { padding: 36px clamp(24px, 5vw, 84px); border-top: 1px solid var(--line)
 .local-service-section > p.region-links { margin-top: 18px; }
 .region-links a { color: var(--ink); text-decoration: underline; text-decoration-color: #9aa098; text-underline-offset: 3px; transition: text-decoration-color .2s; }
 .region-links a:hover { text-decoration-color: var(--ink); }
+
+/* Blog: tabelas e checklists dos artigos */
+.blog-table { margin: 0 0 28px; overflow-x: auto; border: 1px solid #d3d7cf; border-radius: 3px; -webkit-overflow-scrolling: touch; }
+.blog-table:focus-visible { outline: 2px solid #567800; outline-offset: 2px; }
+.blog-table table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 14px; line-height: 1.5; }
+.blog-table th { background: #e9ebe5; color: var(--ink); font-weight: 700; text-align: left; vertical-align: bottom; }
+.blog-table th, .blog-table td { padding: 12px 14px; border-bottom: 1px solid #dfe2dc; vertical-align: top; }
+.blog-table tbody tr:last-child td { border-bottom: 0; }
+.blog-table tbody tr:nth-child(even) td { background: #f7f8f5; }
+.blog-checklist { list-style: none; padding-left: 0 !important; border-top: 1px solid #d3d7cf; }
+.blog-checklist li { display: flex; gap: 12px; align-items: flex-start; margin: 0; padding: 12px 2px; border-bottom: 1px solid #d3d7cf; }
+.blog-check { color: #567800; font-size: 18px; line-height: 1.5; flex: none; }

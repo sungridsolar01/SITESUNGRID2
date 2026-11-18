@@ -8,7 +8,7 @@ import { videos } from "./_components/videos";
 import { getAllPosts } from "./blog/posts";
 
 const title = "Energia Solar em SP | Instalação, Manutenção e Carregadores | Sungrid";
-const description = "Energia solar residencial, comercial e rural, manutenção, seguro fotovoltaico e carregadores para veículos elétricos no estado de São Paulo. Peça seu orçamento pelo WhatsApp.";
+const description = "Energia solar, manutenção de painel solar, seguro fotovoltaico e instalação de wallbox no estado de São Paulo. Peça seu orçamento pelo WhatsApp.";
 
 export const metadata: Metadata = {
   title,

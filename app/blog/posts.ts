@@ -11,8 +11,8 @@
 /** Categorias do blog. A página /blog/categoria/<slug>/ é publicada quando há ao menos um artigo. */
 export const blogCategories = [
   { slug: "residencial-e-apartamento", title: "Energia Solar Residencial e em Apartamento | Blog Sungrid", name: "Residencial e apartamento", description: "Energia solar para casas, sobrados e para quem mora em apartamento ou condomínio." },
-  { slug: "creditos-e-regras", title: "Créditos de Energia Solar e Regras da Distribuidora | Blog Sungrid", name: "Créditos e regras", description: "Créditos de energia, conta de luz, regras da distribuidora, tributos e programas do governo." },
-  { slug: "como-funciona", title: "Como Funciona a Energia Solar | Blog Sungrid", name: "Como funciona", description: "Como funciona um sistema fotovoltaico, seus componentes, a manutenção e as tecnologias envolvidas." },
+  { slug: "creditos-e-regras", title: "Créditos de Energia Solar e Regras da Distribuidora | Blog Sungrid", name: "Créditos e regras", description: "Créditos de energia, conta de luz, regras da distribuidora, tributos e programas do governo.", metaDescription: "Créditos de energia, conta de luz, regras da distribuidora, tributos e programas do governo. Guias da Sungrid sobre energia solar em SP." },
+  { slug: "como-funciona", title: "Como Funciona a Energia Solar | Blog Sungrid", name: "Como funciona", description: "Como funciona um sistema fotovoltaico, seus componentes, a manutenção e as tecnologias envolvidas.", metaDescription: "Como funciona um sistema fotovoltaico, seus componentes, a manutenção e as tecnologias. Guias da Sungrid sobre energia solar em SP." },
   { slug: "dimensionamento-por-consumo", title: "Dimensionamento de Energia Solar por Consumo | Blog Sungrid", name: "Dimensionamento por consumo", description: "Como o consumo em kWh/mês define o tamanho do sistema de energia solar." },
 ] as const;
 
@@ -22,6 +22,8 @@ export type BlogPost = {
   /** Endereço do artigo: /blog/<slug>/ */
   slug: string;
   title: string;
+  /** Título da aba/Google (opcional). Sem ele, usa "<title> | Blog Sungrid". */
+  metaTitle?: string;
   /** Resumo usado no Google, nas redes sociais e na lista do blog (até ~160 caracteres). */
   description: string;
   /** Categorias do artigo (a primeira é a principal). Use os slugs de `blogCategories`. */
@@ -37,6 +39,8 @@ export type BlogPost = {
   video?: "homeComoFunciona" | "blogComoFunciona" | "hibridos";
   /** Texto da página na mensagem do WhatsApp. */
   waLabel?: string;
+  /** JSON-LD FAQPage do artigo, publicado sem alterações. As perguntas precisam aparecer no texto (seção "Perguntas frequentes"). */
+  faqSchema?: string;
   body: string;
 };
 

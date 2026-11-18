@@ -4,7 +4,7 @@ import { Arrow, ASSET_VERSION, SiteFooter, SiteHeader, WhatsAppFloat, whatsappFo
 import { solarCalculatorConfig } from "../_components/solarCalculatorConfig";
 
 const title = "Calculadora Solar | Estime seu Sistema de Energia Solar | Sungrid";
-const description = "Calculadora solar da Sungrid: informe a cidade e o gasto mensal com energia e receba uma estimativa da potência do sistema, do número de placas e do valor do projeto.";
+const description = "Calculadora solar: informe a cidade e o gasto mensal de energia e receba uma estimativa da potência do sistema, do número de placas e do valor.";
 
 export const metadata: Metadata = {
   title,
