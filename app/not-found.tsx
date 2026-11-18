@@ -22,9 +22,9 @@ export default function NotFound() {
           <a href="/energia-solar-comercial/">Energia solar comercial</a>
           <a href="/energia-solar-rural/">Energia solar rural</a>
           <a href="/carregadores-veiculares/">Instalação de wallbox</a>
-          <a href="/manutencao-de-energia-solar/">Manutenção de energia solar</a>
-          <a href="/limpeza-de-paineis-solares/">Limpeza de painéis solares</a>
-          <a href="/diagnostico-de-sistema-fotovoltaico/">Diagnóstico fotovoltaico</a>
+          <a href="/manutencao-de-energia-solar/">Manutenção de painel solar</a>
+          <a href="/limpeza-de-paineis-solares/">Limpeza de placa solar</a>
+          <a href="/diagnostico-de-sistema-fotovoltaico/">Diagnóstico do sistema fotovoltaico</a>
           <a href="/blog/">Blog</a>
           <a href="/contato/">Contato</a>
         </nav>

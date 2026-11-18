@@ -30,7 +30,7 @@ export function BlogListing({ posts, activeCategory, heading, schema }: BlogList
 
       <section className="section services blog-list" id="artigos">
         <nav className="blog-categories" aria-label="Categorias do blog">
-          <a href="/blog/" aria-current={activeCategory ? undefined : "page"}>Todos</a>
+          <a href="/blog/" aria-current={activeCategory ? undefined : "page"}>Todos os artigos</a>
           {blogCategories.map((category) => {
             const count = getPostsByCategory(category.slug).length;
             if (count === 0) {

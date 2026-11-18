@@ -1,7 +1,13 @@
 import type { ReactNode } from "react";
 import { ContactForm, type ServiceOption } from "./ContactForm";
 import { FaqSchema } from "./FaqSchema";
-import { CrossLinks, SiteFooter, SiteHeader, WhatsAppFloat, whatsappForPage } from "./Site";
+import { CrossLinks, RegionLinks, SiteFooter, SiteHeader, WhatsAppFloat, whatsappForPage } from "./Site";
+import { getAllPosts } from "../blog/posts";
+/** Artigos do blog que citam esta página em `related` — viram links de volta no bloco de links cruzados. */
+function relatedPosts(pathname: string) {
+  return getAllPosts().filter((post) => post.related?.includes(pathname)).map((post) => ({ href: `/blog/${post.slug}/`, label: post.title }));
+}
+
 
 type ServiceLandingProps = {
   /** "insurance" e "utility" mantêm os textos originais; "solar" usa os textos passados por props. */
@@ -111,6 +117,7 @@ export function ServiceLanding(props: ServiceLandingProps) {
         <div className="eyebrow dark"><span /> ATENDIMENTO NO ESTADO DE SÃO PAULO</div>
         <h2>Atendimento técnico em SP<br /><em>com sede em São José dos Campos.</em></h2>
         <p>{regionText}</p>
+        <RegionLinks current={props.pathname} />
       </section>
 
       <section className="service-solution" id="solucao">
@@ -162,7 +169,7 @@ export function ServiceLanding(props: ServiceLandingProps) {
         </div>
       </section>
 
-      <CrossLinks current={props.pathname} />
+      <CrossLinks current={props.pathname} extra={relatedPosts(props.pathname)} />
 
       <section className="service-contact" id="fale-com-a-sungrid">
         <div>

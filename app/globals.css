@@ -494,3 +494,8 @@ footer { padding: 36px clamp(24px, 5vw, 84px); border-top: 1px solid var(--line)
 @media (max-width: 760px) {
   .hero-buttons { width: 100%; }
 }
+
+/* Links no texto da seção de atendimento no estado (páginas de serviço) */
+.local-service-section > p.region-links { margin-top: 18px; }
+.region-links a { color: var(--ink); text-decoration: underline; text-decoration-color: #9aa098; text-underline-offset: 3px; transition: text-decoration-color .2s; }
+.region-links a:hover { text-decoration-color: var(--ink); }

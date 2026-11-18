@@ -2,7 +2,13 @@ import { ContactForm, type ServiceOption } from "./ContactForm";
 import type { ReactNode } from "react";
 import { FaqSchema } from "./FaqSchema";
 import { ServiceSchema } from "./ServiceSchema";
-import { CrossLinks, SiteFooter, SiteHeader, WhatsAppFloat, whatsappForPage } from "./Site";
+import { CrossLinks, RegionLinks, SiteFooter, SiteHeader, WhatsAppFloat, whatsappForPage } from "./Site";
+import { getAllPosts } from "../blog/posts";
+/** Artigos do blog que citam esta página em `related` — viram links de volta no bloco de links cruzados. */
+function relatedPosts(pathname: string) {
+  return getAllPosts().filter((post) => post.related?.includes(pathname)).map((post) => ({ href: `/blog/${post.slug}/`, label: post.title }));
+}
+
 
 type SeoServicePageProps = {
   pathname: string;
@@ -55,6 +61,7 @@ export function SeoServicePage(props: SeoServicePageProps) {
         <div className="eyebrow dark"><span /> ATENDIMENTO NO ESTADO DE SÃO PAULO</div>
         <h2 id={`regiao-${props.serviceName.replace(/\s+/g, "-").toLowerCase()}`}>Atendimento solar em SP<br /><em>com base em São José dos Campos.</em></h2>
         <p>{props.regionText}</p>
+        <RegionLinks current={props.pathname} />
       </section>
 
       <section className="service-faq seo-service-faq">
@@ -108,7 +115,7 @@ export function SeoServicePage(props: SeoServicePageProps) {
         </ol>
       </section>
 
-      <CrossLinks current={props.pathname} />
+      <CrossLinks current={props.pathname} extra={relatedPosts(props.pathname)} />
 
       <section className="service-contact" id="contato">
         <div>

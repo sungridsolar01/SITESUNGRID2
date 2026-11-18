@@ -19,15 +19,15 @@ export const metadata: Metadata = {
 };
 
 const services = [
-  { number: "01", title: "Energia solar residencial", text: "Projeto e instalação de sistema fotovoltaico para a sua casa, dimensionado a partir do seu consumo de energia.", icon: "/icons/noun/energy-performance.webp", alt: "Energia solar residencial", href: "/energia-solar-residencial/" },
-  { number: "02", title: "Energia solar comercial", text: "Sistemas para comércios, escritórios e indústrias que querem reduzir o custo com energia elétrica.", icon: "/icons/noun/solar-maintenance.webp", alt: "Energia solar comercial", href: "/energia-solar-comercial/" },
-  { number: "03", title: "Energia solar rural", text: "Geração própria para sítios, fazendas e propriedades rurais, em telhado ou em solo.", icon: "/icons/rural-solar.svg", alt: "Energia solar rural", href: "/energia-solar-rural/" },
-  { number: "04", title: "Híbridos e baterias", text: "Sistemas com baterias para guardar energia e manter cargas importantes durante quedas de luz, e soluções off-grid.", icon: "/icons/battery-solar.svg", alt: "Sistema solar híbrido com bateria", href: "/sistemas-hibridos-e-baterias/" },
-  { number: "05", title: "Wallbox e carro elétrico", text: "Instalação de wallbox (carregador de carro elétrico) em casas, condomínios e empresas.", icon: "/icons/ev-charger.svg", alt: "Carregador para veículo elétrico", href: "/carregadores-veiculares/" },
-  { number: "06", title: "Manutenção e limpeza", text: "Limpeza técnica dos módulos e manutenção preventiva para manter o sistema produzindo com segurança.", icon: "/icons/noun/solar-cleaning.webp", alt: "Limpeza técnica de painéis solares", href: "/manutencao-de-energia-solar/" },
-  { number: "07", title: "Diagnóstico de falhas", text: "Checagem de cabos, conectores, inversores e pontos críticos para encontrar falhas antes que virem prejuízo.", icon: "/icons/noun/thermal-imaging.webp", alt: "Termografia para diagnóstico de sistema solar", href: "/diagnostico-de-sistema-fotovoltaico/" },
-  { number: "08", title: "Grandes usinas", text: "Operação e manutenção para usinas de maior porte, com rotinas preventivas e relatórios técnicos.", icon: "/icons/noun/maintenance-report.webp", alt: "Relatório técnico de manutenção de usinas", href: "/manutencao-grandes-usinas/" },
-  { number: "09", title: "Seguro fotovoltaico", text: "Orientação para proteger o sistema contra imprevistos, com coberturas definidas na apólice da seguradora.", icon: "/icons/noun/liability-insurance.webp", alt: "Seguro para sistema fotovoltaico", href: "/seguro-fotovoltaico/" },
+  { number: "01", title: "Energia solar residencial", text: "Projeto e instalação de sistema fotovoltaico para a sua casa, dimensionado a partir do seu consumo de energia.", icon: "/icons/noun/energy-performance.webp", alt: "Energia solar residencial", href: "/energia-solar-residencial/", link: "Energia solar para casa" },
+  { number: "02", title: "Energia solar comercial", text: "Sistemas para comércios, escritórios e indústrias que querem reduzir o custo com energia elétrica.", icon: "/icons/noun/solar-maintenance.webp", alt: "Energia solar comercial", href: "/energia-solar-comercial/", link: "Energia solar para empresas" },
+  { number: "03", title: "Energia solar rural", text: "Geração própria para sítios, fazendas e propriedades rurais, em telhado ou em solo.", icon: "/icons/rural-solar.svg", alt: "Energia solar rural", href: "/energia-solar-rural/", link: "Energia solar no campo" },
+  { number: "04", title: "Híbridos e baterias", text: "Sistemas com baterias para guardar energia e manter cargas importantes durante quedas de luz, e soluções off-grid.", icon: "/icons/battery-solar.svg", alt: "Sistema solar híbrido com bateria", href: "/sistemas-hibridos-e-baterias/", link: "Sistemas híbridos e baterias" },
+  { number: "05", title: "Wallbox e carro elétrico", text: "Instalação de wallbox (carregador de carro elétrico) em casas, condomínios e empresas.", icon: "/icons/ev-charger.svg", alt: "Carregador para veículo elétrico", href: "/carregadores-veiculares/", link: "Instalação de wallbox" },
+  { number: "06", title: "Manutenção e limpeza", text: "Limpeza técnica dos módulos e manutenção preventiva para manter o sistema produzindo com segurança.", icon: "/icons/noun/solar-cleaning.webp", alt: "Limpeza técnica de painéis solares", href: "/manutencao-de-energia-solar/", link: "Manutenção de painel solar" },
+  { number: "07", title: "Diagnóstico de falhas", text: "Checagem de cabos, conectores, inversores e pontos críticos para encontrar falhas antes que virem prejuízo.", icon: "/icons/noun/thermal-imaging.webp", alt: "Termografia para diagnóstico de sistema solar", href: "/diagnostico-de-sistema-fotovoltaico/", link: "Diagnóstico e erro no inversor" },
+  { number: "08", title: "Grandes usinas", text: "Operação e manutenção para usinas de maior porte, com rotinas preventivas e relatórios técnicos.", icon: "/icons/noun/maintenance-report.webp", alt: "Relatório técnico de manutenção de usinas", href: "/manutencao-grandes-usinas/", link: "Manutenção de usinas solares" },
+  { number: "09", title: "Seguro fotovoltaico", text: "Orientação para proteger o sistema contra imprevistos, com coberturas definidas na apólice da seguradora.", icon: "/icons/noun/liability-insurance.webp", alt: "Seguro para sistema fotovoltaico", href: "/seguro-fotovoltaico/", link: "Seguro fotovoltaico" },
 ];
 
 const paths = [
@@ -130,7 +130,7 @@ export default function Home() {
               <div className="service-icon"><img src={item.icon} width="96" height="96" loading="lazy" decoding="async" alt={item.alt} /></div>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
-              <a className="service-link" href={item.href}>Saiba mais <Arrow /></a>
+              <a className="service-link" href={item.href}>{item.link} <Arrow /></a>
             </article>
           ))}
         </div>
@@ -243,7 +243,7 @@ export default function Home() {
             {latestPosts.map((post) => (
               <a href={`/blog/${post.slug}/`} key={post.slug}>{post.title} <Arrow /></a>
             ))}
-            <a href="/blog/">Ver todos os artigos <Arrow /></a>
+            <a href="/blog/">Todos os artigos do blog <Arrow /></a>
           </div>
         </nav>
       )}

@@ -390,3 +390,14 @@ test("renders a real noindex 404 without canonical or home metadata", async () =
   assert.doesNotMatch(html, /Energia Solar em SP \| Instalação, Manutenção e Carregadores/);
   assert.match(html, /class="whatsapp-float"/);
 });
+
+test("âncoras internas descritivas (auditoria de âncoras)", async () => {
+  const home = await readFile(new URL("../index.html", import.meta.url), "utf8");
+  assert.doesNotMatch(home, />Saiba mais</);
+  assert.match(home, /<a class="service-link" href="\/manutencao-de-energia-solar\/">Manutenção de painel solar/);
+  assert.match(home, /<a class="service-link" href="\/carregadores-veiculares\/">Instalação de wallbox/);
+  const page = await readFile(new URL("../energia-solar-residencial/index.html", import.meta.url), "utf8");
+  assert.match(page, /class="region-links"[^>]*>[\s\S]*?href="\/energia-solar-estado-de-sao-paulo\/"/);
+  assert.match(page, /<nav class="seo-related"[\s\S]*?href="\/calculadora-solar\/">Calculadora de energia solar[\s\S]*?href="\/blog\/como-funciona-energia-solar-residencial\/"/);
+  assert.match(page, /href="\/limpeza-de-paineis-solares\/">Limpeza de placa solar/);
+});

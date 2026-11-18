@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { businessInfo } from "./BusinessInfo";
 import { ContactForm } from "./ContactForm";
 import { FaqSchema } from "./FaqSchema";
+import { getAllPosts } from "../blog/posts";
 import { Arrow, CrossLinks, SiteFooter, SiteHeader, WhatsAppFloat, whatsappUrl } from "./Site";
 import { getCity } from "./cities";
 
@@ -155,7 +156,7 @@ export function CityLanding({ slug }: { slug: string }) {
         </div>
       </section>
 
-      <CrossLinks current={pathname} title={`Mais sobre energia solar ${city.inCity}`} />
+      <CrossLinks current={pathname} title={`Mais sobre energia solar ${city.inCity}`} extra={getAllPosts().filter((post) => post.related?.includes(pathname)).map((post) => ({ href: `/blog/${post.slug}/`, label: post.title }))} />
 
       <section className="service-contact" id="contato">
         <div>
