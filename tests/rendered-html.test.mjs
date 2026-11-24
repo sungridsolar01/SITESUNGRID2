@@ -323,7 +323,9 @@ test("renders the blog index and posts with Article schema", async () => {
     const response = await render(`/blog/${slug}`);
     assert.equal(response.status, 200);
     const html = await response.text();
-    assert.match(html, /"@type":"BlogPosting"/);
+    // Um único schema de artigo: o BlogPosting do template ou o Article próprio do arquivo (articleSchema).
+    const articleTypes = (html.match(/"@type":\s*"(BlogPosting|Article)"/g) || []).length;
+    assert.equal(articleTypes, 1, `${slug}: ${articleTypes} schemas de artigo`);
     assert.match(html, /property="og:type" content="article"/);
     assert.match(html, new RegExp(`rel="canonical" href="https://sungridsolar\\.site/blog/${slug}/"`));
     assert.match(html, /class="blog-article"/);
@@ -403,7 +405,7 @@ test("âncoras internas descritivas (auditoria de âncoras)", async () => {
 });
 
 test("meta descriptions únicas, com até 160 caracteres e iguais em og/twitter", async () => {
-  const pages = ["", "energia-solar-residencial/", "energia-solar-comercial/", "energia-solar-rural/", "sistemas-hibridos-e-baterias/", "carregadores-veiculares/", "manutencao-de-energia-solar/", "limpeza-de-paineis-solares/", "diagnostico-de-sistema-fotovoltaico/", "seguro-fotovoltaico/", "manutencao-grandes-usinas/", "energia-solar-sao-jose-dos-campos/", "energia-solar-estado-de-sao-paulo/", "calculadora-solar/", "blog/", "contato/", "blog/categoria/creditos-e-regras/", "blog/categoria/como-funciona/", "blog/categoria/residencial-e-apartamento/", "blog/categoria/dimensionamento-por-consumo/", "blog/como-funciona-energia-solar-residencial/", "blog/por-que-fazer-manutencao-sistema-fotovoltaico/", "blog/energia-solar-em-apartamento/", "blog/como-transferir-creditos-de-energia-solar-para-outra-residencia/", "blog/como-conseguir-energia-solar-pelo-governo/", "blog/quem-tem-energia-solar-tem-desconto-no-iptu/", "blog/quem-tem-energia-solar-paga-conta-de-luz/", "blog/energia-solar-como-funciona-vantagens-desvantagens/", "blog/energia-solar-1000-kwh-mes/", "blog/bateria-para-energia-solar/", "blog/energia-solar-off-grid/", "blog/energia-solar-quando-falta-luz/"];
+  const pages = ["", "energia-solar-residencial/", "energia-solar-comercial/", "energia-solar-rural/", "sistemas-hibridos-e-baterias/", "carregadores-veiculares/", "manutencao-de-energia-solar/", "limpeza-de-paineis-solares/", "diagnostico-de-sistema-fotovoltaico/", "seguro-fotovoltaico/", "manutencao-grandes-usinas/", "energia-solar-sao-jose-dos-campos/", "energia-solar-estado-de-sao-paulo/", "calculadora-solar/", "blog/", "contato/", "blog/categoria/creditos-e-regras/", "blog/categoria/como-funciona/", "blog/categoria/residencial-e-apartamento/", "blog/categoria/dimensionamento-por-consumo/", "blog/como-funciona-energia-solar-residencial/", "blog/por-que-fazer-manutencao-sistema-fotovoltaico/", "blog/energia-solar-em-apartamento/", "blog/como-transferir-creditos-de-energia-solar-para-outra-residencia/", "blog/como-conseguir-energia-solar-pelo-governo/", "blog/quem-tem-energia-solar-tem-desconto-no-iptu/", "blog/quem-tem-energia-solar-paga-conta-de-luz/", "blog/energia-solar-como-funciona-vantagens-desvantagens/", "blog/energia-solar-1000-kwh-mes/", "blog/bateria-para-energia-solar/", "blog/energia-solar-off-grid/", "blog/energia-solar-quando-falta-luz/", "blog/sistema-hibrido-energia-solar/"];
   const decode = (s) => s.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'");
   const seen = new Set();
   for (const page of pages) {
@@ -436,4 +438,23 @@ test("10 artigos novos do blog: FAQPage único, tabelas, checklist e links inter
   assert.match(offgrid, /href="\/sistemas-hibridos-e-baterias\/"/);
   assert.doesNotMatch(sitemap, /off-grid-ou-hibrido/);
   assert.match(sitemap, /\/blog\/categoria\/dimensionamento-por-consumo\//);
+});
+
+test("post 11 (sistema híbrido): Article e FAQPage do arquivo, sem BlogPosting duplicado, relacionados nos dois sentidos", async () => {
+  const html = await readFile(new URL("../blog/sistema-hibrido-energia-solar/index.html", import.meta.url), "utf8");
+  assert.equal((html.match(/"@type":\s*"Article"/g) || []).length, 1);
+  assert.equal((html.match(/"@type":\s*"FAQPage"/g) || []).length, 1);
+  assert.doesNotMatch(html, /"@type":"BlogPosting"/);
+  assert.match(html, /"@type":"BreadcrumbList"/);
+  assert.match(html, /<title>Sistema híbrido de energia solar: como dimensionar e por que contratar um especialista<\/title>/);
+  assert.doesNotMatch(html, /Resposta direta|LINK INTERNO|href="http:\/\//);
+  for (const slug of ["bateria-para-energia-solar", "energia-solar-off-grid", "energia-solar-quando-falta-luz"]) {
+    assert.match(html, new RegExp(`aria-label="Artigos relacionados"[\\s\\S]*?href="/blog/${slug}/"`), slug);
+    const other = await readFile(new URL(`../blog/${slug}/index.html`, import.meta.url), "utf8");
+    assert.match(other, /aria-label="Artigos relacionados"[\s\S]*?href="\/blog\/sistema-hibrido-energia-solar\/"/, slug);
+  }
+  const sitemap = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
+  assert.match(sitemap, /https:\/\/sungridsolar\.site\/blog\/sistema-hibrido-energia-solar\//);
+  const index = await readFile(new URL("../blog/index.html", import.meta.url), "utf8");
+  assert.match(index, /href="\/blog\/sistema-hibrido-energia-solar\/"/);
 });

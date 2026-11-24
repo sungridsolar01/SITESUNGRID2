@@ -41,6 +41,10 @@ export type BlogPost = {
   waLabel?: string;
   /** JSON-LD FAQPage do artigo, publicado sem alterações. As perguntas precisam aparecer no texto (seção "Perguntas frequentes"). */
   faqSchema?: string;
+  /** JSON-LD Article do artigo (opcional), publicado sem alterações. Quando existe, a página não gera o BlogPosting automático, para não duplicar. */
+  articleSchema?: string;
+  /** Outros artigos relacionados (slugs). A ligação aparece nos dois sentidos: o artigo citado também mostra este. */
+  relatedPosts?: string[];
   body: string;
 };
 

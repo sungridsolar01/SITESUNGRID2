@@ -5,7 +5,18 @@ import { Markdown } from "../../_components/Markdown";
 import { Arrow, CrossLinks, SiteFooter, SiteHeader, WhatsAppFloat, pageLabels, whatsappForPage } from "../../_components/Site";
 import { YouTubeEmbed } from "../../_components/YouTubeEmbed";
 import { videos } from "../../_components/videos";
-import { categoryName, formatDate, getAllPosts, getPost } from "../posts";
+import { categoryName, formatDate, getAllPosts, getPost, type BlogPost } from "../posts";
+
+/** Artigos ligados a este: os que ele cita em `relatedPosts` e os que citam ele. */
+function relatedPostsFor(post: BlogPost): BlogPost[] {
+  const all = getAllPosts();
+  const slugs = new Set([
+    ...(post.relatedPosts ?? []),
+    ...all.filter((other) => other.relatedPosts?.includes(post.slug)).map((other) => other.slug),
+  ]);
+  slugs.delete(post.slug);
+  return all.filter((other) => slugs.has(other.slug));
+}
 
 type PostPageProps = { params: Promise<{ slug: string }> };
 
@@ -44,11 +55,13 @@ export default async function BlogPostPage({ params }: PostPageProps) {
 
   const url = `https://sungridsolar.site/blog/${post.slug}/`;
   const related = (post.related ?? []).filter((href) => pageLabels[href]);
+  const linkedPosts = relatedPostsFor(post);
   const waHref = whatsappForPage(post.waLabel ?? "blog");
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
-      {
+      // Se o artigo traz o próprio JSON-LD Article (articleSchema), ele é usado no lugar deste BlogPosting.
+      ...(post.articleSchema ? [] : [{
         "@type": "BlogPosting",
         "@id": `${url}#article`,
         headline: post.title,
@@ -63,7 +76,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
         author: { "@id": "https://sungridsolar.site/#organization" },
         publisher: { "@id": "https://sungridsolar.site/#organization" },
         isPartOf: { "@id": "https://sungridsolar.site/blog/#blog" },
-      },
+      }]),
       {
         "@type": "BreadcrumbList",
         "@id": `${url}#breadcrumb`,
@@ -79,6 +92,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
   return (
     <main className="seo-service-page blog-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      {post.articleSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: post.articleSchema }} />}
       {post.faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: post.faqSchema }} />}
       <SiteHeader variant="service" whatsappHref={waHref} />
 
@@ -106,6 +120,14 @@ export default async function BlogPostPage({ params }: PostPageProps) {
               <strong>Serviços e cidades relacionados</strong>
               <ul>
                 {related.map((href) => <li key={href}><a href={href}>{pageLabels[href]} <Arrow /></a></li>)}
+              </ul>
+            </nav>
+          )}
+          {linkedPosts.length > 0 && (
+            <nav className="blog-related" aria-label="Artigos relacionados">
+              <strong>Leia também no blog</strong>
+              <ul>
+                {linkedPosts.map((item) => <li key={item.slug}><a href={`/blog/${item.slug}/`}>{item.title} <Arrow /></a></li>)}
               </ul>
             </nav>
           )}

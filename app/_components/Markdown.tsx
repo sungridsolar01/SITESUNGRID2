@@ -67,6 +67,14 @@ function renderBlock(block: string, key: string): ReactNode {
       </ul>
     );
   }
+  // Texto seguido de lista no mesmo bloco ("O projeto define:\n- item"): parágrafo + lista.
+  const firstItem = lines.findIndex((line) => /^[-*] /.test(line));
+  if (firstItem > 0 && lines.slice(firstItem).every((line) => /^[-*] /.test(line))) {
+    return [
+      <p key={`${key}-p`}>{renderInline(lines.slice(0, firstItem).join(" "), `${key}-p`)}</p>,
+      renderBlock(lines.slice(firstItem).join("\n"), `${key}-l`),
+    ];
+  }
   if (lines.every((line) => /^[-*] /.test(line))) {
     return <ul key={key}>{lines.map((line, i) => <li key={i}>{renderInline(line.slice(2), `${key}-${i}`)}</li>)}</ul>;
   }
