@@ -405,7 +405,7 @@ test("âncoras internas descritivas (auditoria de âncoras)", async () => {
 });
 
 test("meta descriptions únicas, com até 160 caracteres e iguais em og/twitter", async () => {
-  const pages = ["", "energia-solar-residencial/", "energia-solar-comercial/", "energia-solar-rural/", "sistemas-hibridos-e-baterias/", "carregadores-veiculares/", "manutencao-de-energia-solar/", "limpeza-de-paineis-solares/", "diagnostico-de-sistema-fotovoltaico/", "seguro-fotovoltaico/", "manutencao-grandes-usinas/", "energia-solar-sao-jose-dos-campos/", "energia-solar-estado-de-sao-paulo/", "calculadora-solar/", "blog/", "contato/", "blog/categoria/creditos-e-regras/", "blog/categoria/como-funciona/", "blog/categoria/residencial-e-apartamento/", "blog/categoria/dimensionamento-por-consumo/", "blog/como-funciona-energia-solar-residencial/", "blog/por-que-fazer-manutencao-sistema-fotovoltaico/", "blog/energia-solar-em-apartamento/", "blog/como-transferir-creditos-de-energia-solar-para-outra-residencia/", "blog/como-conseguir-energia-solar-pelo-governo/", "blog/quem-tem-energia-solar-tem-desconto-no-iptu/", "blog/quem-tem-energia-solar-paga-conta-de-luz/", "blog/energia-solar-como-funciona-vantagens-desvantagens/", "blog/energia-solar-1000-kwh-mes/", "blog/bateria-para-energia-solar/", "blog/energia-solar-off-grid/", "blog/energia-solar-quando-falta-luz/", "blog/sistema-hibrido-energia-solar/"];
+  const pages = ["", "energia-solar-residencial/", "energia-solar-comercial/", "energia-solar-rural/", "sistemas-hibridos-e-baterias/", "carregadores-veiculares/", "manutencao-de-energia-solar/", "limpeza-de-paineis-solares/", "diagnostico-de-sistema-fotovoltaico/", "seguro-fotovoltaico/", "manutencao-grandes-usinas/", "energia-solar-sao-jose-dos-campos/", "energia-solar-estado-de-sao-paulo/", "calculadora-solar/", "blog/", "contato/", "blog/categoria/creditos-e-regras/", "blog/categoria/como-funciona/", "blog/categoria/residencial-e-apartamento/", "blog/categoria/dimensionamento-por-consumo/", "blog/como-funciona-energia-solar-residencial/", "blog/por-que-fazer-manutencao-sistema-fotovoltaico/", "blog/energia-solar-em-apartamento/", "blog/como-transferir-creditos-de-energia-solar-para-outra-residencia/", "blog/como-conseguir-energia-solar-pelo-governo/", "blog/quem-tem-energia-solar-tem-desconto-no-iptu/", "blog/quem-tem-energia-solar-paga-conta-de-luz/", "blog/energia-solar-como-funciona-vantagens-desvantagens/", "blog/energia-solar-1000-kwh-mes/", "blog/bateria-para-energia-solar/", "blog/energia-solar-off-grid/", "blog/energia-solar-quando-falta-luz/", "blog/sistema-hibrido-energia-solar/", "blog/fio-b-energia-solar/"];
   const decode = (s) => s.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'");
   const seen = new Set();
   for (const page of pages) {
@@ -457,4 +457,28 @@ test("post 11 (sistema híbrido): Article e FAQPage do arquivo, sem BlogPosting 
   assert.match(sitemap, /https:\/\/sungridsolar\.site\/blog\/sistema-hibrido-energia-solar\//);
   const index = await readFile(new URL("../blog/index.html", import.meta.url), "utf8");
   assert.match(index, /href="\/blog\/sistema-hibrido-energia-solar\/"/);
+});
+
+test("post 12 (Fio B): Article e FAQPage do arquivo, sem BlogPosting, relacionados nos dois sentidos e link no post 05", async () => {
+  const html = await readFile(new URL("../blog/fio-b-energia-solar/index.html", import.meta.url), "utf8");
+  assert.equal((html.match(/"@type":\s*"Article"/g) || []).length, 1);
+  assert.equal((html.match(/"@type":\s*"FAQPage"/g) || []).length, 1);
+  assert.doesNotMatch(html, /"@type":"BlogPosting"/);
+  assert.match(html, /"@type":"BreadcrumbList"/);
+  assert.match(html, /<title>Fio B energia solar: como funciona a cobrança, quem paga e como a bateria ajuda a reduzir<\/title>/);
+  assert.doesNotMatch(html, /Resposta direta|LINK INTERNO|href="http:\/\//);
+  assert.match(html, /wa\.me\/5512991886006\?text=[^"]*Fio%20B/);
+  assert.equal((html.match(/class="blog-table"/g) || []).length, 3);
+  assert.match(html, /class="blog-checklist"/);
+  for (const slug of ["bateria-para-energia-solar", "sistema-hibrido-energia-solar", "quem-tem-energia-solar-paga-conta-de-luz"]) {
+    assert.match(html, new RegExp(`aria-label="Artigos relacionados"[\\s\\S]*?href="/blog/${slug}/"`), slug);
+    const other = await readFile(new URL(`../blog/${slug}/index.html`, import.meta.url), "utf8");
+    assert.match(other, /aria-label="Artigos relacionados"[\s\S]*?href="\/blog\/fio-b-energia-solar\/"/, slug);
+  }
+  const post05 = await readFile(new URL("../blog/quem-tem-energia-solar-paga-conta-de-luz/index.html", import.meta.url), "utf8");
+  assert.match(post05, /entra nessa cobrança\.[^<]*<a href="\/blog\/fio-b-energia-solar\/">guia do Fio B na energia solar<\/a>/);
+  const sitemap = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
+  assert.match(sitemap, /https:\/\/sungridsolar\.site\/blog\/fio-b-energia-solar\//);
+  const index = await readFile(new URL("../blog/index.html", import.meta.url), "utf8");
+  assert.match(index, /href="\/blog\/fio-b-energia-solar\/"/);
 });
