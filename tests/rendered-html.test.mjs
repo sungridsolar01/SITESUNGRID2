@@ -482,3 +482,26 @@ test("post 12 (Fio B): Article e FAQPage do arquivo, sem BlogPosting, relacionad
   const index = await readFile(new URL("../blog/index.html", import.meta.url), "utf8");
   assert.match(index, /href="\/blog\/fio-b-energia-solar\/"/);
 });
+
+test("llms.txt: formato llmstxt.org, NAP correto e só URLs do sitemap", async () => {
+  const llms = await readFile(new URL("../llms.txt", import.meta.url), "utf8");
+  assert.match(llms, /^# Sungrid MRO\n\n> /);
+  assert.match(llms, /R\. Cel\. José Domingues de Vasconcelos, 181, Vila Adyana, São José dos Campos - SP, 12243-840/);
+  assert.match(llms, /\(12\) 99188-6006/);
+  assert.match(llms, /https:\/\/wa\.me\/5512991886006/);
+  assert.match(llms, /sungridmro@gmail\.com/);
+  // Nada de colchetes de modelo: todo "[" precisa abrir um link markdown "[texto](https://...)".
+  assert.doesNotMatch(llms, /\[(?![^\]\n]*\]\(https:\/\/)/);
+  assert.doesNotMatch(llms, /preencher|confirmar|\bex\.:/i);
+  assert.doesNotMatch(llms, /Urbanova|Parque Tecnol|PIT|http:\/\//);
+  const sitemap = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
+  const locs = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]));
+  const urls = [...llms.matchAll(/\]\((https:\/\/sungridsolar\.site\/[^)]*)\)/g)].map((m) => m[1]);
+  assert.ok(urls.length >= 25);
+  for (const url of urls) {
+    if (url === "https://sungridsolar.site/sitemap.xml") continue;
+    assert.ok(locs.has(url), `${url} fora do sitemap`);
+  }
+  const blogPosts = [...locs].filter((u) => /\/blog\/(?!categoria\/)[^/]+\/$/.test(u));
+  for (const post of blogPosts) assert.ok(urls.includes(post), `${post} faltando no llms.txt`);
+});

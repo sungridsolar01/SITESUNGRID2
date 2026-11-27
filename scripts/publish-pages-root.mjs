@@ -30,6 +30,7 @@ const publishedEntries = [
   "404.html",
   "robots.txt",
   "sitemap.xml",
+  "llms.txt",
   ".nojekyll",
   "favicon.svg",
   "favicon.ico",
