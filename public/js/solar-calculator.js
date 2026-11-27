@@ -120,6 +120,22 @@
     return { uf: uf, cidade: cidade, gasto: gasto.aPartirDe ? config.gastoMaximo : gasto.gasto, baterias: baterias };
   }
 
+  /**
+   * Pré-preenchimento vindo de outras páginas (ex.: /tarifa-energia-sp/): aceita uf, cidade e gasto
+   * sem a resposta sobre baterias. Só preenche o formulário; não calcula nem pula etapas.
+   */
+  function parsePrefill(search, config) {
+    var params = new URLSearchParams(search || "");
+    var uf = (params.get("uf") || "").toUpperCase();
+    var cidade = (params.get("cidade") || "").trim();
+    var gasto = normalizeGasto(params.get("gasto"), config);
+    var data = {};
+    if (/^[A-Z]{2}$/.test(uf)) data.uf = uf;
+    if (data.uf && cidade && cidade.length <= 80) data.cidade = cidade;
+    if (gasto) data.gasto = gasto.aPartirDe ? config.gastoMaximo : gasto.gasto;
+    return data.cidade || data.gasto ? data : null;
+  }
+
   var core = {
     isConfigured: isConfigured,
     normalizeGasto: normalizeGasto,
@@ -134,6 +150,7 @@
     whatsappUrl: whatsappUrl,
     buildQuery: buildQuery,
     parseQuery: parseQuery,
+    parsePrefill: parsePrefill,
   };
   root.SungridSolarCalculator = core;
 
@@ -219,7 +236,7 @@
     }
 
     var params = new URLSearchParams(location.search);
-    var saved = parseQuery(params.toString(), config) || loadState();
+    var saved = parseQuery(params.toString(), config) || parsePrefill(params.toString(), config) || loadState();
     if (saved && saved.uf && uf.querySelector('option[value="' + saved.uf + '"]')) uf.value = saved.uf;
     if (saved && saved.gasto) gasto.value = String(Math.min(Number(saved.gasto), config.gastoMaximo));
     if (saved && saved.baterias) {

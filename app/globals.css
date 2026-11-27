@@ -511,3 +511,90 @@ footer { padding: 36px clamp(24px, 5vw, 84px); border-top: 1px solid var(--line)
 .blog-checklist { list-style: none; padding-left: 0 !important; border-top: 1px solid #d3d7cf; }
 .blog-checklist li { display: flex; gap: 12px; align-items: flex-start; margin: 0; padding: 12px 2px; border-bottom: 1px solid #d3d7cf; }
 .blog-check { color: #567800; font-size: 18px; line-height: 1.5; flex: none; }
+
+/* Página /tarifa-energia-sp/: mapa, consulta por cidade e ranking da tarifa */
+.tarifa-page { --tarifa-g40: var(--orange); --tarifa-g30: #ffb27a; --tarifa-g20: var(--lime); --tarifa-coop: #565c57; }
+.tarifa-hero { padding: clamp(70px,8vw,120px) clamp(24px,8vw,130px) clamp(40px,5vw,64px); position: relative; }
+.tarifa-hero .service-index { margin: 22px 0; }.tarifa-hero .service-index a { color: #858b85; }
+.tarifa-hero h1 { font-family: "Urbanist", sans-serif; font-size: clamp(40px,5.6vw,80px); line-height: .98; max-width: 1000px; margin: 0; }
+.tarifa-hero h1 em { color: var(--orange); font-style: normal; }
+.tarifa-hero > p:not(.service-index) { color: #a1a7a1; max-width: 720px; line-height: 1.75; font-size: clamp(15px,1.3vw,18px); margin: 26px 0 30px; }
+.tarifa-chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 14px; }
+.tarifa-chips li { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 16px 20px; color: #a1a7a1; font-size: 13px; display: flex; gap: 14px; align-items: baseline; }
+.tarifa-chips strong { color: var(--orange); font: 700 clamp(22px,2.2vw,30px) "Urbanist"; }
+.tarifa-grid { display: grid; grid-template-columns: minmax(0,1.55fr) minmax(0,1fr); gap: 22px; padding: 0 clamp(24px,8vw,130px); align-items: stretch; }
+.tarifa-card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: clamp(20px,2.6vw,34px); margin: 0; min-width: 0; }
+.tarifa-card h2 { font: 700 clamp(19px,1.8vw,24px)/1.25 "Urbanist"; margin: 0; }
+.tarifa-card-head { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; flex-wrap: wrap; margin-bottom: 18px; }
+.tarifa-card-head h2 { font-size: clamp(16px,1.4vw,19px); }
+.tarifa-card-head span, .tarifa-ranking-head p { color: #858b85; font: 10px "DM Mono"; letter-spacing: .06em; margin: 0; }
+.tarifa-map img { display: block; width: 100%; height: auto; }
+.tarifa-map-stage { position: relative; }
+.tarifa-map-stage svg { display: block; width: 100%; height: auto; overflow: visible; -webkit-tap-highlight-color: transparent; }
+.tarifa-map-stage .tm-a { cursor: pointer; outline: none; transform-box: fill-box; transform-origin: center; transition: opacity .2s ease; }
+.tarifa-map-stage .tm-a path { transition: fill .2s ease; }
+.tarifa-map-stage .tm-k { transition: opacity .2s ease; pointer-events: none; }
+.tarifa-map-stage .tm-lift, .tarifa-map-stage .tm-markers { pointer-events: none; }
+.tarifa-map-stage.is-active .tm-a, .tarifa-map-stage.is-active .tm-k { opacity: .35; }
+.tarifa-map-stage.is-active .tm-a.is-on, .tarifa-map-stage.is-active .tm-k.is-on { opacity: 1; }
+.tarifa-map-stage .tm-lift g { transform-box: fill-box; transform-origin: center; transform: scale(1.02); filter: drop-shadow(0 6px 10px rgba(0,0,0,.65)) brightness(1.12); animation: tm-lift .2s ease; }
+.tarifa-map-stage .tm-lift path { stroke: #fff; stroke-width: 2.4; }
+@keyframes tm-lift { from { transform: scale(1); } }
+.tarifa-map-tip { position: absolute; left: 0; top: 0; z-index: 3; pointer-events: none; width: max-content; max-width: calc(100% - 8px); padding: 8px 11px; border-radius: 6px; background: #0b0d0c; border: 1px solid rgba(255,255,255,.22); box-shadow: 0 8px 24px rgba(0,0,0,.5); color: #fff; font: 600 13px/1.35 Manrope, sans-serif; transform: translate(-50%, calc(-100% - 12px)); white-space: normal; }
+.tarifa-map-tip[hidden] { display: none; }
+.tarifa-map-hint { color: #858b85; font-size: 11px; margin: 10px 0 0; }
+.tarifa-bars li { transition: opacity .2s ease; }
+.tarifa-bars.is-active li { opacity: .45; }
+.tarifa-bars.is-active li.is-on { opacity: 1; }
+.tarifa-bars li.is-on .tarifa-name { color: #fff; font-weight: 700; }
+@media (prefers-reduced-motion: reduce) {
+  .tarifa-map-stage .tm-a, .tarifa-map-stage .tm-a path, .tarifa-map-stage .tm-k, .tarifa-bars li { transition: none; }
+  .tarifa-map-stage .tm-lift g { transform: none; animation: none; }
+}
+.tarifa-legend { list-style: none; padding: 0; margin: 18px 0 12px; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 12px; color: #c7cbc6; }
+.tarifa-legend li { display: flex; align-items: center; gap: 8px; }
+.tarifa-legend i { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
+.g40 { --c: var(--tarifa-g40); }.g30 { --c: var(--tarifa-g30); }.g20 { --c: var(--tarifa-g20); }.coop { --c: var(--tarifa-coop); }
+.tarifa-legend i, .tarifa-bar { background: var(--c); }
+.tarifa-map figcaption { color: #858b85; font-size: 11px; line-height: 1.6; max-width: 640px; }
+.tarifa-lookup { display: flex; flex-direction: column; gap: 16px; }
+.tarifa-lookup > p { color: #a1a7a1; font-size: 13px; line-height: 1.7; margin: 0; }
+.tarifa-field { display: grid; gap: 8px; }
+.tarifa-field span { color: #c7cbc6; font-size: 12px; font-weight: 600; }
+.tarifa-field input { width: 100%; min-height: 50px; background: #101311; color: var(--white); border: 1px solid #59605a; border-radius: 4px; padding: 13px 15px; font-size: 16px; outline: none; }
+.tarifa-field input:focus { border-color: var(--lime); box-shadow: 0 0 0 3px rgba(185,242,75,.08); }
+.tarifa-result { border: 1px solid rgba(185,242,75,.3); background: rgba(185,242,75,.05); border-radius: 4px; padding: 15px 16px; font-size: 13px; line-height: 1.65; color: #c7cbc6; min-height: 76px; }
+.tarifa-result strong { color: var(--lime); }
+.tarifa-button { width: 100%; justify-content: center; gap: 12px; border-radius: 30px; min-height: 52px; font-size: 13px; }
+.tarifa-whatsapp { background: var(--orange); color: var(--ink); }
+.tarifa-whatsapp:hover { background: #ff8550; }
+.tarifa-lookup small, .tarifa-small { color: #858b85; font-size: 10px; line-height: 1.6; text-align: center; }
+.tarifa-ranking { margin: 22px clamp(24px,8vw,130px) 0; }
+.tarifa-ranking-head { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: flex-start; margin-bottom: 34px; }
+.tarifa-ranking-head p { margin-top: 8px; font-size: 11px; }
+.tarifa-ipca-key { color: #c7cbc6; font: 11px "DM Mono"; display: flex; align-items: center; gap: 8px; }
+.tarifa-ipca-key i { width: 18px; border-top: 2px dashed #fff; }
+.tarifa-bars { position: relative; --label: 190px; --value: 90px; }
+.tarifa-bars ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.tarifa-bars li { display: grid; grid-template-columns: 28px calc(var(--label) - 28px) 1fr var(--value); align-items: center; gap: 0 12px; }
+.tarifa-pos { width: 24px; height: 24px; border: 1px solid #c7cbc6; border-radius: 50%; display: grid; place-items: center; font: 600 11px "Manrope"; }
+.tarifa-name { font: 600 14px "Urbanist"; }
+.tarifa-track { height: 20px; background: #232724; border-radius: 3px; overflow: hidden; }
+.tarifa-bar { display: block; height: 100%; border-radius: 3px; }
+.tarifa-value { text-align: right; font: 700 17px "Urbanist"; color: var(--c); }
+.tarifa-bars::after { content: ""; position: absolute; top: -8px; bottom: -8px; left: calc(var(--label) + 24px + (100% - var(--label) - var(--value) - 36px) * var(--ipca-frac, .561)); border-left: 2px dashed rgba(255,255,255,.85); pointer-events: none; }
+.tarifa-ipca-tag { position: absolute; top: -30px; left: calc(var(--label) + 24px + (100% - var(--label) - var(--value) - 36px) * var(--ipca-frac, .561)); transform: translateX(-50%); background: var(--white); color: var(--ink); font: 700 10px "DM Mono"; padding: 3px 7px; border-radius: 3px; white-space: nowrap; }
+.tarifa-source { color: #858b85; font-size: 11px; margin: 18px clamp(24px,8vw,130px) clamp(60px,7vw,100px); }
+@media (max-width: 900px) {
+  .tarifa-grid { grid-template-columns: 1fr; }
+  .tarifa-bars { --label: 150px; --value: 72px; }
+}
+@media (max-width: 560px) {
+  .tarifa-hero { padding-top: 48px; }
+  .tarifa-chips li { width: 100%; justify-content: space-between; }
+  .tarifa-ranking-head { margin-bottom: 40px; }
+  .tarifa-bars { --label: 0px; --value: 70px; }
+  .tarifa-bars li { grid-template-columns: 28px 1fr var(--value); grid-template-areas: "pos name value" "track track track"; gap: 6px 10px; }
+  .tarifa-pos { grid-area: pos; }.tarifa-name { grid-area: name; }.tarifa-value { grid-area: value; }.tarifa-track { grid-area: track; height: 14px; }
+  .tarifa-bars::after, .tarifa-ipca-tag { left: calc(100% * var(--ipca-frac, .561)); }
+}

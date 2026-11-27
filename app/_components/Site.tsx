@@ -1,7 +1,7 @@
 import { FooterNap } from "./BusinessInfo";
 
 /** Versão usada para forçar atualização de cache de JS, favicon e imagem social. */
-export const ASSET_VERSION = "2026112501";
+export const ASSET_VERSION = "2026112701";
 
 export const WHATSAPP_NUMBER = "5512991886006";
 
@@ -74,6 +74,7 @@ export function SiteHeader({ variant, whatsappHref }: SiteHeaderProps) {
         <NavGroup label="Manutenção" links={maintenanceLinks} />
         <a href="/seguro-fotovoltaico/">Seguro</a>
         <NavGroup label="Onde atendemos" links={areaLinks} />
+        <a href="/tarifa-energia-sp/">Tarifa de Energia</a>
         <a href="/blog/">Blog</a>
       </nav>
       <details className="mobile-menu">
@@ -90,6 +91,7 @@ export function SiteHeader({ variant, whatsappHref }: SiteHeaderProps) {
           <a href="/energia-solar-estado-de-sao-paulo/">Energia solar no estado de SP</a>
           <span className="nav-label">Mais</span>
           <a href="/seguro-fotovoltaico/">Seguro fotovoltaico</a>
+          <a href="/tarifa-energia-sp/">Tarifa de Energia</a>
           <a href="/blog/">Blog</a>
           <a href="/contato/">Contato</a>
         </nav>

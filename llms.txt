@@ -71,6 +71,7 @@
 ## Ferramentas
 
 - [Calculadora solar](https://sungridsolar.site/calculadora-solar/): informe a cidade e o gasto mensal de energia para receber uma estimativa da potência do sistema, do número de placas e do valor, sujeita à confirmação da equipe após análise da conta de luz e visita técnica.
+- [Tarifa de energia em SP](https://sungridsolar.site/tarifa-energia-sp/): quanto a tarifa residencial subiu em cada distribuidora do estado de São Paulo de 25/11/2021 a 25/11/2026, comparada com o IPCA, com mapa das distribuidoras e consulta por cidade ou CEP.
 
 ## Blog
 

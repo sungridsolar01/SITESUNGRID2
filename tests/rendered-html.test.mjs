@@ -405,7 +405,7 @@ test("âncoras internas descritivas (auditoria de âncoras)", async () => {
 });
 
 test("meta descriptions únicas, com até 160 caracteres e iguais em og/twitter", async () => {
-  const pages = ["", "energia-solar-residencial/", "energia-solar-comercial/", "energia-solar-rural/", "sistemas-hibridos-e-baterias/", "carregadores-veiculares/", "manutencao-de-energia-solar/", "limpeza-de-paineis-solares/", "diagnostico-de-sistema-fotovoltaico/", "seguro-fotovoltaico/", "manutencao-grandes-usinas/", "energia-solar-sao-jose-dos-campos/", "energia-solar-estado-de-sao-paulo/", "calculadora-solar/", "blog/", "contato/", "blog/categoria/creditos-e-regras/", "blog/categoria/como-funciona/", "blog/categoria/residencial-e-apartamento/", "blog/categoria/dimensionamento-por-consumo/", "blog/como-funciona-energia-solar-residencial/", "blog/por-que-fazer-manutencao-sistema-fotovoltaico/", "blog/energia-solar-em-apartamento/", "blog/como-transferir-creditos-de-energia-solar-para-outra-residencia/", "blog/como-conseguir-energia-solar-pelo-governo/", "blog/quem-tem-energia-solar-tem-desconto-no-iptu/", "blog/quem-tem-energia-solar-paga-conta-de-luz/", "blog/energia-solar-como-funciona-vantagens-desvantagens/", "blog/energia-solar-1000-kwh-mes/", "blog/bateria-para-energia-solar/", "blog/energia-solar-off-grid/", "blog/energia-solar-quando-falta-luz/", "blog/sistema-hibrido-energia-solar/", "blog/fio-b-energia-solar/"];
+  const pages = ["", "energia-solar-residencial/", "energia-solar-comercial/", "energia-solar-rural/", "sistemas-hibridos-e-baterias/", "carregadores-veiculares/", "manutencao-de-energia-solar/", "limpeza-de-paineis-solares/", "diagnostico-de-sistema-fotovoltaico/", "seguro-fotovoltaico/", "manutencao-grandes-usinas/", "energia-solar-sao-jose-dos-campos/", "energia-solar-estado-de-sao-paulo/", "calculadora-solar/", "blog/", "contato/", "blog/categoria/creditos-e-regras/", "blog/categoria/como-funciona/", "blog/categoria/residencial-e-apartamento/", "blog/categoria/dimensionamento-por-consumo/", "blog/como-funciona-energia-solar-residencial/", "blog/por-que-fazer-manutencao-sistema-fotovoltaico/", "blog/energia-solar-em-apartamento/", "blog/como-transferir-creditos-de-energia-solar-para-outra-residencia/", "blog/como-conseguir-energia-solar-pelo-governo/", "blog/quem-tem-energia-solar-tem-desconto-no-iptu/", "blog/quem-tem-energia-solar-paga-conta-de-luz/", "blog/energia-solar-como-funciona-vantagens-desvantagens/", "blog/energia-solar-1000-kwh-mes/", "blog/bateria-para-energia-solar/", "blog/energia-solar-off-grid/", "blog/energia-solar-quando-falta-luz/", "blog/sistema-hibrido-energia-solar/", "blog/fio-b-energia-solar/", "tarifa-energia-sp/"];
   const decode = (s) => s.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'");
   const seen = new Set();
   for (const page of pages) {
@@ -504,4 +504,94 @@ test("llms.txt: formato llmstxt.org, NAP correto e só URLs do sitemap", async (
   }
   const blogPosts = [...locs].filter((u) => /\/blog\/(?!categoria\/)[^/]+\/$/.test(u));
   for (const post of blogPosts) assert.ok(urls.includes(post), `${post} faltando no llms.txt`);
+});
+
+test("página /tarifa-energia-sp/: conteúdo, ranking em texto, WhatsApp, item no menu, sitemap e llms.txt", async () => {
+  const html = (await readFile(new URL("../tarifa-energia-sp/index.html", import.meta.url), "utf8")).replace(/<!-- -->/g, "");
+  assert.match(html, /<title>Aumento da tarifa de energia em SP por distribuidora \(2021–2026\) \| Sungrid<\/title>/);
+  assert.match(html, /rel="canonical" href="https:\/\/sungridsolar\.site\/tarifa-energia-sp\/"/);
+  assert.match(html, /property="og:url" content="https:\/\/sungridsolar\.site\/tarifa-energia-sp\/"/);
+  assert.match(html, /<h1>A tarifa sobe de um jeito <em>imprevisível\.<\/em><\/h1>/);
+  assert.match(html, /EDP São Paulo, em 2021: <strong>\+16,45%<\/strong>/);
+  assert.match(html, /EDP São Paulo, em 2025: <strong>\+16,05%<\/strong>/);
+  const expected = [["CPFL Santa Cruz", "+43,83%"], ["Neoenergia Elektro", "+43,22%"], ["Energisa Sul-Sudeste", "+42,24%"], ["Enel SP", "+32,78%"], ["EDP São Paulo", "+26,07%"], ["CPFL Paulista", "+24,14%"], ["CPFL Piratininga", "+22,40%"]];
+  const ranking = html.slice(html.indexOf('id="ranking-titulo"'));
+  let last = 0;
+  for (const [name, pct] of expected) {
+    const at = ranking.indexOf(`<span class="tarifa-name">${name}</span>`);
+    assert.ok(at > last, `${name} fora de ordem no ranking`);
+    assert.ok(ranking.slice(at, at + 600).includes(pct), `${name}: ${pct}`);
+    last = at;
+  }
+  assert.match(html, /IPCA \+28,05% \(nov\/21 a out\/26\)/);
+  assert.doesNotMatch(html, /out\/21|SIGEL/);
+  assert.match(html, /Cada município aparece com a distribuidora com mais conexões registradas na ANEEL; malha IBGE\. Alguns municípios têm mais de uma distribuidora\./);
+  assert.match(html, /Fonte: ANEEL, dados abertos de tarifas\. Tarifa residencial B1 com impostos não incluídos\. IPCA\/IBGE\./);
+  assert.match(html, /mapa-distribuidoras-sp\.svg\?v=\d+" [^>]*alt="Mapa do estado de São Paulo/);
+  assert.match(html, /href="https:\/\/wa\.me\/5512991886006\?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20de%20tarifas\.%20Quero%20uma%20simula%C3%A7%C3%A3o\."/);
+  assert.match(html, /class="header-cta" href="https:\/\/wa\.me\/5512991886006/);
+  assert.match(html, /href="\/calculadora-solar\/" data-tarifa-calc/);
+  const visible = html.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<style[\s\S]*?<\/style>/g, "").replace(/<[^>]+>/g, " ");
+  assert.doesNotMatch(visible, /[\[\]{}]|RASCUNHO|mockup|sua conta subiu/i);
+  assert.doesNotMatch(html, /href="http:\/\//);
+  for (const page of ["index.html", "tarifa-energia-sp/index.html", "blog/index.html"]) {
+    const other = await readFile(new URL(`../${page}`, import.meta.url), "utf8");
+    const desktopAt = other.indexOf('aria-label="Navegação principal"');
+    const mobileAt = other.indexOf('aria-label="Navegação móvel"');
+    const desktop = other.slice(desktopAt, other.indexOf("</nav>", desktopAt));
+    const mobile = other.slice(mobileAt, other.indexOf("</nav>", mobileAt));
+    assert.match(desktop, /<a href="\/tarifa-energia-sp\/">Tarifa de Energia<\/a>/, `${page}: menu desktop`);
+    assert.match(mobile, /<a href="\/tarifa-energia-sp\/">Tarifa de Energia<\/a>/, `${page}: menu celular`);
+  }
+  const sitemap = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
+  assert.match(sitemap, /<loc>https:\/\/sungridsolar\.site\/tarifa-energia-sp\/<\/loc>/);
+  const llms = await readFile(new URL("../llms.txt", import.meta.url), "utf8");
+  assert.match(llms, /\[Tarifa de energia em SP\]\(https:\/\/sungridsolar\.site\/tarifa-energia-sp\/\)/);
+  const cities = JSON.parse(await readFile(new URL("../data/tarifa-municipios-sp.json", import.meta.url), "utf8"));
+  assert.equal(Object.keys(cities).length, 645);
+  assert.deepEqual(cities["3549904"].slice(0, 2), ["São José dos Campos", "edp"]);
+  assert.deepEqual(cities["3550308"].slice(0, 2), ["São Paulo", "enel"]);
+  const svg = await readFile(new URL("../images/tarifa/mapa-distribuidoras-sp.svg", import.meta.url), "utf8");
+  assert.match(svg, /^<svg [^>]*role="img"/);
+  assert.equal((svg.match(/<g class="tm-k" data-key="[a-z-]+">/g) || []).length, 7);
+});
+
+test("mapa interativo: uma área por distribuidora, rótulos só com a distribuidora (nunca a cidade)", async () => {
+  const svg = await readFile(new URL("../images/tarifa/mapa-distribuidoras-sp.svg", import.meta.url), "utf8");
+  const cities = JSON.parse(await readFile(new URL("../data/tarifa-municipios-sp.json", import.meta.url), "utf8"));
+  const areas = [...svg.matchAll(/<g class="tm-a tm-(g40|g30|g20|coop)" data-key="([^"]+)" role="button" tabindex="0" aria-pressed="false" aria-label="([^"]+)">/g)].map((m) => ({ faixa: m[1], key: m[2], label: m[3] }));
+  const keysInData = new Set(Object.values(cities).map((entry) => entry[1]));
+  assert.deepEqual(areas.map((a) => a.key).sort(), [...keysInData].sort(), "uma área para cada distribuidora/cooperativa da tabela");
+  assert.equal(areas.length, 12);
+  assert.equal((svg.match(/class="tm-a /g) || []).length, 12, "nenhuma área solta fora dos grupos");
+  const expected = {
+    "santa-cruz": ["g40", "CPFL Santa Cruz — a tarifa subiu +43,83%"],
+    elektro: ["g40", "Neoenergia Elektro — a tarifa subiu +43,22%"],
+    ess: ["g40", "Energisa Sul-Sudeste — a tarifa subiu +42,24%"],
+    enel: ["g30", "Enel SP — a tarifa subiu +32,78%"],
+    edp: ["g20", "EDP São Paulo — a tarifa subiu +26,07%"],
+    "cpfl-paulista": ["g20", "CPFL Paulista — a tarifa subiu +24,14%"],
+    piratininga: ["g20", "CPFL Piratininga — a tarifa subiu +22,40%"],
+  };
+  for (const area of areas) {
+    if (area.key.startsWith("coop:")) {
+      assert.equal(area.faixa, "coop");
+      assert.equal(area.label, `${area.key.slice(5)} (cooperativa)`);
+    } else {
+      assert.deepEqual([area.faixa, area.label], expected[area.key]);
+    }
+  }
+  const distributorWords = Object.values(expected).map(([, label]) => label.split(" — ")[0]).join(" ");
+  const cityNames = Object.values(cities).map((entry) => entry[0]).filter((name) => !distributorWords.includes(name));
+  for (const sample of ["São José dos Campos", "Taubaté", "Jacareí", "Campinas", "Sorocaba", "Ribeirão Preto", "Paraibuna"]) assert.ok(cityNames.includes(sample));
+  for (const area of areas) {
+    for (const name of cityNames) assert.ok(!area.label.includes(name), `${area.key}: rótulo com nome de cidade (${name})`);
+  }
+  assert.doesNotMatch(svg, /<text[^>]*>[^<0-9]/, "o mapa não escreve nomes no desenho");
+
+  const html = await readFile(new URL("../tarifa-energia-sp/index.html", import.meta.url), "utf8");
+  assert.match(html, /<div class="tarifa-map-stage" data-tarifa-map="true">/);
+  assert.match(html, /role="tooltip" id="tarifa-map-tip" hidden="" data-tarifa-tip="true">/);
+  for (const key of Object.keys(expected)) assert.match(html, new RegExp(`<li data-key="${key}">`));
+  assert.match(html, /<img src="\/images\/tarifa\/mapa-distribuidoras-sp\.svg\?v=\d+"/, "imagem estática continua como alternativa sem JavaScript");
 });

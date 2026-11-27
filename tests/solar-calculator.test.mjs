@@ -129,3 +129,38 @@ test("valida e preserva estado, cidade, gasto e baterias no fluxo", () => {
   assert.equal(calc.parseQuery("uf=SP&cidade=Campinas&gasto=500&baterias=talvez", testConfig), null);
   assert.equal(calc.parseQuery("uf=SPX&cidade=Campinas&gasto=500&baterias=sim", testConfig), null);
 });
+
+test("pré-preenchimento vindo da página de tarifas: uf, cidade e gasto sem baterias", () => {
+  assert.equal(calc.parseQuery("uf=SP&cidade=Taubat%C3%A9&gasto=450", testConfig), null);
+  const prefill = calc.parsePrefill("uf=SP&cidade=Taubat%C3%A9&gasto=450", testConfig);
+  assert.equal(prefill.uf, "SP");
+  assert.equal(prefill.cidade, "Taubaté");
+  assert.equal(prefill.gasto, 450);
+  assert.equal(prefill.baterias, undefined);
+  assert.equal(calc.parsePrefill("gasto=20000", testConfig).gasto, 10000);
+  assert.equal(calc.parsePrefill("", testConfig), null);
+  assert.equal(calc.parsePrefill("cidade=Taubat%C3%A9", testConfig), null);
+});
+
+test("página de tarifas: valor da conta, mensagem do WhatsApp e link da calculadora", async () => {
+  const tarifaSource = await readFile(new URL("../public/js/tarifa-energia.js", import.meta.url), "utf8");
+  const box = { URLSearchParams, Intl, Math, Number, String, encodeURIComponent, isFinite };
+  vm.createContext(box);
+  vm.runInContext(tarifaSource, box);
+  const t = box.SungridTarifa;
+  assert.equal(t.parseValor("R$ 1.200,50"), 1200.5);
+  assert.equal(t.parseValor("350"), 350);
+  assert.equal(t.parseValor("1.200"), 1200);
+  assert.equal(t.parseValor(""), null);
+  assert.equal(t.whatsappText("Taubaté", 350), "Olá! Vi a página de tarifas. Moro em Taubaté e minha conta é de cerca de R$ 350,00. Quero uma simulação.");
+  assert.equal(t.whatsappText("Taubaté", null), "Olá! Vi a página de tarifas. Moro em Taubaté. Quero uma simulação.");
+  assert.equal(t.whatsappText("", 350), "Olá! Vi a página de tarifas. Minha conta é de cerca de R$ 350,00. Quero uma simulação.");
+  assert.equal(t.whatsappText("", null), "Olá! Vi a página de tarifas. Quero uma simulação.");
+  assert.equal(t.calculatorHref("Taubaté", 350.6), "/calculadora-solar/?uf=SP&cidade=Taubat%C3%A9&gasto=351");
+  assert.equal(t.calculatorHref("", null), "/calculadora-solar/");
+  const config = { distribuidoras: { edp: { nome: "EDP São Paulo", alta: 26.07 } } };
+  assert.equal(t.areaLabel("edp", config), "EDP São Paulo — a tarifa subiu +26,07%");
+  assert.equal(t.areaLabel("coop:Cedrap", config), "Cedrap (cooperativa)");
+  assert.equal(t.areaLabel("desconhecida", config), "");
+  assert.equal(t.areaLabel(null, config), "");
+});

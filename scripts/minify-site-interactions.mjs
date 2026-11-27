@@ -5,7 +5,7 @@ import { minify } from "terser";
 
 const rootDir = join(dirname(fileURLToPath(import.meta.url)), "..");
 // Scripts do site minificados para public/js/<nome>.min.js
-for (const name of ["site-interactions", "solar-calculator"]) {
+for (const name of ["site-interactions", "solar-calculator", "tarifa-energia"]) {
   const sourcePath = join(rootDir, "public", "js", `${name}.js`);
   const destinationPath = join(rootDir, "public", "js", `${name}.min.js`);
   const source = await readFile(sourcePath, "utf8");

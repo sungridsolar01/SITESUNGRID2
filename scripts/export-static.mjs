@@ -25,6 +25,8 @@ const pages = [
   // Calculadora solar: formulário no sitemap; resultado fora do sitemap (noindex). Não têm formulário de contato.
   { pathname: "/calculadora-solar", output: "calculadora-solar/index.html", priority: "0.9", changefreq: "monthly", requireForm: false },
   { pathname: "/calculadora-solar/resultado", output: "calculadora-solar/resultado/index.html", requireForm: false, sitemap: false },
+  // Tarifa de energia em SP: mapa, consulta por cidade e ranking. Sem formulário de contato (CTA é o WhatsApp).
+  { pathname: "/tarifa-energia-sp", output: "tarifa-energia-sp/index.html", priority: "0.8", changefreq: "monthly", requireForm: false },
   { pathname: "/blog", output: "blog/index.html", priority: "0.7", changefreq: "weekly" },
   { pathname: "/contato", output: "contato/index.html", priority: "0.7", changefreq: "monthly" },
 ];

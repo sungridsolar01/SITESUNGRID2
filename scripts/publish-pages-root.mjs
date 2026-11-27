@@ -26,6 +26,7 @@ const publishedEntries = [
   "limpeza-de-paineis-solares",
   "diagnostico-de-sistema-fotovoltaico",
   "contato",
+  "tarifa-energia-sp",
   "index.html",
   "404.html",
   "robots.txt",
