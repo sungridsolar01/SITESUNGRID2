@@ -531,6 +531,8 @@ test("página /tarifa-energia-sp/: conteúdo, ranking em texto, WhatsApp, item n
   assert.match(html, /href="https:\/\/wa\.me\/5512991886006\?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20de%20tarifas\.%20Quero%20uma%20simula%C3%A7%C3%A3o\."/);
   assert.match(html, /class="header-cta" href="https:\/\/wa\.me\/5512991886006/);
   assert.match(html, /href="\/calculadora-solar\/" data-tarifa-calc/);
+  assert.match(html, /<input [^>]*placeholder="Ex\.: São José dos Campos" data-tarifa-cidade="true"/);
+  assert.doesNotMatch(html, /placeholder="[^"]*\d{5}-\d{3}/, "o exemplo do campo não mostra CEP");
   const visible = html.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<style[\s\S]*?<\/style>/g, "").replace(/<[^>]+>/g, " ");
   assert.doesNotMatch(visible, /[\[\]{}]|RASCUNHO|mockup|sua conta subiu/i);
   assert.doesNotMatch(html, /href="http:\/\//);

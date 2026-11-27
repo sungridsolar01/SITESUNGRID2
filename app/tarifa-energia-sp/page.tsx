@@ -97,7 +97,7 @@ export default function TarifaEnergiaSpPage() {
           <p>Informe sua cidade e o valor da sua conta para simular na calculadora da Sungrid.</p>
           <label className="tarifa-field">
             <span>Cidade ou CEP</span>
-            <input name="cidade" list="tarifa-cidades" autoComplete="address-level2" placeholder="Ex.: São José dos Campos ou 12243-840" data-tarifa-cidade />
+            <input name="cidade" list="tarifa-cidades" autoComplete="address-level2" placeholder="Ex.: São José dos Campos" data-tarifa-cidade />
             <datalist id="tarifa-cidades" />
           </label>
           <label className="tarifa-field">
