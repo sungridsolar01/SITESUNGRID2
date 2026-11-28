@@ -1,4 +1,4 @@
-import { cp, mkdir, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -60,6 +60,7 @@ function stripRuntime(html) {
 }
 
 const today = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(new Date());
+const lastmodMap = JSON.parse(await readFile(join(rootDir, "scripts", "sitemap-lastmod.json"), "utf8"));
 const exported = [];
 const queue = [...pages];
 const seen = new Set(queue.map((page) => page.pathname));
@@ -99,8 +100,10 @@ while (queue.length > 0) {
     }
   }
 
+  const loc = page.pathname === "/" ? "/" : `${page.pathname}/`;
+  const mapped = typeof lastmodMap[loc] === "string" ? lastmodMap[loc] : undefined;
   const modified = html.match(/property="article:modified_time" content="([0-9-]{10})/)?.[1];
-  exported.push({ ...page, lastmod: modified ?? today });
+  exported.push({ ...page, lastmod: mapped ?? modified ?? today });
 
   const destination = join(outputDir, page.output);
   await mkdir(dirname(destination), { recursive: true });

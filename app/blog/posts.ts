@@ -75,7 +75,7 @@ export function getPostsByCategory(slug: string): BlogPost[] {
 }
 
 export function formatDate(isoDate: string) {
-  const [year, month, day] = isoDate.split("-").map(Number);
+  const [year, month, day] = isoDate.slice(0, 10).split("-").map(Number);
   const months = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
   return `${day} de ${months[month - 1]} de ${year}`;
 }

@@ -332,7 +332,7 @@ test("renders the blog index and posts with Article schema", async () => {
     const response = await render(`/blog/${slug}`);
     assert.equal(response.status, 200);
     const html = await response.text();
-    // Um único schema de artigo: o BlogPosting do template ou o Article próprio do arquivo (articleSchema).
+    // Um único schema de artigo: o BlogPosting do template (articleSchema, se existir, entra no lugar).
     const articleTypes = (html.match(/"@type":\s*"(BlogPosting|Article)"/g) || []).length;
     assert.equal(articleTypes, 1, `${slug}: ${articleTypes} schemas de artigo`);
     assert.match(html, /property="og:type" content="article"/);
@@ -449,11 +449,15 @@ test("10 artigos novos do blog: FAQPage único, tabelas, checklist e links inter
   assert.match(sitemap, /\/blog\/categoria\/dimensionamento-por-consumo\//);
 });
 
-test("post 11 (sistema híbrido): Article e FAQPage do arquivo, sem BlogPosting duplicado, relacionados nos dois sentidos", async () => {
+test("post 11 (sistema híbrido): BlogPosting padrão, FAQPage do arquivo, relacionados nos dois sentidos", async () => {
   const html = await readFile(new URL("../blog/sistema-hibrido-energia-solar/index.html", import.meta.url), "utf8");
-  assert.equal((html.match(/"@type":\s*"Article"/g) || []).length, 1);
+  assert.equal((html.match(/"@type":\s*"BlogPosting"/g) || []).length, 1);
+  assert.doesNotMatch(html, /"@type":\s*"Article"/);
   assert.equal((html.match(/"@type":\s*"FAQPage"/g) || []).length, 1);
-  assert.doesNotMatch(html, /"@type":"BlogPosting"/);
+  assert.match(html, /"image":\s*"https:\/\/sungridsolar\.site\/og\.png"/);
+  assert.match(html, /"dateModified":\s*"2026-11-28T16:05:50-03:00"/);
+  assert.match(html, /"author":\s*\{"@id":\s*"https:\/\/sungridsolar\.site\/#organization"\}/);
+  assert.match(html, /"publisher":\s*\{"@id":\s*"https:\/\/sungridsolar\.site\/#organization"\}/);
   assert.match(html, /"@type":"BreadcrumbList"/);
   assert.match(html, /<title>Sistema híbrido de energia solar: como dimensionar e por que contratar um especialista<\/title>/);
   assert.doesNotMatch(html, /Resposta direta|LINK INTERNO|href="http:\/\//);
@@ -468,11 +472,15 @@ test("post 11 (sistema híbrido): Article e FAQPage do arquivo, sem BlogPosting 
   assert.match(index, /href="\/blog\/sistema-hibrido-energia-solar\/"/);
 });
 
-test("post 12 (Fio B): Article e FAQPage do arquivo, sem BlogPosting, relacionados nos dois sentidos e link no post 05", async () => {
+test("post 12 (Fio B): BlogPosting padrão, FAQPage do arquivo, relacionados nos dois sentidos e link no post 05", async () => {
   const html = await readFile(new URL("../blog/fio-b-energia-solar/index.html", import.meta.url), "utf8");
-  assert.equal((html.match(/"@type":\s*"Article"/g) || []).length, 1);
+  assert.equal((html.match(/"@type":\s*"BlogPosting"/g) || []).length, 1);
+  assert.doesNotMatch(html, /"@type":\s*"Article"/);
   assert.equal((html.match(/"@type":\s*"FAQPage"/g) || []).length, 1);
-  assert.doesNotMatch(html, /"@type":"BlogPosting"/);
+  assert.match(html, /"image":\s*"https:\/\/sungridsolar\.site\/og\.png"/);
+  assert.match(html, /"dateModified":\s*"2026-11-28T16:05:50-03:00"/);
+  assert.match(html, /"author":\s*\{"@id":\s*"https:\/\/sungridsolar\.site\/#organization"\}/);
+  assert.match(html, /"publisher":\s*\{"@id":\s*"https:\/\/sungridsolar\.site\/#organization"\}/);
   assert.match(html, /"@type":"BreadcrumbList"/);
   assert.match(html, /<title>Fio B energia solar: como funciona a cobrança, quem paga e como a bateria ajuda a reduzir<\/title>/);
   assert.doesNotMatch(html, /Resposta direta|LINK INTERNO|href="http:\/\//);
@@ -494,7 +502,10 @@ test("post 12 (Fio B): Article e FAQPage do arquivo, sem BlogPosting, relacionad
 
 test("llms.txt: formato llmstxt.org, NAP correto e só URLs do sitemap", async () => {
   const llms = await readFile(new URL("../llms.txt", import.meta.url), "utf8");
-  assert.match(llms, /^# Sungrid MRO\n\n> /);
+  assert.match(llms, /^# Sungrid Solar\n\n> /);
+  assert.match(llms, /Horário de atendimento: segunda a sábado, das 8h às 20h/);
+  assert.doesNotMatch(llms, /CNPJ|razão social|legalName|Inova Simples/i);
+
   assert.match(llms, /R\. Cel\. José Domingues de Vasconcelos, 181, Vila Adyana, São José dos Campos - SP, 12243-840/);
   assert.match(llms, /\(12\) 99188-6006/);
   assert.match(llms, /https:\/\/wa\.me\/5512991886006/);
@@ -770,4 +781,46 @@ test("ajustes on-page: H2 novos, títulos e meta sem 'carregador veicular'", asy
       assert.doesNotMatch(meta, /carregador veicular/i, `${file}: meta ainda tem "carregador veicular"`);
     }
   }
+});
+
+test("12 artigos: fechamento Sungrid Solar no H2 e no parágrafo, sem Sungrid MRO", async () => {
+  const slugs = [
+    "bateria-para-energia-solar",
+    "como-conseguir-energia-solar-pelo-governo",
+    "como-transferir-creditos-de-energia-solar-para-outra-residencia",
+    "energia-solar-1000-kwh-mes",
+    "energia-solar-como-funciona-vantagens-desvantagens",
+    "energia-solar-em-apartamento",
+    "energia-solar-off-grid",
+    "energia-solar-quando-falta-luz",
+    "fio-b-energia-solar",
+    "quem-tem-energia-solar-paga-conta-de-luz",
+    "quem-tem-energia-solar-tem-desconto-no-iptu",
+    "sistema-hibrido-energia-solar",
+  ];
+  for (const slug of slugs) {
+    const html = await readFile(new URL(`../blog/${slug}/index.html`, import.meta.url), "utf8");
+    assert.match(html, /<h2[^>]*>Fale com a Sungrid Solar<\/h2>/, slug);
+    assert.match(html, /A Sungrid Solar atua/, slug);
+    const closing = html.split(/<h2[^>]*>Fale com a Sungrid Solar<\/h2>/)[1] ?? "";
+    assert.doesNotMatch(html, /Fale com a Sungrid MRO/, slug);
+    assert.doesNotMatch(closing, /Sungrid MRO/, slug);
+  }
+});
+
+test("sitemap: lastmod real por URL com fuso -03:00", async () => {
+  const xml = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
+  const rows = [...xml.matchAll(/<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g)].map((m) => [m[1], m[2]]);
+  assert.equal(rows.length, 35);
+  const iso = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}-03:00$/;
+  for (const [loc, lastmod] of rows) {
+    assert.match(lastmod, iso, loc);
+  }
+  const byLoc = Object.fromEntries(rows);
+  assert.equal(byLoc["https://sungridsolar.site/"], "2026-11-28T12:56:08-03:00");
+  assert.equal(byLoc["https://sungridsolar.site/blog/fio-b-energia-solar/"], "2026-11-28T16:05:50-03:00");
+  assert.equal(byLoc["https://sungridsolar.site/blog/por-que-fazer-manutencao-sistema-fotovoltaico/"], "2026-11-28T12:56:08-03:00");
+  assert.equal(byLoc["https://sungridsolar.site/energia-solar-residencial/"], "2026-11-28T14:44:31-03:00");
+  const distinct = new Set(rows.map(([, lastmod]) => lastmod));
+  assert.ok(distinct.size >= 3, `esperava pelo menos 3 lastmods distintos, achei ${distinct.size}`);
 });
