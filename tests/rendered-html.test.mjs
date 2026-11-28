@@ -41,8 +41,17 @@ test("renders the Sungrid home with complete SEO metadata and service links", as
   assert.match(html, /href="\/sistemas-hibridos-e-baterias\/"/);
   assert.match(html, /class="footer-cities"/);
   assert.match(html, /href="\/energia-solar-estado-de-sao-paulo\/"/);
-  assert.doesNotMatch(html, /openingHours|AggregateRating/i);
-  assert.match(html, /"name":"SunGrid Solar - Energia solar e manutenção"/);
+  assert.doesNotMatch(html, /"openingHours"|AggregateRating|"aggregateRating"|"priceRange"|"legalName"/i);
+  assert.match(html, /"name":"Sungrid Solar"/);
+  assert.doesNotMatch(html, /SunGrid Solar - Energia solar e manutenção/);
+  assert.match(html, /"email":"sungridmro@gmail\.com"/);
+  assert.match(html, /"openingHoursSpecification"/);
+  assert.match(html, /homologação junto às distribuidoras \(EDP, CPFL, Enel e Eletro Cedrap\)\./);
+  assert.match(html, /"latitude":-23\.1960634/);
+  assert.match(html, /"longitude":-45\.8927814/);
+  assert.match(html, /share\.google\/t0oRwIjyjMxfyupJK/);
+  assert.match(html, /"name":"Vale do Paraíba"/);
+  assert.match(html, /"name":"Litoral Norte"/);
   assert.match(html, /"alternateName":"Sungrid"/);
   assert.match(html, /"postalCode":"12243-840"/);
   assert.match(html, /"name":"Estado de São Paulo"/);
@@ -69,7 +78,7 @@ test("renders the Sungrid home with complete SEO metadata and service links", as
   assert.match(html, /https:\/\/www\.linkedin\.com\/company\/sungridmro\//);
   assert.match(html, /data-sungrid-form/);
   assert.match(html, /src="\/js\/site-interactions\.min\.js\?v=\d+"/);
-  assert.doesNotMatch(html, /sungridmro@gmail\.com/);
+  assert.match(html, /sungridmro@gmail\.com/);
   assert.doesNotMatch(html, /ContactForm-[^"']+\.js/);
   assert.doesNotMatch(html, /fonts\.googleapis\.com/);
   assert.match(html, /data-critical-css/);
@@ -85,7 +94,7 @@ test("renders the photovoltaic insurance landing page", async () => {
   assert.match(html, /Seguro para Sistemas Fotovoltaicos em SP \| Sungrid/);
   assert.match(html, /Seu investimento merece proteção/);
   assert.match(html, /Coberturas, limites, franquias e exclusões/);
-  assert.doesNotMatch(html, /sungridmro@gmail\.com/);
+  assert.match(html, /sungridmro@gmail\.com/);
   assert.match(html, /Solicitar contato/);
   assert.match(html, /data-sungrid-form/);
   assert.match(html, /rel="canonical" href="https:\/\/sungridsolar\.site\/seguro-fotovoltaico\/"/);
@@ -351,7 +360,7 @@ for (const [pathname, expectedTitle, expectedHeading] of seoPages) {
     assert.match(html, /ATENDIMENTO NO ESTADO DE SÃO PAULO/);
     assert.match(html, /PERGUNTAS FREQUENTES/);
     assert.match(html, /R\. Cel\. José Domingues de Vasconcelos, 181/);
-    assert.doesNotMatch(html, /sungridmro@gmail\.com/);
+    assert.match(html, /sungridmro@gmail\.com/);
   });
 }
 
@@ -596,4 +605,115 @@ test("mapa interativo: uma área por distribuidora, rótulos só com a distribui
   assert.match(html, /role="tooltip" id="tarifa-map-tip" hidden="" data-tarifa-tip="true">/);
   for (const key of Object.keys(expected)) assert.match(html, new RegExp(`<li data-key="${key}">`));
   assert.match(html, /<img src="\/images\/tarifa\/mapa-distribuidoras-sp\.svg\?v=\d+"/, "imagem estática continua como alternativa sem JavaScript");
+});
+
+test("todos os blocos JSON-LD das páginas publicadas são JSON válido, com um único LocalBusiness consistente", async () => {
+  const { readdir, stat } = await import("node:fs/promises");
+  const { join } = await import("node:path");
+  const root = new URL("..", import.meta.url);
+  const forbidden = ["aggregateRating", "priceRange", "legalName"];
+  const pages = [];
+  async function walk(dir, rel = "") {
+    for (const name of await readdir(dir)) {
+      if (["node_modules", "app", "src", "dist", "out", "build", ".git", "public", "scripts", "tests", "work"].includes(name)) continue;
+      const path = join(dir, name);
+      const info = await stat(path);
+      const next = rel ? `${rel}/${name}` : name;
+      if (info.isDirectory()) await walk(path, next);
+      else if (name === "index.html" || name === "404.html") pages.push(next);
+    }
+  }
+  await walk(root.pathname.replace(/\/$/, "") === "" ? "." : new URL(".", root).pathname);
+  // walk from tests/../
+  const rootDir = new URL("../", import.meta.url);
+  const { fileURLToPath } = await import("node:url");
+  const base = fileURLToPath(rootDir);
+  pages.length = 0;
+  async function walk2(dir) {
+    for (const name of await readdir(dir)) {
+      if (["node_modules", "app", "dist", "out", "build", ".git", "public", "scripts", "tests", "work", "db", "docs", "drizzle", ".openai"].includes(name)) continue;
+      const path = join(dir, name);
+      const info = await stat(path);
+      if (info.isDirectory()) await walk2(path);
+      else if (name.endsWith(".html") && (name === "index.html" || name === "404.html")) pages.push(path);
+    }
+  }
+  await walk2(base);
+  assert.ok(pages.length >= 30, `páginas insuficientes: ${pages.length}`);
+  const orgId = "https://sungridsolar.site/#organization";
+  for (const file of pages) {
+    const html = await readFile(file, "utf8");
+    const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+    assert.ok(blocks.length >= 1, `${file}: nenhum JSON-LD`);
+    let orgs = 0;
+    for (const block of blocks) {
+      let data;
+      try { data = JSON.parse(block); } catch (error) { assert.fail(`${file}: JSON-LD inválido: ${error.message}`); }
+      const nodes = [];
+      const seen = new Set();
+      const collect = (node) => {
+        if (!node || typeof node !== "object") return;
+        if (seen.has(node)) return;
+        if (Array.isArray(node)) { node.forEach(collect); return; }
+        seen.add(node);
+        nodes.push(node);
+        for (const value of Object.values(node)) collect(value);
+      };
+      collect(data);
+      for (const node of nodes) {
+        for (const key of forbidden) assert.ok(!(key in node), `${file}: campo proibido ${key}`);
+        const types = [].concat(node["@type"] || []);
+        if (types.includes("LocalBusiness")) {
+          orgs += 1;
+          assert.equal(node["@id"], orgId);
+          assert.equal(node.name, "Sungrid Solar");
+          assert.equal(node.email, "sungridmro@gmail.com");
+          assert.equal(node.telephone, "+55 12 99188-6006");
+          assert.equal(node.address.streetAddress, "R. Cel. José Domingues de Vasconcelos, 181, Vila Adyana");
+          assert.equal(node.address.postalCode, "12243-840");
+          assert.equal(node.geo.latitude, -23.1960634);
+          assert.equal(node.geo.longitude, -45.8927814);
+          assert.equal(node.logo, "https://sungridsolar.site/favicon.svg");
+          assert.ok(node.sameAs.includes("https://share.google/t0oRwIjyjMxfyupJK"));
+          const areas = node.areaServed.map((item) => item.name).sort();
+          assert.deepEqual(areas, ["Estado de São Paulo", "Litoral Norte", "São José dos Campos", "São Paulo", "Vale do Paraíba"]);
+          assert.equal(node.openingHoursSpecification.opens, "08:00");
+          assert.equal(node.openingHoursSpecification.closes, "20:00");
+          assert.deepEqual(node.openingHoursSpecification.dayOfWeek, ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]);
+        }
+        if (types.includes("Article") || types.includes("BlogPosting")) {
+          for (const role of ["author", "publisher"]) {
+            if (node[role]) assert.equal(node[role]["@id"], orgId, `${file}: ${role} deve apontar para #organization`);
+          }
+        }
+      }
+    }
+    assert.equal(orgs, 1, `${file}: esperava 1 LocalBusiness, achei ${orgs}`);
+    const visible = html.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<style[\s\S]*?<\/style>/g, "");
+    assert.match(visible, /Sungrid Solar/);
+    assert.match(visible, /sungridmro@gmail\.com/);
+    assert.match(visible, /R\. Cel\. José Domingues de Vasconcelos, 181, Vila Adyana, São José dos Campos - SP, 12243-840/);
+    assert.match(visible, /\(12\) 99188-6006/);
+    assert.doesNotMatch(visible, /SunGrid Solar - Energia solar e manutenção/);
+    assert.doesNotMatch(visible, /Urbanova|Shishima Hifumi|PIT|Parque Tecnológico/);
+  }
+  // Na página de SJC, o Service continua só com a cidade.
+  const sjc = pages.find((p) => p.endsWith("/energia-solar-sao-jose-dos-campos/index.html") || p.endsWith("energia-solar-sao-jose-dos-campos/index.html"));
+  assert.ok(sjc, "página de SJC");
+  const sjcHtml = await readFile(sjc, "utf8");
+  const sjcBlocks = [...sjcHtml.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
+  const services = [];
+  const walkNode = (node) => {
+    if (!node || typeof node !== "object") return;
+    if (Array.isArray(node)) return node.forEach(walkNode);
+    if ([].concat(node["@type"] || []).includes("Service") && node.areaServed) services.push(node);
+    Object.values(node).forEach(walkNode);
+  };
+  sjcBlocks.forEach(walkNode);
+  assert.ok(services.length >= 1);
+  for (const service of services) {
+    const area = service.areaServed;
+    const name = area.name || (Array.isArray(area) ? area.map((a) => a.name).join() : "");
+    assert.equal(typeof area === "object" && !Array.isArray(area) ? area.name : name, "São José dos Campos");
+  }
 });

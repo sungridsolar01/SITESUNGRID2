@@ -35,11 +35,12 @@ const organizationSchema = {
       "@id": "https://sungridsolar.site/#organization",
       name: businessInfo.name,
       alternateName: businessInfo.alternateName,
-      description: "Empresa de energia solar em São José dos Campos com atendimento no estado de São Paulo: instalação de sistemas residenciais, comerciais e rurais, manutenção, limpeza, diagnóstico, seguro fotovoltaico e carregadores para veículos elétricos.",
+      description: "Empresa de energia solar em São José dos Campos com atendimento no estado de São Paulo: instalação de sistemas residenciais, comerciais e rurais, sistemas híbridos e baterias, manutenção, limpeza, diagnóstico, seguro fotovoltaico, instalação de wallbox e homologação junto às distribuidoras (EDP, CPFL, Enel e Eletro Cedrap).",
       url: "https://sungridsolar.site/",
       logo: "https://sungridsolar.site/favicon.svg",
       image: "https://sungridsolar.site/og.png",
       telephone: businessInfo.telephone,
+      email: businessInfo.email,
       address: {
         "@type": "PostalAddress",
         streetAddress: `${businessInfo.streetAddress}, ${businessInfo.neighborhood}`,
@@ -48,7 +49,25 @@ const organizationSchema = {
         postalCode: businessInfo.postalCode,
         addressCountry: businessInfo.addressCountry,
       },
-      areaServed: { "@type": "AdministrativeArea", name: "Estado de São Paulo" },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: businessInfo.latitude,
+        longitude: businessInfo.longitude,
+      },
+      hasMap: businessInfo.hasMap,
+      openingHoursSpecification: {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        opens: "08:00",
+        closes: "20:00",
+      },
+      areaServed: [
+        { "@type": "AdministrativeArea", name: "Estado de São Paulo" },
+        { "@type": "City", name: "São José dos Campos", containedInPlace: { "@type": "State", name: "São Paulo" } },
+        { "@type": "AdministrativeArea", name: "Vale do Paraíba" },
+        { "@type": "City", name: "São Paulo", containedInPlace: { "@type": "State", name: "São Paulo" } },
+        { "@type": "AdministrativeArea", name: "Litoral Norte" },
+      ],
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: "Serviços de energia solar Sungrid",
@@ -57,10 +76,7 @@ const organizationSchema = {
           itemOffered: { "@type": "Service", name, url: `https://sungridsolar.site${path}` },
         })),
       },
-      sameAs: [
-        "https://www.instagram.com/sungridmro/",
-        "https://www.linkedin.com/company/sungridmro/",
-      ],
+      sameAs: [...businessInfo.sameAs],
     },
     {
       "@type": "WebSite",
