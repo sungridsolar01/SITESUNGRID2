@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SeoServicePage } from "../_components/SeoServicePage";
 
 const title = "Contato Sungrid em SP | Orçamento de Energia Solar";
-const description = "Fale com a Sungrid em São José dos Campos e peça um orçamento de energia solar, manutenção, seguro fotovoltaico ou carregador veicular no estado de São Paulo.";
+const description = "Fale com a Sungrid em São José dos Campos e peça um orçamento de energia solar, manutenção, seguro fotovoltaico ou wallbox no estado de São Paulo.";
 
 export const metadata: Metadata = {
   title,

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { QuoteCta } from "../_components/QuoteCta";
 import { SeoServicePage } from "../_components/SeoServicePage";
 
-const title = "Limpeza de Painéis Solares em SP | Limpeza Técnica de Placas | Sungrid";
+const title = "Limpeza de Placas Solares em SP | Sungrid";
 const description = "Limpeza de placas solares no estado de São Paulo com método seguro para o vidro, inspeção visual e registro do serviço. Orçamento pelo WhatsApp.";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default function LimpezaPaineisPage() {
   return <SeoServicePage
     pathname="/limpeza-de-paineis-solares/"
     eyebrow="LIMPEZA TÉCNICA DE MÓDULOS"
-    title="Limpeza de painéis solares em SP"
+    title="Limpeza de placas solares em SP"
     accent="com método e segurança."
     description={description}
     serviceName="Limpeza de painéis solares"

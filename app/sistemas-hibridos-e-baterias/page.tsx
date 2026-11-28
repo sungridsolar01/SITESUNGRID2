@@ -33,6 +33,13 @@ export default function SistemasHibridosPage() {
       { title: "Sistema off-grid", text: "Funciona isolado da rede, com baterias dimensionadas para a autonomia desejada. Indicado para locais sem rede elétrica ou com acesso muito difícil." },
       { title: "Baterias em sistema existente", text: "Dependendo do inversor e da instalação, é possível acrescentar baterias a um sistema já instalado. Avaliamos a compatibilidade dos equipamentos." },
     ]}
+    topics={[
+      {
+        title: "Inversor híbrido.",
+        accent: "Rede, geração e bateria no mesmo sistema.",
+        text: "No sistema híbrido, o inversor híbrido gerencia a energia dos módulos, da rede e das baterias. Com a rede disponível, o excedente pode virar créditos; quando a luz cai, o inversor alimenta as cargas definidas no projeto. Se o sistema já existir, a Sungrid avalia a compatibilidade dos equipamentos e define a potência do inversor junto com as baterias e o quadro de cargas essenciais.",
+      },
+    ]}
     afterContent={videos.hibridos.id ? <section className="video-section"><YouTubeEmbed video={videos.hibridos} pathname="/sistemas-hibridos-e-baterias/" /></section> : null}
     steps={[
       { title: "Levantamento das cargas", text: "Definimos o que precisa continuar funcionando sem a rede e por quanto tempo, além do consumo total do imóvel." },

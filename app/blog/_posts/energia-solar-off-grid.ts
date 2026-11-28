@@ -3,8 +3,8 @@ import type { BlogPost } from "../posts";
 /** Fonte: post-09-off-grid-ou-hibrido.md (SEO Redator, aprovado pelo Alvaro). */
 const post: BlogPost = {
   slug: "energia-solar-off-grid",
-  title: "Energia solar off grid ou híbrido: quando vale cada um e o que diz a lei",
-  metaTitle: "Energia solar off grid ou híbrido: quando vale cada um e o que diz a lei",
+  title: "Sistema off-grid ou híbrido: quando vale cada um e o que diz a lei",
+  metaTitle: "Sistema off-grid ou híbrido: quando vale cada um | Sungrid",
   description: "Energia solar off grid ou sistema híbrido? Veja quando cada um faz sentido, se off-grid é proibido, se precisa homologar e se paga imposto, com fontes oficiais.",
   categories: ["como-funciona", "creditos-e-regras"],
   related: ["/sistemas-hibridos-e-baterias/", "/energia-solar-rural/", "/energia-solar-residencial/", "/manutencao-de-energia-solar/"],

@@ -134,7 +134,7 @@ test("renders the large solar plant maintenance landing page", async () => {
 });
 
 const seoPages = [
-  ["/limpeza-de-paineis-solares", "Limpeza de Painéis Solares em SP", "Limpeza de painéis solares em SP"],
+  ["/limpeza-de-paineis-solares", "Limpeza de Placas Solares em SP", "Limpeza de placas solares em SP"],
   ["/manutencao-de-energia-solar", "Manutenção de Energia Solar em SP", "Manutenção de energia solar em SP"],
   ["/diagnostico-de-sistema-fotovoltaico", "Diagnóstico de Sistema Fotovoltaico em SP", "Diagnóstico de sistema fotovoltaico em SP"],
   ["/contato", "Contato Sungrid em SP", "Peça seu orçamento"],
@@ -142,7 +142,7 @@ const seoPages = [
 ];
 
 const installPages = [
-  ["/energia-solar-residencial", "Energia Solar Residencial em SP", "energia solar residencial"],
+  ["/energia-solar-residencial", "Instalação de Energia Solar para Casas em SP", "energia solar residencial"],
   ["/energia-solar-comercial", "Energia Solar Comercial em SP", "energia solar comercial"],
   ["/energia-solar-rural", "Energia Solar Rural em SP", "energia solar rural"],
 ];
@@ -715,5 +715,59 @@ test("todos os blocos JSON-LD das páginas publicadas são JSON válido, com um 
     const area = service.areaServed;
     const name = area.name || (Array.isArray(area) ? area.map((a) => a.name).join() : "");
     assert.equal(typeof area === "object" && !Array.isArray(area) ? area.name : name, "São José dos Campos");
+  }
+});
+
+test("ajustes on-page: H2 novos, títulos e meta sem 'carregador veicular'", async () => {
+  const residencial = await readFile(new URL("../energia-solar-residencial/index.html", import.meta.url), "utf8");
+  assert.match(residencial, /<title>Instalação de Energia Solar para Casas em SP \| Sungrid<\/title>/);
+  assert.match(residencial, /<h1>Energia solar para casas em SP\.<br\/?><em>Sua casa gerando a própria energia\.<\/em><\/h1>/);
+  assert.match(residencial, /<h2>Sistema fotovoltaico\.<br\/?><em>Projeto pensado para a sua casa\.<\/em><\/h2>/);
+  assert.match(residencial, /<h2>Placa solar e painel solar\.<br\/?><em>No telhado, com projeto sob medida\.<\/em><\/h2>/);
+  assert.match(residencial, /<h2>Sistema on-grid\.<br\/?><em>A casa continua ligada à rede\.<\/em><\/h2>/);
+
+  const comercial = await readFile(new URL("../energia-solar-comercial/index.html", import.meta.url), "utf8");
+  assert.match(comercial, /<h1>Energia solar para empresas em SP\.<br\/?><em>Menos peso da energia no custo\.<\/em><\/h1>/);
+  assert.match(comercial, /<h2>Sistema fotovoltaico\.<br\/?><em>Para o seu negócio, com projeto sob medida\.<\/em><\/h2>/);
+
+  const home = await readFile(new URL("../index.html", import.meta.url), "utf8");
+  assert.match(home, /<h2>Tudo para gerar<br\/?><em>e cuidar da sua energia\.<\/em><\/h2>/);
+
+  const limpeza = await readFile(new URL("../limpeza-de-paineis-solares/index.html", import.meta.url), "utf8");
+  assert.match(limpeza, /<title>Limpeza de Placas Solares em SP \| Sungrid<\/title>/);
+  assert.match(limpeza, /<h1>Limpeza de placas solares em SP<br\/?><em>com método e segurança\.<\/em><\/h1>/);
+
+  const hibridos = await readFile(new URL("../sistemas-hibridos-e-baterias/index.html", import.meta.url), "utf8");
+  assert.match(hibridos, /<h2>Inversor híbrido\.<br\/?><em>Rede, geração e bateria no mesmo sistema\.<\/em><\/h2>/);
+
+  const offgrid = await readFile(new URL("../blog/energia-solar-off-grid/index.html", import.meta.url), "utf8");
+  assert.match(offgrid, /<title>Sistema off-grid ou híbrido: quando vale cada um \| Sungrid<\/title>/);
+  assert.match(offgrid, /<h1>Sistema off-grid ou híbrido: quando vale cada um e o que diz a lei<\/h1>/);
+
+  const iptu = await readFile(new URL("../blog/quem-tem-energia-solar-tem-desconto-no-iptu/index.html", import.meta.url), "utf8");
+  assert.match(iptu, /<title>IPTU Verde: desconto no IPTU com energia solar \| Sungrid<\/title>/);
+  assert.match(iptu, /<h1>IPTU Verde: quem tem energia solar tem desconto no IPTU\?<\/h1>/);
+
+  const { readdir, stat } = await import("node:fs/promises");
+  const { join } = await import("node:path");
+  const { fileURLToPath } = await import("node:url");
+  const base = fileURLToPath(new URL("../", import.meta.url));
+  const pages = [];
+  async function walk(dir) {
+    for (const name of await readdir(dir)) {
+      if (["node_modules", "app", "dist", "out", "build", ".git", "public", "scripts", "tests", "work", "db", "docs", "drizzle", ".openai"].includes(name)) continue;
+      const path = join(dir, name);
+      const info = await stat(path);
+      if (info.isDirectory()) await walk(path);
+      else if (name === "index.html" || name === "404.html") pages.push(path);
+    }
+  }
+  await walk(base);
+  for (const file of pages) {
+    const html = await readFile(file, "utf8");
+    const metas = [...html.matchAll(/<meta (?:name="description"|property="og:description"|name="twitter:description") content="([^"]*)"/g)].map((m) => m[1]);
+    for (const meta of metas) {
+      assert.doesNotMatch(meta, /carregador veicular/i, `${file}: meta ainda tem "carregador veicular"`);
+    }
   }
 });

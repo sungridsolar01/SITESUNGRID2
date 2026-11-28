@@ -3,7 +3,7 @@ import { CalculatorCta } from "../_components/CalculatorCta";
 import { ServiceLanding } from "../_components/ServiceLanding";
 import { ServiceSchema } from "../_components/ServiceSchema";
 
-const title = "Energia Solar Residencial em SP | Projeto e Instalação | Sungrid";
+const title = "Instalação de Energia Solar para Casas em SP | Sungrid";
 const description = "Projeto e instalação de energia solar para casas no estado de São Paulo, dimensionados pelo seu consumo, com homologação na distribuidora e manutenção.";
 
 export const metadata: Metadata = {
@@ -18,13 +18,25 @@ export default function EnergiaSolarResidencialPage() {
     <ServiceSchema name="Energia solar residencial" description={description} pathname="/energia-solar-residencial/" />
     <ServiceLanding
       afterSolution={<CalculatorCta />}
+      topics={[
+        {
+          title: "Placa solar e painel solar.",
+          accent: "No telhado, com projeto sob medida.",
+          text: "No projeto residencial, a quantidade e a posição das placas solares (também chamadas de painéis solares ou módulos) saem do seu consumo, do telhado, da orientação e do sombreamento. A estrutura do telhado é avaliada na visita técnica, antes da proposta.",
+        },
+        {
+          title: "Sistema on-grid.",
+          accent: "A casa continua ligada à rede.",
+          text: "No sistema on-grid, o imóvel permanece conectado à distribuidora. Os módulos só geram com luz; a energia que sobra durante o dia vira créditos, que abatem o consumo à noite e em dias com pouca geração. A Sungrid cuida da solicitação de acesso à rede.",
+        },
+      ]}
       kind="solar"
       pathname="/energia-solar-residencial/"
       waLabel="energia solar residencial"
       defaultService="Instalação residencial"
       eyebrow="ENERGIA SOLAR RESIDENCIAL"
       indexLabel="RESIDENCIAL"
-      title="Energia solar residencial em SP."
+      title="Energia solar para casas em SP."
       accent="Sua casa gerando a própria energia."
       description="Projeto e instalação de sistema fotovoltaico para a sua casa, dimensionado a partir do seu consumo, com acompanhamento da conexão à distribuidora e manutenção depois da instalação."
       image="/images/seguro-fotovoltaico"
@@ -36,8 +48,8 @@ export default function EnergiaSolarResidencialPage() {
       proofItems={["PROJETO SOB MEDIDA", "INSTALAÇÃO SEGURA", "CONEXÃO À REDE", "ESTADO DE SÃO PAULO"]}
       regionText="Com sede em São José dos Campos, a Sungrid atende residências em todo o estado de São Paulo. A visita técnica e o projeto consideram a localização, o telhado e as regras da distribuidora da sua região."
       solutionEyebrow="SISTEMA FOTOVOLTAICO PARA CASAS"
-      solutionTitle="Energia gerada em casa."
-      solutionAccent="Projeto pensado para ela."
+      solutionTitle="Sistema fotovoltaico."
+      solutionAccent="Projeto pensado para a sua casa."
       solutionText="Analisamos o consumo, o telhado e a instalação elétrica para propor um sistema adequado à sua realidade, sem superdimensionar. Depois de instalado, a mesma equipe pode cuidar da manutenção e da limpeza."
       pillars={[
         { number: "01", title: "Análise do consumo", text: "Avaliamos as contas de energia para entender o consumo ao longo do ano e os planos da família, como carro elétrico ou mais aparelhos.", icon: "/icons/noun/energy-performance.webp" },

@@ -35,7 +35,10 @@ type SeoServicePageProps = {
   footerText?: string;
   /** Conteúdo extra exibido depois dos benefícios (ex.: vídeo). */
   afterContent?: ReactNode;
+  /** Blocos extras com H2 e um parágrafo. */
+  topics?: Array<{ title: string; accent?: string; text: string }>;
 };
+
 
 export function SeoServicePage(props: SeoServicePageProps) {
   const waHref = whatsappForPage(props.waLabel ?? props.serviceName.toLowerCase());
@@ -99,6 +102,15 @@ export function SeoServicePage(props: SeoServicePageProps) {
       </section>
 
       {props.afterContent}
+
+      {props.topics?.map((topic) => (
+        <section className="seo-service-content" key={topic.title}>
+          <div className="service-section-intro">
+            <h2>{topic.title}{topic.accent ? <><br /><em>{topic.accent}</em></> : null}</h2>
+            <p>{topic.text}</p>
+          </div>
+        </section>
+      ))}
 
       <section className="seo-process">
         <div>

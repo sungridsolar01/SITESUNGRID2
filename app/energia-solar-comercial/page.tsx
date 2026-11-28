@@ -24,7 +24,7 @@ export default function EnergiaSolarComercialPage() {
       defaultService="Instalação comercial"
       eyebrow="ENERGIA SOLAR PARA EMPRESAS"
       indexLabel="COMERCIAL"
-      title="Energia solar comercial em SP."
+      title="Energia solar para empresas em SP."
       accent="Menos peso da energia no custo."
       description="Sistemas fotovoltaicos para comércios, escritórios, galpões e indústrias, projetados a partir do perfil de consumo da empresa e instalados com planejamento para interferir o mínimo na operação."
       image="/images/solar-maintenance-pexels"
@@ -36,8 +36,8 @@ export default function EnergiaSolarComercialPage() {
       proofItems={["ANÁLISE DE CONSUMO", "PROJETO TÉCNICO", "INSTALAÇÃO PLANEJADA", "ESTADO DE SÃO PAULO"]}
       regionText="Com sede em São José dos Campos, a Sungrid atende empresas em todo o estado de São Paulo. Cada projeto considera a localização, o tipo de cobertura ou terreno, a tarifa e o horário de operação."
       solutionEyebrow="SISTEMA FOTOVOLTAICO COMERCIAL"
-      solutionTitle="Energia como investimento."
-      solutionAccent="Projeto como estratégia."
+      solutionTitle="Sistema fotovoltaico."
+      solutionAccent="Para o seu negócio, com projeto sob medida."
       solutionText="Empresas têm perfis de consumo, tarifas e estruturas muito diferentes. Por isso o projeto começa pela análise da conta e do funcionamento do negócio, e a manutenção já é planejada desde a instalação."
       pillars={[
         { number: "01", title: "Análise do consumo e da tarifa", text: "Estudamos as faturas, a modalidade tarifária e o horário de operação para dimensionar o sistema corretamente.", icon: "/icons/noun/energy-performance.webp" },

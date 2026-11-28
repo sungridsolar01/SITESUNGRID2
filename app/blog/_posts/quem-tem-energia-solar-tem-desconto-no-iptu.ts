@@ -3,8 +3,8 @@ import type { BlogPost } from "../posts";
 /** Fonte: post-04-desconto-iptu-energia-solar.md (SEO Redator, aprovado pelo Alvaro). */
 const post: BlogPost = {
   slug: "quem-tem-energia-solar-tem-desconto-no-iptu",
-  title: "Quem tem energia solar tem desconto no IPTU? Veja a regra da sua cidade em SP",
-  metaTitle: "Quem tem energia solar tem desconto no IPTU? Veja a regra da sua cidade em SP",
+  title: "IPTU Verde: quem tem energia solar tem desconto no IPTU?",
+  metaTitle: "IPTU Verde: desconto no IPTU com energia solar | Sungrid",
   description: "Quem tem energia solar tem desconto no IPTU só se a lei da cidade prever. Veja São José dos Campos, Jacareí e outras cidades de SP e como pedir.",
   categories: ["creditos-e-regras"],
   related: ["/energia-solar-residencial/", "/energia-solar-sao-jose-dos-campos/", "/energia-solar-estado-de-sao-paulo/", "/calculadora-solar/"],

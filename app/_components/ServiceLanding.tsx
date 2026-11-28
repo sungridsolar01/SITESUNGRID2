@@ -48,7 +48,10 @@ type ServiceLandingProps = {
   footerText?: string;
   /** Conteúdo extra depois da seção de solução (ex.: chamada para a calculadora solar). */
   afterSolution?: ReactNode;
+  /** Blocos extras com H2 e um parágrafo, no mesmo estilo da seção de solução. */
+  topics?: Array<{ title: string; accent?: string; text: string }>;
 };
+
 
 export function ServiceLanding(props: ServiceLandingProps) {
   const isInsurance = props.kind === "insurance";
@@ -141,6 +144,15 @@ export function ServiceLanding(props: ServiceLandingProps) {
       </section>
 
       {props.afterSolution}
+
+      {props.topics?.map((topic) => (
+        <section className="service-solution" key={topic.title}>
+          <div className="service-section-intro">
+            <h2>{topic.title}{topic.accent ? <><br /><em>{topic.accent}</em></> : null}</h2>
+            <p>{topic.text}</p>
+          </div>
+        </section>
+      ))}
 
       <section className="service-process">
         <div className="process-heading">
